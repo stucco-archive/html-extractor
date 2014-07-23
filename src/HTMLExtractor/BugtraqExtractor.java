@@ -29,6 +29,10 @@ public class BugtraqExtractor extends HTMLExtractor{
 	private JSONObject extract(String info, String discussion, String exploit, 
 			String solution, String references){
 		
+		JSONObject graph = new JSONObject();
+		JSONArray vertices = new JSONArray();
+		JSONArray edges = new JSONArray();
+		
 		JSONObject vertex = new JSONObject();
 		
 		//process the "info" page
@@ -40,7 +44,12 @@ public class BugtraqExtractor extends HTMLExtractor{
 		vertex.put("shortDescription", content.getElementsByClass("title").first().text());
 		
 		String regex = "(?s)\\s*?<td>.*?<span.*?>Bugtraq ID:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    vertex.put("name", findWithRegex(content.html(), regex, 1));
+	    String vertexName = "Bugtraq_" + findWithRegex(content.html(), regex, 1);
+		vertex.put("name", vertexName);
+		vertex.put("_id", vertexName);
+		vertex.put("_type", "vertex");
+		vertex.put("vertexType", "vulnerability");
+		vertex.put("source", "Bugtraq");
 	    
 		regex = "(?s)\\s*?<td>.*?<span.*?>Class:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 	    vertex.put("class", findWithRegex(content.html(), regex, 1));
@@ -94,6 +103,31 @@ public class BugtraqExtractor extends HTMLExtractor{
 		}
 	    vertex.put("Vulnerable", vulnerableList);
 	    
+	    //add vertices and edges for the vuln software.
+	    for(int i=0; i<vulnerableList.size(); i++){
+	    	JSONObject v = new JSONObject();
+	    	String softwareName = vulnerableList.get(i); 
+	    	v.put("name", softwareName);
+	    	v.put("_id", softwareName);
+	    	v.put("_type", "vertex");
+			v.put("vertexType", "software");
+	    	v.put("source", "Bugtraq");
+	    	
+	    	JSONObject e = new JSONObject();
+	    	String edgeName = softwareName + "_to_" + vertexName;
+	    	e.put("_id", edgeName);
+	    	e.put("_type", "edge");
+	    	e.put("inVType", "vulnerability");
+	    	e.put("outVType", "software");
+	    	e.put("source", "Bugtraq");
+	    	e.put("_inV", vertexName);
+	    	e.put("_outV", softwareName);
+	    	e.put("_label", "hasVulnerability");
+	    	
+	    	vertices.put(v);
+	    	edges.put(e);
+	    }
+	    
 	    //not vulnerable field is rarely used, but does happen sometimes, see:
 	    // http://www.securityfocus.com/bid/429/info
 	    // http://www.securityfocus.com/bid/439/info
@@ -142,9 +176,6 @@ public class BugtraqExtractor extends HTMLExtractor{
 		ArrayList<String> refStrings = findAllLinkHrefs(content);
 		vertex.put("references", refStrings);
 	    
-		JSONObject graph = new JSONObject();
-		JSONArray vertices = new JSONArray();
-		JSONArray edges = new JSONArray();
 		vertices.put(vertex);
 		
 		graph.put("mode","NORMAL");
