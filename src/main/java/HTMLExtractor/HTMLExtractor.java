@@ -16,7 +16,9 @@ import java.util.regex.*;
 
 import org.json.*;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
 public abstract class HTMLExtractor {
@@ -36,6 +38,17 @@ public abstract class HTMLExtractor {
 		for(int i=0; i<items.length; i++){
 	    	items[i] = items[i].trim();
 	    }
+	}
+	
+	protected static void removeBRs(Elements contents){
+		Element curr;
+		for(int i = contents.size()-1; i>=0; i--){
+			curr = contents.get(i);
+			if(curr.tagName().equals("br")){
+				contents.remove(i);
+				continue;
+			}
+		}
 	}
 	
 	protected long convertTimestamp(String time, String format)	{ 
