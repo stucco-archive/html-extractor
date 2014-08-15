@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -38,54 +40,70 @@ extends TestCase
 	{
 		return new TestSuite( BugtraqExtractorTest.class );
 	}
-
+	
+	private Map<String,String> loadContent(int entryNum, boolean localMode) throws IOException{
+		Map<String,String> pageContent = new HashMap<String,String>();
+		String filePath = "./testData/bugtraq/";
+		Charset charset = Charset.defaultCharset();
+		if(localMode){
+			File infoFD = new File(filePath + entryNum + ".info.html");
+			String info = FileUtils.readFileToString(infoFD, charset);
+			pageContent.put("info", info);
+			
+			File discussionFD = new File(filePath + entryNum + ".discussion.html");
+			String discussion = FileUtils.readFileToString(discussionFD, charset);
+			pageContent.put("discussion", discussion);
+			
+			File exploitFD = new File(filePath + entryNum + ".exploit.html");
+			String exploit = FileUtils.readFileToString(exploitFD, charset);
+			pageContent.put("exploit", exploit);
+			
+			File solutionFD = new File(filePath + entryNum + ".solution.html");
+			String solution = FileUtils.readFileToString(solutionFD, charset);
+			pageContent.put("solution", solution);
+			
+			File referencesFD = new File(filePath + entryNum + ".references.html");
+			String references = FileUtils.readFileToString(referencesFD, charset);
+			pageContent.put("references", references);
+		}
+		else{
+			URL u;
+			u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/info");
+			pageContent.put("info", IOUtils.toString(u));
+			
+			u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/discussion");
+			pageContent.put("discussion", IOUtils.toString(u));
+			
+			u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/exploit");
+			pageContent.put("exploit", IOUtils.toString(u));
+			
+			u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/solution");
+			pageContent.put("solution", IOUtils.toString(u));
+			
+			u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/references");
+			pageContent.put("references", IOUtils.toString(u));
+		}
+		return pageContent;
+	}
+	
 	/**
 	 * Tests conversion
 	 */
 	public void testConvert()
 	{
-		Charset charset = Charset.defaultCharset();
 		int entryNum = 2222;
 		boolean localMode = true;
-		String filePath = "./testData/bugtraq/";
 		String info, discussion, exploit, solution, references;
 		
 		try {
-			//TODO could dry this out a bit...
-			if(localMode){
-				File infoFD = new File(filePath + entryNum + ".info.html");
-				info = FileUtils.readFileToString(infoFD, charset);
-				
-				File discussionFD = new File(filePath + entryNum + ".discussion.html");
-				discussion = FileUtils.readFileToString(discussionFD, charset);
-				
-				File exploitFD = new File(filePath + entryNum + ".exploit.html");
-				exploit = FileUtils.readFileToString(exploitFD, charset);
-				
-				File solutionFD = new File(filePath + entryNum + ".solution.html");
-				solution = FileUtils.readFileToString(solutionFD, charset);
-				
-				File referencesFD = new File(filePath + entryNum + ".references.html");
-				references = FileUtils.readFileToString(referencesFD, charset);
-			}
-			else{
-				URL u;
-				u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/info");
-				info = IOUtils.toString(u);
-				
-				u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/discussion");
-				discussion = IOUtils.toString(u);
-				
-				u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/exploit");
-				exploit = IOUtils.toString(u);
-				
-				u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/solution");
-				solution = IOUtils.toString(u);
-				
-				u = new URL("http://www.securityfocus.com/bid/"+entryNum+"/references");
-				references = IOUtils.toString(u);
-			}
+			Map<String,String> pageContent = loadContent(entryNum, localMode);
+			info = pageContent.get("info");
+			discussion = pageContent.get("discussion");
+			exploit = pageContent.get("exploit");
+			solution = pageContent.get("solution");
+			references = pageContent.get("references");
 			
+			//TODO maybe add a BugtraqExtractor(Map)?
 			BugtraqExtractor bugtraqExt = new BugtraqExtractor(info, discussion, exploit, solution, references);
 			JSONObject obj = bugtraqExt.getGraph();
 		    

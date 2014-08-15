@@ -39,28 +39,33 @@ extends TestCase
 		return new TestSuite( FSecureExtractorTest.class );
 	}
 
+	private String loadContent(String entryName, boolean localMode) throws IOException{
+		String pageContent;
+		String filePath = "./testData/f-secure/";
+		Charset charset = Charset.defaultCharset();
+		if(localMode){
+			File infoFD = new File(filePath + entryName + ".shtml");
+			pageContent = FileUtils.readFileToString(infoFD, charset);
+		}
+		else{
+			URL u;
+			u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
+			pageContent = IOUtils.toString(u);
+		}
+		return pageContent;
+	}
+	
 	/**
 	 * Tests conversion
 	 */
 	public void testConvert()
 	{
-		Charset charset = Charset.defaultCharset();
 		String entryName = "application_w32_installbrain";
 		boolean localMode = true;
-		String filePath = "./testData/f-secure/";
 		String pageContent;
 		
 		try {
-			//TODO could dry this out a bit...
-			if(localMode){
-				File infoFD = new File(filePath + entryName + ".shtml");
-				pageContent = FileUtils.readFileToString(infoFD, charset);
-			}
-			else{
-				URL u;
-				u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
-				pageContent = IOUtils.toString(u);
-			}
+			pageContent = loadContent(entryName, localMode);
 			
 			FSecureExtractor bugtraqExt = new FSecureExtractor(pageContent);
 			JSONObject obj = bugtraqExt.getGraph();
@@ -86,23 +91,12 @@ extends TestCase
 	 */
 	public void testPlaceholder()
 	{
-		Charset charset = Charset.defaultCharset();
 		String entryName = "backdoor_w32_havex";
 		boolean localMode = true;
-		String filePath = "./testData/f-secure/";
 		String pageContent;
 		
 		try {
-			//TODO could dry this out a bit...
-			if(localMode){
-				File infoFD = new File(filePath + entryName + ".shtml");
-				pageContent = FileUtils.readFileToString(infoFD, charset);
-			}
-			else{
-				URL u;
-				u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
-				pageContent = IOUtils.toString(u);
-			}
+			pageContent = loadContent(entryName, localMode);
 			
 			FSecureExtractor bugtraqExt = new FSecureExtractor(pageContent);
 			JSONObject obj = bugtraqExt.getGraph();
@@ -128,23 +122,12 @@ extends TestCase
 	 */
 	public void testPlaceholder2()
 	{
-		Charset charset = Charset.defaultCharset();
 		String entryName = "trojan_html_browlock";
 		boolean localMode = true;
-		String filePath = "./testData/f-secure/";
 		String pageContent;
 		
 		try {
-			//TODO could dry this out a bit...
-			if(localMode){
-				File infoFD = new File(filePath + entryName + ".shtml");
-				pageContent = FileUtils.readFileToString(infoFD, charset);
-			}
-			else{
-				URL u;
-				u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
-				pageContent = IOUtils.toString(u);
-			}
+			pageContent = loadContent(entryName, localMode);
 			
 			FSecureExtractor bugtraqExt = new FSecureExtractor(pageContent);
 			JSONObject obj = bugtraqExt.getGraph();
