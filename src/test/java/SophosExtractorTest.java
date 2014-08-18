@@ -71,6 +71,10 @@ extends TestCase
 	public void testConvert()
 	{
 		String entryName = "Mal~Conficker-A";
+		//String entryName = "Troj~FBJack-A";
+		//String entryName = "Troj~JsRedir-NN";
+		//String entryName = "Troj~Agent-DP";
+		//String entryName = "Troj~Zbot-ITY";
 		boolean localMode = true;
 		String summary, details;
 		

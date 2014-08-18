@@ -147,5 +147,67 @@ extends TestCase
 			fail("Exception");
 		}
 	}
+	
+	/**
+	 * Test stub
+	 */
+	public void testPlaceholder3()
+	{
+		String entryName = "trojan_android_droidkungfu_c";
+		boolean localMode = true;
+		String pageContent;
+		
+		try {
+			pageContent = loadContent(entryName, localMode);
+			
+			FSecureExtractor bugtraqExt = new FSecureExtractor(pageContent);
+			JSONObject obj = bugtraqExt.getGraph();
+		    
+		    System.out.println(obj.toString(2));
+
+		    JSONArray verts = obj.getJSONArray("vertices");
+		    JSONArray edges = obj.getJSONArray("edges");
+		    
+		    //TODO...asserts
+		    
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("IOException");
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception");
+		}
+	}
+	
+	/**
+	 * Test stub
+	 */
+	public void testPlaceholder4()
+	{
+		String entryName = "trojan_bash_qhost_wb";
+		boolean localMode = true;
+		String pageContent;
+		
+		try {
+			pageContent = loadContent(entryName, localMode);
+			
+			FSecureExtractor bugtraqExt = new FSecureExtractor(pageContent);
+			JSONObject obj = bugtraqExt.getGraph();
+		    
+		    System.out.println(obj.toString(2));
+
+		    JSONArray verts = obj.getJSONArray("vertices");
+		    JSONArray edges = obj.getJSONArray("edges");
+		    
+		    //TODO...asserts
+		    
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("IOException");
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception");
+		}
+	}
 
 }
