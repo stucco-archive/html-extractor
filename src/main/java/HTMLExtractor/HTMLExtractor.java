@@ -10,8 +10,11 @@ import org.apache.commons.io.IOUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.*;
 
 import org.json.*;
@@ -49,6 +52,25 @@ public abstract class HTMLExtractor {
 				continue;
 			}
 		}
+	}
+	
+	//NB: assumes dt and dd are one-to-one (will skip ones that aren't)
+	//NB: also assumes that dt and dd tags have text()-able content.
+	protected Map<String, String> dlToMap(Element dl) {
+		HashMap<String, String> retMap = new HashMap<String, String>();
+		if( dl.tagName().equals("dl") ){
+			Elements terms = dl.getElementsByTag("dt");
+			Element currTerm, currDef;
+			for(int i=0; i<terms.size(); i++){
+				currTerm = terms.get(i);
+				currDef = currTerm.nextElementSibling();
+				if(currDef != null && currDef.tagName().equals("dd")){
+					retMap.put(currTerm.text(), currDef.text());
+				}
+			}
+			return retMap;	
+		}
+		else return null;
 	}
 	
 	protected long convertTimestamp(String time, String format)	{ 
