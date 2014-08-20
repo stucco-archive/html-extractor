@@ -75,6 +75,35 @@ public abstract class HTMLExtractor {
 		else return null;
 	}
 	
+	//NB: assumes that the li tags have (cleanly) text()-able content.
+	protected Set<String> ulToSet(Element ul) {
+		TreeSet<String> retSet = new TreeSet<String>();
+		if( ul.tagName().equals("ul") ){
+			Elements items = ul.getElementsByTag("li");
+			Element currItem;
+			for(int i=0; i<items.size(); i++){
+				currItem = items.get(i);
+				retSet.add(currItem.text());
+			}
+			return retSet;
+		}
+		else return null;
+	}
+	
+	//NB: this will leave some empty grandchild-level tags around, but children will still be cleanly text()-able
+	//TODO: revisit above.
+	protected Element removeGrandchildren(Element parent) {
+		Elements children = parent.children();
+		Elements grandchildren;
+		for(int i=0; i<children.size(); i++){
+			grandchildren = children.get(i).children();
+			for(int j=0; j<grandchildren.size(); j++){
+				grandchildren.get(j).empty();
+			}
+		}
+		return parent;
+	}
+	
 	//NB: JSON array must be array of strings
 	protected Set<String> JSONArrayToSet(JSONArray arr) {
 		TreeSet<String> retSet = new TreeSet<String>();
