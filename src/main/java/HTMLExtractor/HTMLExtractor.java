@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.*;
 
 import org.json.*;
@@ -71,6 +73,17 @@ public abstract class HTMLExtractor {
 			return retMap;	
 		}
 		else return null;
+	}
+	
+	//NB: JSON array must be array of strings
+	protected Set<String> JSONArrayToSet(JSONArray arr) {
+		TreeSet<String> retSet = new TreeSet<String>();
+		if(arr != null){
+			for(int i=0; i<arr.length(); i++){
+				retSet.add(arr.getString(i));
+			}
+		}
+		return retSet;
 	}
 	
 	protected long convertTimestamp(String time, String format)	{ 
