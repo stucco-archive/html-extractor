@@ -65,7 +65,7 @@ public class SophosExtractor extends HTMLExtractor{
 		
 		//rest of that marqTitle div
 		Element rowOne = titleDiv.getElementsByTag("tr").first();
-		//doesn't appear "category" is every very informative...
+		//doesn't appear "category" is ever very informative...
 		//String category = rowOne.child(1).text();
 		//vertex.put("category", category);
 		String addedDate = rowOne.child(3).text();
