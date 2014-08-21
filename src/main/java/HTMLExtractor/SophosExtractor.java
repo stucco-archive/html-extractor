@@ -14,11 +14,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SophosExtractor extends HTMLExtractor{
 	
 	private JSONObject graph;
-	private static boolean debug = true;
-	private static boolean verboseDebug = false;
+
+	private static final Logger logger = LoggerFactory.getLogger(SophosExtractor.class);
 
 	public SophosExtractor(String summary, String details){
 		graph = extract(summary, details);
@@ -48,22 +51,13 @@ public class SophosExtractor extends HTMLExtractor{
 		//process the "summary" page
 		Document doc = Jsoup.parse(summary);
 		Element content = doc.getElementsByClass("tertiaryBump").first();
-		if(verboseDebug){
-			System.out.println(content.html());
-			System.out.println("=========");
-		}
+		logger.debug(content.html());
 		
 		//get the title, set up name & other known fields
 		Element titleDiv = content.getElementsByClass("marqTitle").first();
-		if(verboseDebug){
-			System.out.println(titleDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(titleDiv.html());
 		String vertexName = titleDiv.getElementsByTag("h1").first().text();
-		if(debug){
-			System.out.println("Name: " + vertexName);
-			System.out.println("=========");
-		}
+		logger.info("Name: " + vertexName);
 		vertex.put("name", vertexName);
 		vertex.put("_id", vertexName);
 		vertex.put("_type", "vertex");
@@ -88,36 +82,24 @@ public class SophosExtractor extends HTMLExtractor{
 		Element rowThree = titleDiv.getElementsByTag("tr").get(2);
 		String prevalence = rowThree.child(1).getElementsByTag("img").first().attr("alt");
 		vertex.put("prevalence", prevalence); //TODO: convert labels into int levels, or similar?
-		if(debug){
-			System.out.println("Prevalence: " + prevalence);
-			System.out.println("=========");
-		}
+		logger.info("Prevalence: " + prevalence);
 		
 		//handle secondary div
 		Element secondaryDiv = doc.getElementsByClass("secondaryContent").first();
-		if(verboseDebug){
-			System.out.println(secondaryDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(secondaryDiv.html());
 		Elements aliasItems = secondaryDiv.getElementsByClass("aliases");
 		if(aliasItems != null && aliasItems.size() > 0){ //some don't have any listed.
 			aliasItems = aliasItems.first().children();
-			if(verboseDebug){
-				System.out.println(aliasItems.outerHtml());
-				System.out.println("=========");
-			}
+			logger.debug(aliasItems.outerHtml());
 			List<String> aliasList = new ArrayList<String>();
 			for(int i=0; i<aliasItems.size(); i++){
 				aliasList.add(aliasItems.get(i).text());
 			}
 			//TODO: how best to handle aliases in the long term?
 			vertex.put("aliases", aliasList);
-			if(debug){
-				System.out.println("Found " + aliasList.size() + " items in aliasList:");
-				for(int i=0; i<aliasList.size(); i++){
-					System.out.println(aliasList.get(i));
-				}
-				System.out.println("=========");
+			logger.info("Found " + aliasList.size() + " items in aliasList:");
+			for(int i=0; i<aliasList.size(); i++){
+				logger.info(aliasList.get(i));
 			}
 		}
 		Elements h3s = secondaryDiv.getElementsByTag("h3");
@@ -130,11 +112,8 @@ public class SophosExtractor extends HTMLExtractor{
 		}
 		String platformName = affectedHeading.nextElementSibling().getElementsByTag("img").first().attr("alt");
 		vertex.put("platform", platformName);
-		if(debug){
-			if(affectedHeading != null){
-				System.out.println("Platform: " + platformName);
-				System.out.println("=========");
-			}
+		if(affectedHeading != null){
+			logger.info("Platform: " + platformName);
 		}
 		
 		////////////////////////////////////
@@ -157,9 +136,9 @@ public class SophosExtractor extends HTMLExtractor{
 			curr = h4headings.get(i);
 			nextSibling = curr.nextElementSibling();
 			if(curr.text().equals("File Information") && nextSibling.tagName().equals("dl")){
-				if(verboseDebug) System.out.println("Found a file info table: \n" + nextSibling.html());
+				logger.debug("Found a file info table: \n" + nextSibling.html());
 				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				if(debug) System.out.println("Extracted map from file info table: " + currTableContents);
+				logger.info("Extracted map from file info table: " + currTableContents);
 				if(currTableContents.containsKey("Size")){
 					size.add(currTableContents.get("Size"));
 				}
@@ -184,10 +163,10 @@ public class SophosExtractor extends HTMLExtractor{
 			}else if(curr.text().equals("Runtime Analysis")){
 				//could do this here, but it's kind of complicated, better to separate it out...
 				runtimeAnalysisFound = true;
-				if(debug) System.out.println("Runtime Analysis section found, handling later...");
+				logger.info("Runtime Analysis section found, handling later...");
 			}else if(curr.text().equals("Other vendor detection") && nextSibling.tagName().equals("dl")){
 				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				if(debug) System.out.println("Extracted map from 'other vendor detection table: " + currTableContents);
+				logger.info("Extracted map from 'other vendor detection table: " + currTableContents);
 				JSONArray aliasArr = vertex.optJSONArray("aliases");
 				Set<String> aliasSet = JSONArrayToSet(aliasArr);
 				Set<String> keys = currTableContents.keySet();
@@ -195,14 +174,13 @@ public class SophosExtractor extends HTMLExtractor{
 				while(keysIter.hasNext()){
 					aliasSet.add(currTableContents.get(keysIter.next()));
 				}
-				if(debug) System.out.println("  now know aliases: " + aliasSet);
+				logger.info("  now know aliases: " + aliasSet);
 				vertex.put("aliases", aliasSet);
 			}else{
-				if(debug) System.out.println("Unexpected H4 Found: " + curr.text());
+				logger.warn("Unexpected H4 Found: " + curr.text());
 			}
 			
 		}
-		if(debug) System.out.println("=========");
 
 		//use what you've learned.
 		//if(size.size() > 0){} //not keeping this one
@@ -228,62 +206,60 @@ public class SophosExtractor extends HTMLExtractor{
 				nextNextSibling = nextSibling.nextElementSibling();
 				Set<String> newItems;
 				if(curr.text().equals("Runtime Analysis")){
-					if(debug) System.out.println("'Runtime Analysis' section found");
+					logger.info("'Runtime Analysis' section found");
 					while(nextSibling != null && nextSibling.tagName().equals("h5") && 
 							nextNextSibling != null && nextNextSibling.tagName().equals("ul")){
 						if(nextSibling.text().equals("Dropped Files")){
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesCreated.addAll(newItems);
-							if(debug) System.out.println("Dropped Files: " + newItems);
-							//if(debug) System.out.println("Dropped Files Temp: " + temp.outerHtml());
+							logger.info("Dropped Files: " + newItems);
 						}
 						else if(nextSibling.text().equals("Copies Itself To")){
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesCreated.addAll(newItems);
-							if(debug) System.out.println("Copies Itself To: " + newItems);
-							//if(debug) System.out.println("Dropped Files Temp: " + temp.outerHtml());
+							logger.info("Copies Itself To: " + newItems);
 						}
 			 		else if(nextSibling.text().equals("Modified Files")){
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesModified.addAll(newItems);
-							if(debug) System.out.println("Modified Files: " + newItems);
+							logger.info("Modified Files: " + newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Created")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							registryKeysCreated.addAll(newItems);
-							if(debug) System.out.println("Registry Keys Created: " + newItems);
+							logger.info("Registry Keys Created: " + newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Modified")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							registryKeysModified.addAll(newItems);
-							if(debug) System.out.println("Registry Keys Modified: " + newItems);
+							logger.info("Registry Keys Modified: " + newItems);
 						}
 						else if(nextSibling.text().equals("Processes Created")){
 							newItems = ulToSet(nextNextSibling);
 							processesCreated.addAll(newItems);
-							if(debug) System.out.println("Processes Created: " + newItems);
+							logger.info("Processes Created: " + newItems);
 						}
 						else if(nextSibling.text().equals("IP Connections")){
 							newItems = ulToSet(nextNextSibling);
 							ipConnections.addAll(newItems);
-							if(debug) System.out.println("IP Connections: " + newItems);
+							logger.info("IP Connections: " + newItems);
 						}
 						else if(nextSibling.text().equals("DNS Requests")){
 							newItems = ulToSet(nextNextSibling);
 							dnsRequests.addAll(newItems);
-							if(debug) System.out.println("DNS Requests: " + newItems);
+							logger.info("DNS Requests: " + newItems);
 						}
 						else if(nextSibling.text().equals("HTTP Requests")){
 							newItems = ulToSet(nextNextSibling);
 							httpRequests.addAll(newItems);
-							if(debug) System.out.println("HTTP Requests: " + newItems);
+							logger.info("HTTP Requests: " + newItems);
 						}
 						else{
-							if(debug) System.out.println("Unknown! " + nextSibling.text() + ":\n" + nextNextSibling.outerHtml());
+							logger.info("Unknown! " + nextSibling.text() + ":\n" + nextNextSibling.outerHtml());
 						}
 						nextSibling = nextNextSibling.nextElementSibling();
 						if(nextSibling != null) nextNextSibling = nextSibling.nextElementSibling();
