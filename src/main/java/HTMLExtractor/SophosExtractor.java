@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 public class SophosExtractor extends HTMLExtractor{
 	
 	private JSONObject graph;
-
 	private static final Logger logger = LoggerFactory.getLogger(SophosExtractor.class);
 
 	public SophosExtractor(String summary, String details){
@@ -66,8 +65,9 @@ public class SophosExtractor extends HTMLExtractor{
 		
 		//rest of that marqTitle div
 		Element rowOne = titleDiv.getElementsByTag("tr").first();
-		String category = rowOne.child(1).text();
-		vertex.put("category", category);
+		//doesn't appear "category" is every very informative...
+		//String category = rowOne.child(1).text();
+		//vertex.put("category", category);
 		String addedDate = rowOne.child(3).text();
 		if(!addedDate.equals("")){//some don't list dates, not sure why
 			vertex.put("signatureDate", convertTimestamp(addedDate));
@@ -75,7 +75,7 @@ public class SophosExtractor extends HTMLExtractor{
 		}
 		Element rowTwo = titleDiv.getElementsByTag("tr").get(1);
 		String type = rowTwo.child(1).text();
-		vertex.put("type", type);
+		vertex.put("malwareType", type);
 		String modifiedDate = rowTwo.child(3).text();
 		if(!modifiedDate.equals(""))
 			vertex.put("modifiedDate", convertTimestamp(modifiedDate));
@@ -184,8 +184,8 @@ public class SophosExtractor extends HTMLExtractor{
 
 		//use what you've learned.
 		//if(size.size() > 0){} //not keeping this one
-		if(sha1.size() > 0) vertex.put("knownSha1Hashes", sha1);
-		if(md5.size() > 0) vertex.put("knownMD5Hashes", md5);
+		if(sha1.size() > 0) vertex.put("sha1Hashes", sha1);
+		if(md5.size() > 0) vertex.put("md5Hashes", md5);
 		//if(crc32.size() > 0){} //not keeping this one
 		if(filetype.size() > 0) vertex.put("knownFileTypes", filetype);
 		
@@ -271,9 +271,9 @@ public class SophosExtractor extends HTMLExtractor{
 			if(registryKeysCreated.size() > 0) vertex.put("registryKeysCreated", registryKeysCreated);
 			if(registryKeysModified.size() > 0) vertex.put("registryKeysModified", registryKeysModified);
 			if(processesCreated.size() > 0) vertex.put("processesCreated", processesCreated);
-			if(ipConnections.size() > 0) vertex.put("ipConnections", ipConnections);
-			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests);
-			if(httpRequests.size() > 0) vertex.put("httpRequests", httpRequests);
+			if(ipConnections.size() > 0) vertex.put("ipConnections", ipConnections); //TODO: make vertex
+			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests); //TODO: make vertex
+			if(httpRequests.size() > 0) vertex.put("httpRequests", httpRequests); //TODO: make vertex
 		}
 		
 		//TODO put some remaining free text in desc? (Not always present...)

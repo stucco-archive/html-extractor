@@ -128,9 +128,11 @@ public class FSecureExtractor extends HTMLExtractor{
 			leftCatsList[1].equalsIgnoreCase("Type") &&
 			leftCatsList[2].equalsIgnoreCase("Platform"))
 		{
-			//TODO: probably want to change what we call these fields...
-			vertex.put("category", rightCatsList[0]);
-			vertex.put("type", rightCatsList[1]);
+			//keeping both fields as "malwareType", because they aren't used consistently
+			JSONArray types = new JSONArray();
+			types.put(rightCatsList[0]);
+			types.put(rightCatsList[1]);
+			vertex.put("malwareType", types);
 			vertex.put("platform", rightCatsList[2]);
 		}
 		
@@ -180,7 +182,7 @@ public class FSecureExtractor extends HTMLExtractor{
 				continue;
 			}
 			if(curr.tagName().equals("p") && prev.tagName().equals("h3") && prev.text().equals("Summary")){
-				vertex.put("description", curr.text());
+				vertex.put("overview", curr.text());
 				contents.remove(i);
 				contents.remove(i-1);
 				i--;
