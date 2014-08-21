@@ -151,7 +151,6 @@ public class SophosExtractor extends HTMLExtractor{
 		TreeSet<String> md5 = new TreeSet<String>();
 		TreeSet<String> crc32 = new TreeSet<String>();
 		TreeSet<String> filetype = new TreeSet<String>();
-		//TreeSet<String> filetype = new TreeSet<String>();
 		long firstSeen;
 		boolean runtimeAnalysisFound = false;
 		for(int i=0; i<h4headings.size(); i++){
@@ -185,7 +184,7 @@ public class SophosExtractor extends HTMLExtractor{
 			}else if(curr.text().equals("Runtime Analysis")){
 				//could do this here, but it's kind of complicated, better to separate it out...
 				runtimeAnalysisFound = true;
-				if(debug) System.out.println("'Runtime Analysis' section found");
+				if(debug) System.out.println("Runtime Analysis section found, handling later...");
 			}else if(curr.text().equals("Other vendor detection") && nextSibling.tagName().equals("dl")){
 				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
 				if(debug) System.out.println("Extracted map from 'other vendor detection table: " + currTableContents);
@@ -196,7 +195,7 @@ public class SophosExtractor extends HTMLExtractor{
 				while(keysIter.hasNext()){
 					aliasSet.add(currTableContents.get(keysIter.next()));
 				}
-				if(debug) System.out.println("now know aliases: " + aliasSet);
+				if(debug) System.out.println("  now know aliases: " + aliasSet);
 				vertex.put("aliases", aliasSet);
 			}else{
 				if(debug) System.out.println("Unexpected H4 Found: " + curr.text());
@@ -206,27 +205,102 @@ public class SophosExtractor extends HTMLExtractor{
 		if(debug) System.out.println("=========");
 
 		//use what you've learned.
-		//if(size != null && size.size() > 0){} //not keeping this one
-		if(sha1 != null && sha1.size() > 0){
-			vertex.put("knownSha1Hashes", sha1);
-		}
-		if(md5 != null && md5.size() > 0){
-			vertex.put("knownMD5Hashes", md5);
-		}
-		//if(crc32 != null && crc32.size() > 0){} //not keeping this one
-		if(filetype != null && filetype.size() > 0){
-			vertex.put("knownFileTypes", filetype);
-		}
+		//if(size.size() > 0){} //not keeping this one
+		if(sha1.size() > 0) vertex.put("knownSha1Hashes", sha1);
+		if(md5.size() > 0) vertex.put("knownMD5Hashes", md5);
+		//if(crc32.size() > 0){} //not keeping this one
+		if(filetype.size() > 0) vertex.put("knownFileTypes", filetype);
 		
-		//TODO: handle the "Runtime Analysis" sections...
+		//handle the "Runtime Analysis" sections...
 		if(runtimeAnalysisFound){
-			if(debug){
-				if(debug) System.out.println("'Runtime Analysis' section found");
-				if(debug) System.out.println("=========");
+			Element nextNextSibling;
+			TreeSet<String> filesCreated = new TreeSet<String>();
+			TreeSet<String> filesModified = new TreeSet<String>();
+			TreeSet<String> registryKeysCreated = new TreeSet<String>();
+			TreeSet<String> registryKeysModified = new TreeSet<String>();
+			TreeSet<String> processesCreated = new TreeSet<String>();
+			TreeSet<String> ipConnections = new TreeSet<String>();
+			TreeSet<String> dnsRequests = new TreeSet<String>();
+			TreeSet<String> httpRequests = new TreeSet<String>();
+			for(int i=0; i<h4headings.size(); i++){
+				curr = h4headings.get(i);
+				nextSibling = curr.nextElementSibling();
+				nextNextSibling = nextSibling.nextElementSibling();
+				Set<String> newItems;
+				if(curr.text().equals("Runtime Analysis")){
+					if(debug) System.out.println("'Runtime Analysis' section found");
+					while(nextSibling != null && nextSibling.tagName().equals("h5") && 
+							nextNextSibling != null && nextNextSibling.tagName().equals("ul")){
+						if(nextSibling.text().equals("Dropped Files")){
+							//TODO save other fields?  MD5 & etc?
+							newItems = ulToSet(removeGrandchildren(nextNextSibling));
+							filesCreated.addAll(newItems);
+							if(debug) System.out.println("Dropped Files: " + newItems);
+							//if(debug) System.out.println("Dropped Files Temp: " + temp.outerHtml());
+						}
+						else if(nextSibling.text().equals("Copies Itself To")){
+							//TODO save other fields?  MD5 & etc?
+							newItems = ulToSet(removeGrandchildren(nextNextSibling));
+							filesCreated.addAll(newItems);
+							if(debug) System.out.println("Copies Itself To: " + newItems);
+							//if(debug) System.out.println("Dropped Files Temp: " + temp.outerHtml());
+						}
+			 		else if(nextSibling.text().equals("Modified Files")){
+							newItems = ulToSet(removeGrandchildren(nextNextSibling));
+							filesModified.addAll(newItems);
+							if(debug) System.out.println("Modified Files: " + newItems);
+						}
+						else if(nextSibling.text().equals("Registry Keys Created")){
+							//TODO save other fields?
+							newItems = ulToSet(removeGrandchildren(nextNextSibling));
+							registryKeysCreated.addAll(newItems);
+							if(debug) System.out.println("Registry Keys Created: " + newItems);
+						}
+						else if(nextSibling.text().equals("Registry Keys Modified")){
+							//TODO save other fields?
+							newItems = ulToSet(removeGrandchildren(nextNextSibling));
+							registryKeysModified.addAll(newItems);
+							if(debug) System.out.println("Registry Keys Modified: " + newItems);
+						}
+						else if(nextSibling.text().equals("Processes Created")){
+							newItems = ulToSet(nextNextSibling);
+							processesCreated.addAll(newItems);
+							if(debug) System.out.println("Processes Created: " + newItems);
+						}
+						else if(nextSibling.text().equals("IP Connections")){
+							newItems = ulToSet(nextNextSibling);
+							ipConnections.addAll(newItems);
+							if(debug) System.out.println("IP Connections: " + newItems);
+						}
+						else if(nextSibling.text().equals("DNS Requests")){
+							newItems = ulToSet(nextNextSibling);
+							dnsRequests.addAll(newItems);
+							if(debug) System.out.println("DNS Requests: " + newItems);
+						}
+						else if(nextSibling.text().equals("HTTP Requests")){
+							newItems = ulToSet(nextNextSibling);
+							httpRequests.addAll(newItems);
+							if(debug) System.out.println("HTTP Requests: " + newItems);
+						}
+						else{
+							if(debug) System.out.println("Unknown! " + nextSibling.text() + ":\n" + nextNextSibling.outerHtml());
+						}
+						nextSibling = nextNextSibling.nextElementSibling();
+						if(nextSibling != null) nextNextSibling = nextSibling.nextElementSibling();
+					}
+				}
 			}
+			if(filesCreated.size() > 0) vertex.put("filesCreated", filesCreated);
+			if(filesModified.size() > 0) vertex.put("filesModified", filesModified);
+			if(registryKeysCreated.size() > 0) vertex.put("registryKeysCreated", registryKeysCreated);
+			if(registryKeysModified.size() > 0) vertex.put("registryKeysModified", registryKeysModified);
+			if(processesCreated.size() > 0) vertex.put("processesCreated", processesCreated);
+			if(ipConnections.size() > 0) vertex.put("ipConnections", ipConnections);
+			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests);
+			if(httpRequests.size() > 0) vertex.put("httpRequests", httpRequests);
 		}
 		
-		//TODO put some remaining free text in desc?
+		//TODO put some remaining free text in desc? (Not always present...)
 		//vertex.put("description", content.text());
 	    
 		vertices.put(vertex);
