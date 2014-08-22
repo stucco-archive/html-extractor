@@ -1,4 +1,4 @@
-
+package HTMLExtractor;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,34 +12,13 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import HTMLExtractor.BugtraqExtractor;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class BugtraqExtractorTest 
-extends TestCase
-{
-	/**
-	 * Create the test case
-	 *
-	 * @param testName name of the test case
-	 */
-	public BugtraqExtractorTest( String testName )
-	{
-		super( testName );
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite()
-	{
-		return new TestSuite( BugtraqExtractorTest.class );
-	}
+public class BugtraqExtractorTest {
 	
 	private Map<String,String> loadContent(int entryNum, boolean localMode) throws IOException{
 		Map<String,String> pageContent = new HashMap<String,String>();
@@ -89,6 +68,7 @@ extends TestCase
 	/**
 	 * Tests conversion
 	 */
+	@Test
 	public void testConvert()
 	{
 		int entryNum = 2222;
@@ -176,6 +156,7 @@ extends TestCase
 	/**
 	 * Test stub
 	 */
+	@Test
 	public void testPlaceholder()
 	{
 		

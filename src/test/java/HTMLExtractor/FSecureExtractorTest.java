@@ -1,4 +1,4 @@
-
+package HTMLExtractor;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,33 +11,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import HTMLExtractor.FSecureExtractor;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class FSecureExtractorTest 
-extends TestCase
-{
-	/**
-	 * Create the test case
-	 *
-	 * @param testName name of the test case
-	 */
-	public FSecureExtractorTest( String testName )
-	{
-		super( testName );
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite()
-	{
-		return new TestSuite( FSecureExtractorTest.class );
-	}
+public class FSecureExtractorTest {
 
 	private String loadContent(String entryName, boolean localMode) throws IOException{
 		String pageContent;
@@ -58,6 +39,7 @@ extends TestCase
 	/**
 	 * Tests conversion
 	 */
+	@Test
 	public void testConvert()
 	{
 		String entryName = "application_w32_installbrain";
@@ -89,6 +71,7 @@ extends TestCase
 	/**
 	 * Test stub
 	 */
+	@Test
 	public void testPlaceholder()
 	{
 		String entryName = "backdoor_w32_havex";
@@ -120,6 +103,7 @@ extends TestCase
 	/**
 	 * Test stub
 	 */
+	@Test
 	public void testPlaceholder2()
 	{
 		String entryName = "trojan_html_browlock";
@@ -151,6 +135,7 @@ extends TestCase
 	/**
 	 * Test stub
 	 */
+	@Test
 	public void testPlaceholder3()
 	{
 		String entryName = "trojan_android_droidkungfu_c";
@@ -182,6 +167,7 @@ extends TestCase
 	/**
 	 * Test stub
 	 */
+	@Test
 	public void testPlaceholder4()
 	{
 		String entryName = "trojan_bash_qhost_wb";
