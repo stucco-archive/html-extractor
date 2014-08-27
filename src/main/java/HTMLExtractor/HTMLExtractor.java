@@ -28,6 +28,8 @@ import org.jsoup.select.Elements;
 
 public abstract class HTMLExtractor {
 
+	private static int MAX_COMPARE_DEPTH = 8;
+	
 	protected static String findWithRegex(String content, String regex){
 		return findWithRegex(content, regex, 1);
 	}
@@ -139,6 +141,93 @@ public abstract class HTMLExtractor {
 		//System.out.println(refs);
 		//System.out.println(refStrings);
 		return hrefStrings;
+	}
+	
+	public static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2){
+		return deepCompareJSONObjects(obj1, obj2, 0);
+	}
+	
+	private static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2, int currDepth){
+		boolean retVal = true;
+		//System.out.println("depth: " + currDepth);
+		if(currDepth <= MAX_COMPARE_DEPTH){
+			Set<String> obj1keys = obj1.keySet();
+			Set<String> obj2keys = obj2.keySet();
+			if(obj1keys.equals(obj2keys)){
+				for(String k : obj1keys){
+					if(!retVal) continue;
+					//check if an obj...
+					JSONObject o1 = obj1.optJSONObject(k);
+					JSONObject o2 = obj2.optJSONObject(k);
+					if(o1 != null && o2 != null){
+						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						continue;
+					}
+					
+					//or try as an array...
+					JSONArray a1 = obj1.optJSONArray(k);
+					JSONArray a2 = obj2.optJSONArray(k);
+					if(a1 != null && a2 != null){
+						retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						continue;
+					}
+					
+					//or just get as strings and compare
+					String s1 = obj1.optString(k);
+					String s2 = obj2.optString(k);
+					retVal = retVal && s1.equals(s2);
+				}
+			}
+			else{//keys don't match, so fail.
+				retVal = false;
+			}
+		}
+		else{//over the limit, so fail.
+			retVal = false;
+		}
+		return retVal;
+	}
+	
+	public static boolean deepCompareJSONArrays(JSONArray arr1, JSONArray arr2){
+		return deepCompareJSONArrays(arr1, arr2, 0);
+	}
+	
+	private static boolean deepCompareJSONArrays(JSONArray arr1, JSONArray arr2, int currDepth){
+		boolean retVal = true;
+		//System.out.println("depth: " + currDepth);
+		if(currDepth <= MAX_COMPARE_DEPTH){
+			if(arr1.length() == arr2.length()){
+				for(int i=0; i<arr1.length() && retVal; i++){
+					//check if an obj...
+					JSONObject o1 = arr1.optJSONObject(i);
+					JSONObject o2 = arr2.optJSONObject(i);
+					if(o1 != null && o2 != null){
+						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						continue;
+					}
+					
+					//or try as an array...
+					JSONArray a1 = arr1.optJSONArray(i);
+					JSONArray a2 = arr2.optJSONArray(i);
+					if(a1 != null && a2 != null){
+						retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						continue;
+					}
+					
+					//or just get as strings and compare
+					String s1 = arr1.optString(i);
+					String s2 = arr2.optString(i);
+					retVal = retVal && s1.equals(s2);
+				}
+			}
+			else{//length doesn't match, so fail.
+				retVal = false;
+			}
+		}
+		else{//over the limit, so fail.
+			retVal = false;
+		}
+		return retVal;
 	}
 	
 }
