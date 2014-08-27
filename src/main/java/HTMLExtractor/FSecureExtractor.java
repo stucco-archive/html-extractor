@@ -2,6 +2,8 @@ package HTMLExtractor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.json.*;
 import org.jsoup.Jsoup;
@@ -84,8 +86,13 @@ public class FSecureExtractor extends HTMLExtractor{
 			System.out.println("=========");
 		}
 		String[] aliasList = aliasDiv.text().split(" ");
+		Set<String> aliasSet = new TreeSet<String>();
+		for(String alias : aliasList){
+			aliasSet.add(alias);
+		}
+		aliasSet.add(vertexName);
 		//TODO: how best to handle aliases in the long term?
-		vertex.put("aliases", new JSONArray(aliasList));
+		vertex.put("aliases", new JSONArray(aliasSet));
 		if(debug){
 			System.out.println("Found " + aliasList.length + " items in aliasList:");
 			for(int i=0; i<aliasList.length; i++){
