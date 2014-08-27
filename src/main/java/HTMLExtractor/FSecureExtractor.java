@@ -12,11 +12,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FSecureExtractor extends HTMLExtractor{
 	
 	private JSONObject graph;
-	private static boolean debug = true;
-	private static boolean verboseDebug = false;
+	private static final Logger logger = LoggerFactory.getLogger(FSecureExtractor.class);
 	
 	public FSecureExtractor(String pageContent){
 		graph = extract(pageContent);
@@ -32,7 +34,7 @@ public class FSecureExtractor extends HTMLExtractor{
 	
 	//This makes <p><b> text into <h4> text.
 	//They are equivalent, but not used consistently between pages.
-	protected static void fixSectionHeaders(Elements contents){
+	private static void fixSectionHeaders(Elements contents){
 		Element curr, replacement;
 		Elements currChildren;
 		for(int i = contents.size()-1; i>=0; i--){
@@ -63,10 +65,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		//get the title, set up name & other known fields
 		Element titleDiv = doc.getElementById("title-page-alt");
 		String vertexName = titleDiv.text();
-		if(debug){
-			System.out.println("Name: " + vertexName);
-			System.out.println("=========");
-		}
+		logger.info("Name: " + vertexName);
 		vertex.put("name", vertexName);
 		vertex.put("_id", vertexName);
 		vertex.put("_type", "vertex");
@@ -76,15 +75,9 @@ public class FSecureExtractor extends HTMLExtractor{
 		/////////////////////////////
 		//parse the box at the top
 		Element boxDiv = doc.select("div.box-rounded.br-blue").first().select("div.f-content").first();
-		if(verboseDebug){
-			System.out.println(boxDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(boxDiv.html());
 		Element aliasDiv = boxDiv.select("div").first().select("div").get(2);
-		if(verboseDebug){
-			System.out.println(aliasDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(aliasDiv.html());
 		String[] aliasList = aliasDiv.text().split(" ");
 		Set<String> aliasSet = new TreeSet<String>();
 		for(String alias : aliasList){
@@ -93,41 +86,26 @@ public class FSecureExtractor extends HTMLExtractor{
 		aliasSet.add(vertexName);
 		//TODO: how best to handle aliases in the long term?
 		vertex.put("aliases", new JSONArray(aliasSet));
-		if(debug){
-			System.out.println("Found " + aliasList.length + " items in aliasList:");
-			for(int i=0; i<aliasList.length; i++){
-				System.out.println(aliasList[i]);
-			}
-			System.out.println("=========");
+		logger.info("Found " + aliasList.length + " items in aliasList:");
+		for(int i=0; i<aliasList.length; i++){
+			logger.info(aliasList[i]);
 		}
 		
 		//I think using divs as a table might actually be worse than using a table as divs...
 		Element leftCatsDiv = boxDiv.select("div").first().select("div").get(3);
-		if(verboseDebug){
-			System.out.println(leftCatsDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(leftCatsDiv.html());
 		String[] leftCatsList = leftCatsDiv.text().replace(":","").split(" ");
-		if(debug){
-			System.out.println("Found " + leftCatsList.length + " items in leftCatsList:");
-			for(int i=0; i<leftCatsList.length; i++){
-				System.out.println(leftCatsList[i]);
-			}
-			System.out.println("=========");
+		logger.info("Found " + leftCatsList.length + " items in leftCatsList:");
+		for(int i=0; i<leftCatsList.length; i++){
+			logger.info(leftCatsList[i]);
 		}
 
 		Element rightCatsDiv = boxDiv.select("div").first().select("div").get(4);
-		if(verboseDebug){
-			System.out.println(rightCatsDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(rightCatsDiv.html());
 		String[] rightCatsList = rightCatsDiv.text().split(" ");
-		if(debug){
-			System.out.println("Found " + rightCatsList.length + " items in rightCatsList:");
-			for(int i=0; i<rightCatsList.length; i++){
-				System.out.println(rightCatsList[i]);
-			}
-			System.out.println("=========");
+		logger.info("Found " + rightCatsList.length + " items in rightCatsList:");
+		for(int i=0; i<rightCatsList.length; i++){
+			logger.info(rightCatsList[i]);
 		}
 		//make sure this is what you expected, then store fields.
 		if(leftCatsList.length == 3 &&
@@ -146,18 +124,12 @@ public class FSecureExtractor extends HTMLExtractor{
 		/////////////////////////
 		//parse remaining page contents
 		Element contentDiv = doc.select("div.content-protection").first().select("div.f-content").first();
-		if(verboseDebug){
-			System.out.println(contentDiv.html());
-			System.out.println("=========");
-		}
+		logger.debug(contentDiv.html());
 		Elements contents = contentDiv.children().first().children();
 		Element curr, prev;
 		removeBRs(contents);
 		fixSectionHeaders(contents);
-		if(verboseDebug){
-			System.out.println(contents.outerHtml());
-			System.out.println("=========");
-		}
+		logger.debug(contents.outerHtml());
 		//System.out.println("contents size is now: " + contents.size());
 		for(int i = contents.size()-1; i>0; i--){
 			curr = contents.get(i);
@@ -224,15 +196,11 @@ public class FSecureExtractor extends HTMLExtractor{
 			}
 		}
 		
-		
-		
-		if(debug){
-			System.out.println("=====REMAINING:=====");
-			System.out.println(contents.outerHtml());
-			System.out.println("=========");
-		}
-	    
-	    
+		//having remaining text is somewhat common with these entries...
+		logger.info("=====REMAINING:=====");
+		logger.info(contents.outerHtml());
+		logger.info("=========");
+        
 		vertices.put(vertex);
 		
 		graph.put("mode","NORMAL");
@@ -242,10 +210,10 @@ public class FSecureExtractor extends HTMLExtractor{
 	    return graph;
 	}
 
-	String ulToString(Element ul){
+	private static String ulToString(Element ul){
 		String ret;
 		ret = ul.text();
-		System.out.println(":::ulToString is returning:::" + ret);
+		logger.debug(":::ulToString is returning:::" + ret);
 		return ret;
 	}
 }
