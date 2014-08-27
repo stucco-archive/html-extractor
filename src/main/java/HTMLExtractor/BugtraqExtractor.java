@@ -7,11 +7,14 @@ import org.json.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BugtraqExtractor extends HTMLExtractor{
 	
 	private JSONObject graph;
+	private static final Logger logger = LoggerFactory.getLogger(BugtraqExtractor.class);
 
 	public BugtraqExtractor(String info, String discussion, String exploit, 
 			String solution, String references){
@@ -39,8 +42,8 @@ public class BugtraqExtractor extends HTMLExtractor{
 		Document doc = Jsoup.parse(info);
 		Element content = doc.getElementById("vulnerability");
 		
-		//System.out.println(content.html());
-		//System.out.println(content.getElementsByClass("title").first().text());
+		logger.debug(content.html());
+		logger.debug(content.getElementsByClass("title").first().text());
 		vertex.put("shortDescription", content.getElementsByClass("title").first().text());
 		
 		String regex = "(?s)\\s*?<td>.*?<span.*?>Bugtraq ID:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
