@@ -85,7 +85,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		}
 		String[] aliasList = aliasDiv.text().split(" ");
 		//TODO: how best to handle aliases in the long term?
-		vertex.put("aliases", aliasList);
+		vertex.put("aliases", new JSONArray(aliasList));
 		if(debug){
 			System.out.println("Found " + aliasList.length + " items in aliasList:");
 			for(int i=0; i<aliasList.length; i++){
