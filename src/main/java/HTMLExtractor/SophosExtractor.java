@@ -56,7 +56,7 @@ public class SophosExtractor extends HTMLExtractor{
 		Element titleDiv = content.getElementsByClass("marqTitle").first();
 		logger.debug(titleDiv.html());
 		String vertexName = titleDiv.getElementsByTag("h1").first().text();
-		logger.info("Name: " + vertexName);
+		logger.info("Name: {}", vertexName);
 		vertex.put("name", vertexName);
 		vertex.put("_id", vertexName);
 		vertex.put("_type", "vertex");
@@ -82,7 +82,7 @@ public class SophosExtractor extends HTMLExtractor{
 		Element rowThree = titleDiv.getElementsByTag("tr").get(2);
 		String prevalence = rowThree.child(1).getElementsByTag("img").first().attr("alt");
 		vertex.put("prevalence", prevalence); //TODO: convert labels into int levels, or similar?
-		logger.info("Prevalence: " + prevalence);
+		logger.info("Prevalence: {}", prevalence);
 		
 		//handle secondary div
 		Element secondaryDiv = doc.getElementsByClass("secondaryContent").first();
@@ -97,7 +97,7 @@ public class SophosExtractor extends HTMLExtractor{
 			}
 			//TODO: how best to handle aliases in the long term?
 			vertex.put("aliases", aliasList);
-			logger.info("Found " + aliasList.size() + " items in aliasList:");
+			logger.info("Found {} items in aliasList:", aliasList.size());
 			for(int i=0; i<aliasList.size(); i++){
 				logger.info(aliasList.get(i));
 			}
@@ -113,7 +113,7 @@ public class SophosExtractor extends HTMLExtractor{
 		String platformName = affectedHeading.nextElementSibling().getElementsByTag("img").first().attr("alt");
 		vertex.put("platform", platformName);
 		if(affectedHeading != null){
-			logger.info("Platform: " + platformName);
+			logger.info("Platform: {}", platformName);
 		}
 		
 		////////////////////////////////////
@@ -136,9 +136,9 @@ public class SophosExtractor extends HTMLExtractor{
 			curr = h4headings.get(i);
 			nextSibling = curr.nextElementSibling();
 			if(curr.text().equals("File Information") && nextSibling.tagName().equals("dl")){
-				logger.debug("Found a file info table: \n" + nextSibling.html());
+				logger.debug("Found a file info table: \n{}", nextSibling.html());
 				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				logger.info("Extracted map from file info table: " + currTableContents);
+				logger.info("Extracted map from file info table: {}", currTableContents);
 				if(currTableContents.containsKey("Size")){
 					size.add(currTableContents.get("Size"));
 				}
@@ -166,7 +166,7 @@ public class SophosExtractor extends HTMLExtractor{
 				logger.info("Runtime Analysis section found, handling later...");
 			}else if(curr.text().equals("Other vendor detection") && nextSibling.tagName().equals("dl")){
 				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				logger.info("Extracted map from 'other vendor detection table: " + currTableContents);
+				logger.info("Extracted map from 'other vendor detection table: {}", currTableContents);
 				JSONArray aliasArr = vertex.optJSONArray("aliases");
 				Set<String> aliasSet = JSONArrayToSet(aliasArr);
 				Set<String> keys = currTableContents.keySet();
@@ -174,10 +174,10 @@ public class SophosExtractor extends HTMLExtractor{
 				while(keysIter.hasNext()){
 					aliasSet.add(currTableContents.get(keysIter.next()));
 				}
-				logger.info("  now know aliases: " + aliasSet);
+				logger.info("  now know aliases: {}", aliasSet);
 				vertex.put("aliases", aliasSet);
 			}else{
-				logger.warn("Unexpected H4 Found: " + curr.text());
+				logger.warn("Unexpected H4 Found: {}", curr.text());
 			}
 			
 		}
@@ -213,53 +213,53 @@ public class SophosExtractor extends HTMLExtractor{
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesCreated.addAll(newItems);
-							logger.info("Dropped Files: " + newItems);
+							logger.info("Dropped Files: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Copies Itself To")){
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesCreated.addAll(newItems);
-							logger.info("Copies Itself To: " + newItems);
+							logger.info("Copies Itself To: {}", newItems);
 						}
 			 		else if(nextSibling.text().equals("Modified Files")){
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							filesModified.addAll(newItems);
-							logger.info("Modified Files: " + newItems);
+							logger.info("Modified Files: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Created")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							registryKeysCreated.addAll(newItems);
-							logger.info("Registry Keys Created: " + newItems);
+							logger.info("Registry Keys Created: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Modified")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
 							registryKeysModified.addAll(newItems);
-							logger.info("Registry Keys Modified: " + newItems);
+							logger.info("Registry Keys Modified: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Processes Created")){
 							newItems = ulToSet(nextNextSibling);
 							processesCreated.addAll(newItems);
-							logger.info("Processes Created: " + newItems);
+							logger.info("Processes Created: {}", newItems);
 						}
 						else if(nextSibling.text().equals("IP Connections")){
 							newItems = ulToSet(nextNextSibling);
 							ipConnections.addAll(newItems);
-							logger.info("IP Connections: " + newItems);
+							logger.info("IP Connections: {}", newItems);
 						}
 						else if(nextSibling.text().equals("DNS Requests")){
 							newItems = ulToSet(nextNextSibling);
 							dnsRequests.addAll(newItems);
-							logger.info("DNS Requests: " + newItems);
+							logger.info("DNS Requests: {}", newItems);
 						}
 						else if(nextSibling.text().equals("HTTP Requests")){
 							newItems = ulToSet(nextNextSibling);
 							httpRequests.addAll(newItems);
-							logger.info("HTTP Requests: " + newItems);
+							logger.info("HTTP Requests: {}", newItems);
 						}
 						else{
-							logger.info("Unknown! " + nextSibling.text() + ":\n" + nextNextSibling.outerHtml());
+							logger.info("Unknown! {}:\n{}", nextSibling.text(), nextNextSibling.outerHtml());
 						}
 						nextSibling = nextNextSibling.nextElementSibling();
 						if(nextSibling != null) nextNextSibling = nextSibling.nextElementSibling();

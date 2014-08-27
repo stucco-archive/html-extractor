@@ -65,7 +65,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		//get the title, set up name & other known fields
 		Element titleDiv = doc.getElementById("title-page-alt");
 		String vertexName = titleDiv.text();
-		logger.info("Name: " + vertexName);
+		logger.info("Name: {}", vertexName);
 		vertex.put("name", vertexName);
 		vertex.put("_id", vertexName);
 		vertex.put("_type", "vertex");
@@ -86,7 +86,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		aliasSet.add(vertexName);
 		//TODO: how best to handle aliases in the long term?
 		vertex.put("aliases", new JSONArray(aliasSet));
-		logger.info("Found " + aliasList.length + " items in aliasList:");
+		logger.info("Found {} items in aliasList:", aliasList.length);
 		for(int i=0; i<aliasList.length; i++){
 			logger.info(aliasList[i]);
 		}
@@ -95,7 +95,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		Element leftCatsDiv = boxDiv.select("div").first().select("div").get(3);
 		logger.debug(leftCatsDiv.html());
 		String[] leftCatsList = leftCatsDiv.text().replace(":","").split(" ");
-		logger.info("Found " + leftCatsList.length + " items in leftCatsList:");
+		logger.info("Found {} items in leftCatsList:", leftCatsList.length);
 		for(int i=0; i<leftCatsList.length; i++){
 			logger.info(leftCatsList[i]);
 		}
@@ -103,7 +103,7 @@ public class FSecureExtractor extends HTMLExtractor{
 		Element rightCatsDiv = boxDiv.select("div").first().select("div").get(4);
 		logger.debug(rightCatsDiv.html());
 		String[] rightCatsList = rightCatsDiv.text().split(" ");
-		logger.info("Found " + rightCatsList.length + " items in rightCatsList:");
+		logger.info("Found {} items in rightCatsList:", rightCatsList.length);
 		for(int i=0; i<rightCatsList.length; i++){
 			logger.info(rightCatsList[i]);
 		}
@@ -213,7 +213,7 @@ public class FSecureExtractor extends HTMLExtractor{
 	private static String ulToString(Element ul){
 		String ret;
 		ret = ul.text();
-		logger.debug(":::ulToString is returning:::" + ret);
+		logger.debug(":::ulToString is returning::: {}", ret);
 		return ret;
 	}
 }
