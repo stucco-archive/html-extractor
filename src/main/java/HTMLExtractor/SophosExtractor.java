@@ -75,7 +75,9 @@ public class SophosExtractor extends HTMLExtractor{
 		}
 		Element rowTwo = titleDiv.getElementsByTag("tr").get(1);
 		String type = rowTwo.child(1).text();
-		vertex.put("malwareType", type);
+		TreeSet<String> typeSet = new TreeSet<String>();
+		typeSet.add(type);
+		vertex.put("malwareType", typeSet);
 		String modifiedDate = rowTwo.child(3).text();
 		if(!modifiedDate.equals(""))
 			vertex.put("modifiedDate", convertTimestamp(modifiedDate));
@@ -95,8 +97,11 @@ public class SophosExtractor extends HTMLExtractor{
 			for(int i=0; i<aliasItems.size(); i++){
 				aliasList.add(aliasItems.get(i).text());
 			}
+			aliasList.add(vertexName);
 			//TODO: how best to handle aliases in the long term?
-			vertex.put("aliases", aliasList);
+			TreeSet<String> aliasSet = new TreeSet<String>();
+			aliasSet.addAll(aliasList);//make into set, in case duplicates.
+			vertex.put("aliases", aliasSet);
 			logger.info("Found {} items in aliasList:", aliasList.size());
 			for(int i=0; i<aliasList.size(); i++){
 				logger.info(aliasList.get(i));
