@@ -28,7 +28,8 @@ import org.jsoup.select.Elements;
 
 public abstract class HTMLExtractor {
 
-	private static int MAX_COMPARE_DEPTH = 8;
+	private static final int MAX_COMPARE_DEPTH = 8;
+	private static final boolean DEBUG_COMPARE = true;
 	
 	protected static String findWithRegex(String content, String regex){
 		return findWithRegex(content, regex, 1);
@@ -161,6 +162,7 @@ public abstract class HTMLExtractor {
 					JSONObject o2 = obj2.optJSONObject(k);
 					if(o1 != null && o2 != null){
 						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Object compare failed on key " + k + " (object)");
 						continue;
 					}
 					
@@ -169,6 +171,7 @@ public abstract class HTMLExtractor {
 					JSONArray a2 = obj2.optJSONArray(k);
 					if(a1 != null && a2 != null){
 						retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Object compare failed on key " + k + " (array)");
 						continue;
 					}
 					
@@ -176,13 +179,16 @@ public abstract class HTMLExtractor {
 					String s1 = obj1.optString(k);
 					String s2 = obj2.optString(k);
 					retVal = retVal && s1.equals(s2);
+					if(!retVal && DEBUG_COMPARE) System.out.println("JSON Object compare failed on key " + k + " (other type)");
 				}
 			}
 			else{//keys don't match, so fail.
+				if(DEBUG_COMPARE) System.out.println("JSON Object compare failed because key sets do not match");
 				retVal = false;
 			}
 		}
 		else{//over the limit, so fail.
+			if(DEBUG_COMPARE) System.out.println("JSON Object compare failed because depth limit exceeded");
 			retVal = false;
 		}
 		return retVal;
@@ -203,6 +209,7 @@ public abstract class HTMLExtractor {
 					JSONObject o2 = arr2.optJSONObject(i);
 					if(o1 != null && o2 != null){
 						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (object)");
 						continue;
 					}
 					
@@ -211,6 +218,7 @@ public abstract class HTMLExtractor {
 					JSONArray a2 = arr2.optJSONArray(i);
 					if(a1 != null && a2 != null){
 						retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (array)");
 						continue;
 					}
 					
@@ -218,13 +226,16 @@ public abstract class HTMLExtractor {
 					String s1 = arr1.optString(i);
 					String s2 = arr2.optString(i);
 					retVal = retVal && s1.equals(s2);
+					if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (other type)");
 				}
 			}
 			else{//length doesn't match, so fail.
+				if(DEBUG_COMPARE) System.out.println("JSON Array compare failed because of differing lengths");
 				retVal = false;
 			}
 		}
 		else{//over the limit, so fail.
+			if(DEBUG_COMPARE) System.out.println("JSON Array compare failed because depth limit exceeded");
 			retVal = false;
 		}
 		return retVal;
