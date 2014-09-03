@@ -144,6 +144,36 @@ public abstract class HTMLExtractor {
 		return hrefStrings;
 	}
 	
+	/*
+	 * Get 2d array of cell contents, from a list of tr elements
+	 */
+	protected String[][] getCells(Elements rows) {
+		int rowCount = rows.size();
+		int colCount = rows.first().getElementsByTag("td").size();
+		//System.out.println(rowCount + " rows, by " + colCount + " cols");
+		
+		String[][] contents = new String[rowCount][colCount];
+		Element currCell, currChild;
+		String currCellText;
+		
+		for(int i=0; i<rowCount; i++){
+			for(int j=0; j<colCount; j++){
+				currCell = rows.get(i).getElementsByTag("td").get(j);
+				currCellText = currCell.text();
+				if(currCellText.equals("")){ //if you haven't found text yet, try harder.
+					currChild = currCell.child(0);
+					if(currChild.tagName().equals("img")){
+						currCellText = currChild.attr("title");
+					}
+					//TODO handle other cases as they arise.
+				}
+				//System.out.println(currCellText);
+				contents[i][j] = currCellText;
+			}
+		}
+		return contents;
+	}
+	
 	public static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2){
 		return deepCompareJSONObjects(obj1, obj2, 0);
 	}
