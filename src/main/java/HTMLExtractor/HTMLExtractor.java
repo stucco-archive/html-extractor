@@ -2,6 +2,8 @@ package HTMLExtractor;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -172,6 +174,11 @@ public abstract class HTMLExtractor {
 			}
 		}
 		return contents;
+	}
+	
+	protected static String getDomainFromURL(String url) throws URISyntaxException {
+	    URI uri = new URI(url);
+	    return uri.getHost();
 	}
 	
 	public static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2){
