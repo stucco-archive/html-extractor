@@ -332,7 +332,7 @@ public class SophosExtractorTest{
                       "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\2',"+
                       "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\4',"+
                       "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\UnreadMail\\\\user@example.com'],"+
-			    	  "  'httpRequests': ["+
+			    	  "  'urlsUsed': ["+
                       "    'http://www.google.com/webhp',"+
                       "    'http://www.google.ie/webhp'],"+
 	                  "  'dnsRequests': ["+
@@ -553,7 +553,7 @@ public class SophosExtractorTest{
 			    	  "    'HKCU\\\\Software\\\\WinRAR'],"+
             		  "  'dnsRequests': ["+
             		  "    'riseandshine.favcc1.com'],"+
-            		  "  'httpRequests': ["+
+            		  "  'urlsUsed': ["+
             		  "    'http://riseandshine.favcc1.com/gate.php'],"+
 			    	  "  '_type': 'vertex',"+
 			    	  "  'modifiedDate': 1408392967000,"+

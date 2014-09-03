@@ -204,7 +204,7 @@ public class SophosExtractor extends HTMLExtractor{
 			TreeSet<String> processesCreated = new TreeSet<String>();
 			TreeSet<String> ipConnections = new TreeSet<String>();
 			TreeSet<String> dnsRequests = new TreeSet<String>();
-			TreeSet<String> httpRequests = new TreeSet<String>();
+			TreeSet<String> urlsUsed = new TreeSet<String>();
 			for(int i=0; i<h4headings.size(); i++){
 				curr = h4headings.get(i);
 				nextSibling = curr.nextElementSibling();
@@ -260,7 +260,7 @@ public class SophosExtractor extends HTMLExtractor{
 						}
 						else if(nextSibling.text().equals("HTTP Requests")){
 							newItems = ulToSet(nextNextSibling);
-							httpRequests.addAll(newItems);
+							urlsUsed.addAll(newItems);
 							logger.info("HTTP Requests: {}", newItems);
 						}
 						else{
@@ -278,7 +278,7 @@ public class SophosExtractor extends HTMLExtractor{
 			if(processesCreated.size() > 0) vertex.put("processesCreated", processesCreated);
 			if(ipConnections.size() > 0) vertex.put("ipConnections", ipConnections); //TODO: make vertex
 			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests); //TODO: make vertex
-			if(httpRequests.size() > 0) vertex.put("httpRequests", httpRequests); //TODO: make vertex
+			if(urlsUsed.size() > 0) vertex.put("urlsUsed", urlsUsed); //TODO: make vertex
 		}
 		
 		//TODO put some remaining free text in desc? (Not always present...)
