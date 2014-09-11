@@ -2,8 +2,8 @@ package HTMLExtractor;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -186,6 +186,26 @@ public class HTMLExtractorTest{
 			a2 = new JSONArray(s2);
 			assertTrue( HTMLExtractor.deepCompareJSONArrays(a1, a2) );
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception");
+		}
+	}
+	
+	/**
+	 * Test get port method
+	 */
+	@Test
+	public void testGetPort()
+	{
+		try {
+			assertTrue( 123 == HTMLExtractor.getPortFromURL("4.5.6.7:123") );
+			assertTrue( 123 == HTMLExtractor.getPortFromURL("something.com:123") );
+			assertTrue( 80 == HTMLExtractor.getPortFromURL("http://something.com") );
+			assertTrue( 443 == HTMLExtractor.getPortFromURL("https://something.com") );
+			assertTrue( 11111 == HTMLExtractor.getPortFromURL("asdfasdf://something.com:11111") );
+			assertTrue( -1 == HTMLExtractor.getPortFromURL("asdfasdf://something.com") );
+			assertTrue( 80 == HTMLExtractor.getPortFromURL("asdf") );
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Exception");

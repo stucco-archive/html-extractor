@@ -181,6 +181,24 @@ public abstract class HTMLExtractor {
 	    return uri.getHost();
 	}
 	
+	protected static int getPortFromURL(String url) throws URISyntaxException {
+		URI uri;
+		int port;
+		if(!url.contains("://")){ //if no protocol specified, assume http
+			url = "http://" + url;
+		}
+		uri = new URI(url);
+	    port = uri.getPort();
+		//handle default ports for well known protocols
+		if(port == -1 && url.startsWith("http://")){
+			port = 80;
+		}
+		else if(port == -1 && url.startsWith("https://")){
+			port = 443;
+		}//TODO add more defaults as needed
+	    return port;
+	}
+	
 	public static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2){
 		return deepCompareJSONObjects(obj1, obj2, 0);
 	}
