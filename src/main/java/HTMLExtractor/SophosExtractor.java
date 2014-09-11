@@ -142,27 +142,31 @@ public class SophosExtractor extends HTMLExtractor{
 			nextSibling = curr.nextElementSibling();
 			if(curr.text().equals("File Information") && nextSibling.tagName().equals("dl")){
 				logger.debug("Found a file info table: \n{}", nextSibling.html());
-				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				logger.info("Extracted map from file info table: {}", currTableContents);
-				if(currTableContents.containsKey("Size")){
-					size.add(currTableContents.get("Size"));
-				}
-				if(currTableContents.containsKey("SHA-1")){
-					sha1.add(currTableContents.get("SHA-1"));
-				}
-				if(currTableContents.containsKey("MD5")){
-					md5.add(currTableContents.get("MD5"));
-				}
-				if(currTableContents.containsKey("CRC-32")){
-					crc32.add(currTableContents.get("CRC-32"));
-				}
-				if(currTableContents.containsKey("File type")){
-					filetype.add(currTableContents.get("File type"));
-				}
-				if(currTableContents.containsKey("First seen")){
-					firstSeen = convertShortTimestamp(currTableContents.get("First seen"));
-					if(firstSeen < vertex.getLong("discoveryDate")){
-						vertex.put("discoveryDate", firstSeen);
+				currTableContents = dlToMap(nextSibling);  
+				if(currTableContents == null){
+					logger.error("Could not parse table contents!");
+				}else{
+					logger.info("Extracted map from file info table: {}", currTableContents);
+					if(currTableContents.containsKey("Size")){
+						size.add(currTableContents.get("Size"));
+					}
+					if(currTableContents.containsKey("SHA-1")){
+						sha1.add(currTableContents.get("SHA-1"));
+					}
+					if(currTableContents.containsKey("MD5")){
+						md5.add(currTableContents.get("MD5"));
+					}
+					if(currTableContents.containsKey("CRC-32")){
+						crc32.add(currTableContents.get("CRC-32"));
+					}
+					if(currTableContents.containsKey("File type")){
+						filetype.add(currTableContents.get("File type"));
+					}
+					if(currTableContents.containsKey("First seen")){
+						firstSeen = convertShortTimestamp(currTableContents.get("First seen"));
+						if(firstSeen < vertex.getLong("discoveryDate")){
+							vertex.put("discoveryDate", firstSeen);
+						}
 					}
 				}
 			}else if(curr.text().equals("Runtime Analysis")){
