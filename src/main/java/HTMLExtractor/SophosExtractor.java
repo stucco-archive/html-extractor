@@ -144,7 +144,7 @@ public class SophosExtractor extends HTMLExtractor{
 				logger.debug("Found a file info table: \n{}", nextSibling.html());
 				currTableContents = dlToMap(nextSibling);  
 				if(currTableContents == null){
-					logger.error("Could not parse table contents!");
+					logger.error("Could not parse table contents! (file info)");
 				}else{
 					logger.info("Extracted map from file info table: {}", currTableContents);
 					if(currTableContents.containsKey("Size")){
@@ -174,17 +174,21 @@ public class SophosExtractor extends HTMLExtractor{
 				runtimeAnalysisFound = true;
 				logger.info("Runtime Analysis section found, handling later...");
 			}else if(curr.text().equals("Other vendor detection") && nextSibling.tagName().equals("dl")){
-				currTableContents = dlToMap(nextSibling); //TODO code below will NPE if this is null.  Fine while testing, should fix before using. 
-				logger.info("Extracted map from 'other vendor detection table: {}", currTableContents);
-				JSONArray aliasArr = vertex.optJSONArray("aliases");
-				Set<String> aliasSet = JSONArrayToSet(aliasArr);
-				Set<String> keys = currTableContents.keySet();
-				Iterator<String> keysIter = keys.iterator();
-				while(keysIter.hasNext()){
-					aliasSet.add(currTableContents.get(keysIter.next()));
+				currTableContents = dlToMap(nextSibling); 
+				if(currTableContents == null){
+					logger.error("Could not parse table contents! (other vendor detection)");
+				}else{
+					logger.info("Extracted map from 'other vendor detection table: {}", currTableContents);
+					JSONArray aliasArr = vertex.optJSONArray("aliases");
+					Set<String> aliasSet = JSONArrayToSet(aliasArr);
+					Set<String> keys = currTableContents.keySet();
+					Iterator<String> keysIter = keys.iterator();
+					while(keysIter.hasNext()){
+						aliasSet.add(currTableContents.get(keysIter.next()));
+					}
+					logger.info("  now know aliases: {}", aliasSet);
+					vertex.put("aliases", aliasSet);
 				}
-				logger.info("  now know aliases: {}", aliasSet);
-				vertex.put("aliases", aliasSet);
 			}else{
 				logger.warn("Unexpected H4 Found: {}", curr.text());
 			}
