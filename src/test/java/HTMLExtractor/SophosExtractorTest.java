@@ -371,9 +371,6 @@ public class SophosExtractorTest{
 	public void test_Troj_Zbot_AAA()
 	{
 		String entryName = "Troj~Zbot-AAA";
-		//String entryName = "Troj~Weelsof-FG";
-		//String entryName = "Troj~MSIL-ACB";
-		//String entryName = "Troj~MSIL-ACY"; //remote
 		boolean localMode = true;
 		String summary, details;
 		
@@ -443,7 +440,6 @@ public class SophosExtractorTest{
 	public void test_Troj_Weelsof_FG()
 	{
 		String entryName = "Troj~Weelsof-FG";
-		//String entryName = "Troj~MSIL-ACB";
 		boolean localMode = true;
 		String summary, details;
 		
