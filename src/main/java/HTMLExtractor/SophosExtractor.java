@@ -42,6 +42,7 @@ public class SophosExtractor extends HTMLExtractor{
 		JSONObject graph = new JSONObject();
 		JSONArray vertices = new JSONArray();
 		JSONArray edges = new JSONArray();
+		JSONObject edge;
 		
 		JSONObject vertex = new JSONObject();
 		
@@ -286,7 +287,6 @@ public class SophosExtractor extends HTMLExtractor{
 			if(urlsUsed.size() > 0) vertex.put("urlsUsed", urlsUsed);
 			
 			//handle IP info - build address nodes, port nodes, and any edges as needed
-			JSONObject edge;
 			if(ipConnections.size() > 0){
 				for(String ip : ipConnections){
 					String ipString, portString;
@@ -364,8 +364,87 @@ public class SophosExtractor extends HTMLExtractor{
 				}
 			}
 			
-			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests); //TODO: make vertex
-			
+			//if() vertex.put("dnsRequests", dnsRequests); //TODO: make vertex
+			//now handle the DNS info the same way
+			if(dnsRequests.size() > 0){
+				for(String dns : dnsRequests){
+					String dnsString, portString;
+					JSONObject portVertex = null;
+					JSONObject dnsVertex = null;
+					JSONObject addressVertex = null;
+					
+					int port;
+					try{
+						port = getPortFromURL(dns);
+					}catch(Exception e){
+						logger.warn("Exception when parsing port info from dns string " + dns, e);
+						port = -1;
+					}
+					if(port != -1){
+						portString = Integer.toString(port);
+						if(dns.endsWith(":"+portString))
+							dnsString = dns.replace(":"+portString, "");
+						else 
+							dnsString = dns;
+						
+						portVertex = new JSONObject();
+						portVertex.put("name", portString);
+						portVertex.put("_id", portString);
+						portVertex.put("_type", "vertex");
+						portVertex.put("vertexType", "port");
+						portVertex.put("source", "Sophos");
+						vertices.put(portVertex);
+					}else{ //shouldn't ever give -1 anyway
+						logger.warn("could not find port for dns string {}", dns);
+						portString = "unknown";
+						dnsString = dns;
+					}
+					
+					//Note that all other address nodes so far are named ip:port, but this is the best we can do here with the provided info.
+					// Note that if any sophos entries have IPs and DNS names, then the IPs will be *in addition* to those DNS names, they will not correspond to those resolved names
+					//TODO: if any counterexamples are found, revisit.
+					addressVertex = new JSONObject();
+					String addressName = dnsString + ":" + portString;
+					addressVertex.put("name", addressName);
+					addressVertex.put("_id", addressName);
+					addressVertex.put("_type", "vertex");
+					addressVertex.put("vertexType", "Address");
+					addressVertex.put("source", "Sophos");
+					vertices.put(addressVertex);
+					
+					if(portVertex != null){
+						edge = new JSONObject();
+						edge.put("_inV", portString);
+						edge.put("_outV", addressName);
+						edge.put("_id", addressName + "_to_" + portString);
+						edge.put("_type", "edge");
+						edge.put("inVType", "port");
+						edge.put("outVType", "address");
+						edge.put("source", "Sophos");
+						edge.put("label", "hasPort");
+						edges.put(edge);
+					}
+					
+					dnsVertex = new JSONObject();
+					dnsVertex.put("name", dnsString);
+					dnsVertex.put("_id", dnsString);
+					dnsVertex.put("_type", "vertex");
+					dnsVertex.put("vertexType", "DNSName");
+					dnsVertex.put("source", "Sophos");
+					vertices.put(dnsVertex);
+					
+					edge = new JSONObject();
+					edge.put("_inV", dnsString);
+					edge.put("_outV", addressName);
+					edge.put("_id", addressName + "_to_" + dnsString);
+					edge.put("_type", "edge");
+					edge.put("inVType", "DNSName");
+					edge.put("outVType", "address");
+					edge.put("source", "Sophos");
+					edge.put("label", "hasDNSName");
+					edges.put(edge);
+				}
+			}
 		}
 		
 		//TODO put some remaining free text in desc? (Not always present...)

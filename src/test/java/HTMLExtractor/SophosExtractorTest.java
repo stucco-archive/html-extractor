@@ -294,62 +294,193 @@ public class SophosExtractorTest{
 		    JSONArray verts = obj.getJSONArray("vertices");
 		    JSONArray edges = obj.getJSONArray("edges");
 		    
-		    String expectedVerts = "[{"+
-			    	  "  'vertexType': 'malware',"+
-			    	  "  'platform': 'Windows',"+
-			    	  "  'prevalence': 'Small Number of Reports',"+
-			    	  "  'aliases': [ "+
-			    	  "    'Gen:Variant.Graftor.150885',"+
-			    	  "    'Troj/Zbot-ITY'], "+
-			    	  "  'md5Hashes': ["+
-			    	  "    '599990d8fa3d211b0b775d82dd939526',"+
-			    	  "    'ca2fe00295a6255ced2778fb9f43146f'],"+
-			    	  "  'sha1Hashes': ["+
-			    	  "    '8bff3c73c92314a7d094a0d024cf57a722b0b198',"+
-			    	  "    '9017bd0da5f94f4ba899e5d990c8c4f4792d6876'],"+
-			    	  "  'filesCreated': ["+
-			    	  "    'c:\\\\Documents and Settings\\\\test user\\\\Application Data\\\\Poce\\\\anyn.ezo',"+
-			    	  "    'c:\\\\Documents and Settings\\\\test user\\\\Application Data\\\\Veufno\\\\buerx.exe'],"+
-			    	  "  'filesModified': ["+
-			    	  "    '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Folders.dbx',"+
-			    	  "    '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Inbox.dbx',"+
-			    	  "    '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Offline.dbx'],"+
-			    	  "  'processesCreated': ["+
-			    	  "    'c:\\\\Documents and Settings\\\\test user\\\\application data\\\\veufno\\\\buerx.exe',"+
-			    	  "    'c:\\\\windows\\\\system32\\\\cmd.exe',"+
-			    	  "    'c:\\\\windows\\\\system32\\\\hostname.exe',"+
-			    	  "    'c:\\\\windows\\\\system32\\\\ipconfig.exe',"+
-			    	  "    'c:\\\\windows\\\\system32\\\\tasklist.exe'],"+
-			    	  "  'registryKeysCreated': ["+
-                      "    'HKCU\\\\Identities',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Dyxol',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Internet Explorer\\\\Privacy',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run'],"+
-                      "  'registryKeysModified': ["+
-                      "    'HKCU\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Software\\\\Microsoft\\\\Outlook Express\\\\5.0',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\0',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\1',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\2',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\4',"+
-                      "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\UnreadMail\\\\user@example.com'],"+
-			    	  "  'urlsUsed': ["+
-                      "    'http://www.google.com/webhp',"+
-                      "    'http://www.google.ie/webhp'],"+
-	                  "  'dnsRequests': ["+
-                      "    'franciz-industries.biz',"+
-                      "    'www.google.com',"+
-                      "    'www.google.ie'],"+
-			    	  "  '_type': 'vertex',"+
-			    	  "  'modifiedDate': 1408162427000,"+
-			    	  "  'signatureDate': 1408162427000,"+
-			    	  "  'malwareType': ['Trojan'],"+
-			    	  "  '_id': 'Troj/Zbot-ITY',"+
-			    	  "  'source': 'Sophos',"+
-			    	  "  'name': 'Troj/Zbot-ITY',"+
-			    	  "  'knownFileTypes': ['Windows executable'],"+
-			    	  "  'discoveryDate': 1407902400000"+
-			    	  "}]";
-		    String expectedEdges = "[]";
+		    String expectedVerts = "["+
+		    		"  {"+
+		    		"    'vertexType': 'port',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '80',"+
+		    		"    'name': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'Address',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'franciz-industries.biz:80',"+
+		    		"    'name': 'franciz-industries.biz:80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'DNSName',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'franciz-industries.biz',"+
+		    		"    'name': 'franciz-industries.biz'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'port',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '80',"+
+		    		"    'name': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'Address',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.com:80',"+
+		    		"    'name': 'www.google.com:80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'DNSName',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.com',"+
+		    		"    'name': 'www.google.com'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'port',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '80',"+
+		    		"    'name': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'Address',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.ie:80',"+
+		    		"    'name': 'www.google.ie:80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'DNSName',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.ie',"+
+		    		"    'name': 'www.google.ie'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'platform': 'Windows',"+
+		    		"    'filesCreated': ["+
+		    		"      'c:\\\\Documents and Settings\\\\test user\\\\Application Data\\\\Poce\\\\anyn.ezo',"+
+		    		"      'c:\\\\Documents and Settings\\\\test user\\\\Application Data\\\\Veufno\\\\buerx.exe'"+
+		    		"    ],"+
+		    		"    'prevalence': 'Small Number of Reports',"+
+		    		"    'md5Hashes': ["+
+		    		"      '599990d8fa3d211b0b775d82dd939526',"+
+		    		"      'ca2fe00295a6255ced2778fb9f43146f'"+
+		    		"    ],"+
+		    		"    'registryKeysModified': ["+
+		    		"      'HKCU\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Software\\\\Microsoft\\\\Outlook Express\\\\5.0',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\0',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\1',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\2',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Internet Settings\\\\Zones\\\\4',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\UnreadMail\\\\user@example.com'"+
+		    		"    ],"+
+		    		"    'filesModified': ["+
+		    		"      '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Folders.dbx',"+
+		    		"      '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Inbox.dbx',"+
+		    		"      '%PROFILE%\\\\Local Settings\\\\Application Data\\\\Identities\\\\{E2564744-A8ED-497D-924B-A548B20CA034}\\\\Microsoft\\\\Outlook Express\\\\Offline.dbx'"+
+		    		"    ],"+
+		    		"    'aliases': ["+
+		    		"      'Gen:Variant.Graftor.150885',"+
+		    		"      'Troj/Zbot-ITY'"+
+		    		"    ],"+
+		    		"    'sha1Hashes': ["+
+		    		"      '8bff3c73c92314a7d094a0d024cf57a722b0b198',"+
+		    		"      '9017bd0da5f94f4ba899e5d990c8c4f4792d6876'"+
+		    		"    ],"+
+		    		"    'modifiedDate': 1408162427000,"+
+		    		"    'urlsUsed': ["+
+		    		"      'http://www.google.com/webhp',"+
+		    		"      'http://www.google.ie/webhp'"+
+		    		"    ],"+
+		    		"    'vertexType': 'malware',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'signatureDate': 1408162427000,"+
+		    		"    'malwareType': ['Trojan'],"+
+		    		"    '_id': 'Troj/Zbot-ITY',"+
+		    		"    'source': 'Sophos',"+
+		    		"    'name': 'Troj/Zbot-ITY',"+
+		    		"    'knownFileTypes': ['Windows executable'],"+
+		    		"    'processesCreated': ["+
+		    		"      'c:\\\\Documents and Settings\\\\test user\\\\application data\\\\veufno\\\\buerx.exe',"+
+		    		"      'c:\\\\windows\\\\system32\\\\cmd.exe',"+
+		    		"      'c:\\\\windows\\\\system32\\\\hostname.exe',"+
+		    		"      'c:\\\\windows\\\\system32\\\\ipconfig.exe',"+
+		    		"      'c:\\\\windows\\\\system32\\\\tasklist.exe'"+
+		    		"    ],"+
+		    		"    'discoveryDate': 1407902400000,"+
+		    		"    'registryKeysCreated': ["+
+		    		"      'HKCU\\\\Identities',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Dyxol',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Internet Explorer\\\\Privacy',"+
+		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run'"+
+		    		"    ]"+
+		    		"  }"+
+			    	  "]";
+		    String expectedEdges = "["+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'franciz-industries.biz:80_to_80',"+
+		    		"    '_outV': 'franciz-industries.biz:80',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'franciz-industries.biz:80_to_franciz-industries.biz',"+
+		    		"    '_outV': 'franciz-industries.biz:80',"+
+		    		"    'label': 'hasDNSName',"+
+		    		"    'inVType': 'DNSName',"+
+		    		"    '_inV': 'franciz-industries.biz'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.com:80_to_80',"+
+		    		"    '_outV': 'www.google.com:80',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.com:80_to_www.google.com',"+
+		    		"    '_outV': 'www.google.com:80',"+
+		    		"    'label': 'hasDNSName',"+
+		    		"    'inVType': 'DNSName',"+
+		    		"    '_inV': 'www.google.com'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.ie:80_to_80',"+
+		    		"    '_outV': 'www.google.ie:80',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'www.google.ie:80_to_www.google.ie',"+
+		    		"    '_outV': 'www.google.ie:80',"+
+		    		"    'label': 'hasDNSName',"+
+		    		"    'inVType': 'DNSName',"+
+		    		"    '_inV': 'www.google.ie'"+
+		    		"  }"+
+		    		  "]";
 		    
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
@@ -730,38 +861,75 @@ public class SophosExtractorTest{
 		    JSONArray verts = obj.getJSONArray("vertices");
 		    JSONArray edges = obj.getJSONArray("edges");
 		    
-		    String expectedVerts = "[{"+
-			    	  "  'vertexType': 'malware',"+
-			    	  "  'platform': 'Windows',"+
-			    	  "  'prevalence': 'Small Number of Reports',"+
-			    	  "  'aliases': [ "+
-			    	  "    'TR/Dropper.MSIL.Gen8',"+
-			    	  "    'Troj/MSIL-ACB'], "+
-			    	  "  'md5Hashes': ["+
-			    	  "    'c5579ab457536d2fbd48e0a3bc6dc458'],"+
-			    	  "  'sha1Hashes': ["+
-			    	  "    '4122be8402684403e480aaf5b37caf3b727d8077'],"+
-			    	  "  'filesCreated': ["+
-			    	  "    'c:\\\\Documents and Settings\\\\test user\\\\Local Settings\\\\Temp\\\\141781.bat'],"+
-			    	  "  'processesCreated': ["+
-			    	  "    'c:\\\\windows\\\\system32\\\\cmd.exe'],"+
-			    	  "  'registryKeysCreated': ["+
-			    	  "    'HKCU\\\\Software\\\\WinRAR'],"+
-            		  "  'dnsRequests': ["+
-            		  "    'riseandshine.favcc1.com'],"+
-            		  "  'urlsUsed': ["+
-            		  "    'http://riseandshine.favcc1.com/gate.php'],"+
-			    	  "  '_type': 'vertex',"+
-			    	  "  'modifiedDate': 1408392967000,"+
-			    	  "  'signatureDate': 1408392967000,"+
-			    	  "  'malwareType': ['Trojan'],"+
-			    	  "  '_id': 'Troj/MSIL-ACB',"+
-			    	  "  'source': 'Sophos',"+
-			    	  "  'name': 'Troj/MSIL-ACB',"+
-			    	  "  'knownFileTypes': ['application/x-ms-dos-executable'],"+
-			    	  "  'discoveryDate': 1408334400000"+
-			    	  "}]";
-		    String expectedEdges = "[]";
+		    String expectedVerts = "["+
+		    		"  {"+
+		    		"    'vertexType': 'port',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '80',"+
+		    		"    'name': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'Address',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'riseandshine.favcc1.com:80',"+
+		    		"    'name': 'riseandshine.favcc1.com:80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'vertexType': 'DNSName',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'riseandshine.favcc1.com',"+
+		    		"    'name': 'riseandshine.favcc1.com'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    'platform': 'Windows',"+
+		    		"    'filesCreated': ['c:\\\\Documents and Settings\\\\test user\\\\Local Settings\\\\Temp\\\\141781.bat'],"+
+		    		"    'prevalence': 'Small Number of Reports',"+
+		    		"    'md5Hashes': ['c5579ab457536d2fbd48e0a3bc6dc458'],"+
+		    		"    'aliases': ["+
+		    		"      'TR/Dropper.MSIL.Gen8',"+
+		    		"      'Troj/MSIL-ACB'"+
+		    		"    ],"+
+		    		"    'sha1Hashes': ['4122be8402684403e480aaf5b37caf3b727d8077'],"+
+		    		"    'modifiedDate': 1408392967000,"+
+		    		"    'urlsUsed': ['http://riseandshine.favcc1.com/gate.php'],"+
+		    		"    'vertexType': 'malware',"+
+		    		"    '_type': 'vertex',"+
+		    		"    'signatureDate': 1408392967000,"+
+		    		"    'malwareType': ['Trojan'],"+
+		    		"    '_id': 'Troj/MSIL-ACB',"+
+		    		"    'source': 'Sophos',"+
+		    		"    'name': 'Troj/MSIL-ACB',"+
+		    		"    'knownFileTypes': ['application/x-ms-dos-executable'],"+
+		    		"    'processesCreated': ['c:\\\\windows\\\\system32\\\\cmd.exe'],"+
+		    		"    'discoveryDate': 1408334400000,"+
+		    		"    'registryKeysCreated': ['HKCU\\\\Software\\\\WinRAR']"+
+		    		"  }"+
+			    	  "]";
+		    String expectedEdges = "["+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'riseandshine.favcc1.com:80_to_80',"+
+		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'riseandshine.favcc1.com:80_to_riseandshine.favcc1.com',"+
+		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
+		    		"    'label': 'hasDNSName',"+
+		    		"    'inVType': 'DNSName',"+
+		    		"    '_inV': 'riseandshine.favcc1.com'"+
+		    		"  }"+
+		    		  "]";
 		    
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
