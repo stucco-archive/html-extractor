@@ -422,6 +422,16 @@ public class SophosExtractorTest{
 		    String expectedEdges = "["+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Zbot-ITY_to_franciz-industries.biz:80',"+
+		    		"    '_outV': 'Troj/Zbot-ITY',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': 'franciz-industries.biz:80'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'franciz-industries.biz:80_to_80',"+
@@ -439,6 +449,16 @@ public class SophosExtractorTest{
 		    		"    'label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'franciz-industries.biz'"+
+		    		"  },"+
+		    	    "  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.com:80',"+
+		    		"    '_outV': 'Troj/Zbot-ITY',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': 'www.google.com:80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
@@ -459,6 +479,16 @@ public class SophosExtractorTest{
 		    		"    'label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'www.google.com'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.ie:80',"+
+		    		"    '_outV': 'Troj/Zbot-ITY',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': 'www.google.ie:80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
@@ -724,6 +754,16 @@ public class SophosExtractorTest{
 		    String expectedEdges = "["+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Weelsof-FG_to_176.123.0.160:8080',"+
+		    		"    '_outV': 'Troj/Weelsof-FG',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': '176.123.0.160:8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '176.123.0.160:8080_to_8080',"+
@@ -741,6 +781,16 @@ public class SophosExtractorTest{
 		    		"    'label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '176.123.0.160'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Weelsof-FG_to_195.5.208.87:8080',"+
+		    		"    '_outV': 'Troj/Weelsof-FG',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': '195.5.208.87:8080'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
@@ -764,6 +814,16 @@ public class SophosExtractorTest{
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Weelsof-FG_to_195.65.173.133:8080',"+
+		    		"    '_outV': 'Troj/Weelsof-FG',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': '195.65.173.133:8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '195.65.173.133:8080_to_8080',"+
@@ -784,6 +844,16 @@ public class SophosExtractorTest{
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Weelsof-FG_to_222.124.143.12:8080',"+
+		    		"    '_outV': 'Troj/Weelsof-FG',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': '222.124.143.12:8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '222.124.143.12:8080_to_8080',"+
@@ -801,6 +871,16 @@ public class SophosExtractorTest{
 		    		"    'label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '222.124.143.12'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/Weelsof-FG_to_46.105.117.13:8080',"+
+		    		"    '_outV': 'Troj/Weelsof-FG',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': '46.105.117.13:8080'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
@@ -909,6 +989,16 @@ public class SophosExtractorTest{
 		    		"  }"+
 			    	  "]";
 		    String expectedEdges = "["+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'malware',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': 'Troj/MSIL-ACB_to_riseandshine.favcc1.com:80',"+
+		    		"    '_outV': 'Troj/MSIL-ACB',"+
+		    		"    'label': 'communicatesWith',"+
+		    		"    'inVType': 'address',"+
+		    		"    '_inV': 'riseandshine.favcc1.com:80'"+
+		    		"  },"+
 		    		"  {"+
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+

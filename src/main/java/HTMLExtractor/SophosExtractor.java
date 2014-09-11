@@ -330,6 +330,17 @@ public class SophosExtractor extends HTMLExtractor{
 					addressVertex.put("source", "Sophos");
 					vertices.put(addressVertex);
 					
+					edge = new JSONObject();
+					edge.put("_inV", addressName);
+					edge.put("_outV", vertex.get("name"));
+					edge.put("_id", vertex.get("name") + "_to_" + addressName);
+					edge.put("_type", "edge");
+					edge.put("inVType", "address");
+					edge.put("outVType", "malware");
+					edge.put("source", "Sophos");
+					edge.put("label", "communicatesWith");
+					edges.put(edge);
+					
 					if(portVertex != null){
 						edge = new JSONObject();
 						edge.put("_inV", portString);
@@ -411,6 +422,17 @@ public class SophosExtractor extends HTMLExtractor{
 					addressVertex.put("vertexType", "Address");
 					addressVertex.put("source", "Sophos");
 					vertices.put(addressVertex);
+					
+					edge = new JSONObject();
+					edge.put("_inV", addressName);
+					edge.put("_outV", vertex.get("name"));
+					edge.put("_id", vertex.get("name") + "_to_" + addressName);
+					edge.put("_type", "edge");
+					edge.put("inVType", "address");
+					edge.put("outVType", "malware");
+					edge.put("source", "Sophos");
+					edge.put("label", "communicatesWith");
+					edges.put(edge);
 					
 					if(portVertex != null){
 						edge = new JSONObject();
