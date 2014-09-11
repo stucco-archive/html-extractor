@@ -457,41 +457,241 @@ public class SophosExtractorTest{
 		    JSONArray verts = obj.getJSONArray("vertices");
 		    JSONArray edges = obj.getJSONArray("edges");
 		    
-		    String expectedVerts = "[{"+
-			    	  "  'vertexType': 'malware',"+
-			    	  "  'platform': 'Windows',"+
-			    	  "  'prevalence': 'Small Number of Reports',"+
-			    	  "  'aliases': [ "+
-			    	  "    'TR/Crypt.XPACK.Gen7',"+
-			    	  "    'Troj/Weelsof-FG'], "+
-			    	  "  'md5Hashes': ["+
-			    	  "    'cc3223eca31b00692fa49e63ac88139b'],"+
-			    	  "  'sha1Hashes': ["+
-			    	  "    'b2a166c4d67f324a6ae87e142040f932ccbb596d'],"+
-			    	  "  'filesCreated': ["+
-			    	  "    'c:\\\\Documents and Settings\\\\test user\\\\Local Settings\\\\Application Data\\\\nfdenoin.exe'],"+
-			    	  "  'processesCreated': ["+
-			    	  "    'c:\\\\windows\\\\system32\\\\svchost.exe'],"+
-			    	  "  'registryKeysCreated': ["+
-			    	  "    'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run',"+
-			    	  "    'HKCU\\\\Software\\\\fopnellh'],"+
-            		  "  'ipConnections': ["+
-            		  "    '176.123.0.160:8080',"+
-            		  "    '195.5.208.87:8080',"+
-            		  "    '195.65.173.133:8080',"+
-            		  "    '222.124.143.12:8080',"+
-            		  "    '46.105.117.13:8080'],"+
-			    	  "  '_type': 'vertex',"+
-			    	  "  'modifiedDate': 1408392967000,"+
-			    	  "  'signatureDate': 1408392967000,"+
-			    	  "  'malwareType': ['Trojan'],"+
-			    	  "  '_id': 'Troj/Weelsof-FG',"+
-			    	  "  'source': 'Sophos',"+
-			    	  "  'name': 'Troj/Weelsof-FG',"+
-			    	  "  'knownFileTypes': ['application/x-ms-dos-executable'],"+
-			    	  "  'discoveryDate': 1408334400000"+
-			    	  "}]";
-		    String expectedEdges = "[]";
+		    String expectedVerts = "["+
+		    		"  {"+
+		            "    'vertexType': 'port',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '8080',"+
+		            "    'name': '8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'Address',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '176.123.0.160:8080',"+
+		            "    'name': '176.123.0.160:8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'ip',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '176.123.0.160',"+
+		            "    'name': '176.123.0.160'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'port',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '8080',"+
+		            "    'name': '8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'Address',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '195.5.208.87:8080',"+
+		            "    'name': '195.5.208.87:8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'ip',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '195.5.208.87',"+
+		            "    'name': '195.5.208.87'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'port',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '8080',"+
+		            "    'name': '8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'Address',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '195.65.173.133:8080',"+
+		            "    'name': '195.65.173.133:8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'ip',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '195.65.173.133',"+
+		            "    'name': '195.65.173.133'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'port',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '8080',"+
+		            "    'name': '8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'Address',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '222.124.143.12:8080',"+
+		            "    'name': '222.124.143.12:8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'ip',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '222.124.143.12',"+
+		            "    'name': '222.124.143.12'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'port',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '8080',"+
+		            "    'name': '8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'Address',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '46.105.117.13:8080',"+
+		            "    'name': '46.105.117.13:8080'"+
+		            "  },"+
+		            "  {"+
+		            "    'vertexType': 'ip',"+
+		            "    '_type': 'vertex',"+
+		            "    'source': 'Sophos',"+
+		            "    '_id': '46.105.117.13',"+
+		            "    'name': '46.105.117.13'"+
+		            "  },"+
+		            "  {"+
+		            "    'platform': 'Windows',"+
+		            "    'filesCreated': ['c:\\\\Documents and Settings\\\\test user\\\\Local Settings\\\\Application Data\\\\nfdenoin.exe'],"+
+		            "    'prevalence': 'Small Number of Reports',"+
+		            "    'md5Hashes': ['cc3223eca31b00692fa49e63ac88139b'],"+
+		            "    'aliases': ["+
+		            "      'TR/Crypt.XPACK.Gen7',"+
+		            "      'Troj/Weelsof-FG'"+
+		            "    ],"+
+		            "    'sha1Hashes': ['b2a166c4d67f324a6ae87e142040f932ccbb596d'],"+
+		            "    'modifiedDate': 1408392967000,"+
+		            "    'vertexType': 'malware',"+
+		            "    '_type': 'vertex',"+
+		            "    'signatureDate': 1408392967000,"+
+		            "    'malwareType': ['Trojan'],"+
+		            "    '_id': 'Troj/Weelsof-FG',"+
+		            "    'source': 'Sophos',"+
+		            "    'name': 'Troj/Weelsof-FG',"+
+		            "    'knownFileTypes': ['application/x-ms-dos-executable'],"+
+		            "    'processesCreated': ['c:\\\\windows\\\\system32\\\\svchost.exe'],"+
+		            "    'discoveryDate': 1408334400000,"+
+		            "    'registryKeysCreated': ["+
+		            "      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run',"+
+		            "      'HKCU\\\\Software\\\\fopnellh'"+
+		            "    ]"+
+		            "  }"+
+			    	  "]";
+		    String expectedEdges = "["+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '176.123.0.160:8080_to_8080',"+
+		    		"    '_outV': '176.123.0.160:8080',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '176.123.0.160:8080_to_176.123.0.160',"+
+		    		"    '_outV': '176.123.0.160:8080',"+
+		    		"    'label': 'hasIP',"+
+		    		"    'inVType': 'ip',"+
+		    		"    '_inV': '176.123.0.160'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '195.5.208.87:8080_to_8080',"+
+		    		"    '_outV': '195.5.208.87:8080',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '195.5.208.87:8080_to_195.5.208.87',"+
+		    		"    '_outV': '195.5.208.87:8080',"+
+		    		"    'label': 'hasIP',"+
+		    		"    'inVType': 'ip',"+
+		    		"    '_inV': '195.5.208.87'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '195.65.173.133:8080_to_8080',"+
+		    		"    '_outV': '195.65.173.133:8080',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '195.65.173.133:8080_to_195.65.173.133',"+
+		    		"    '_outV': '195.65.173.133:8080',"+
+		    		"    'label': 'hasIP',"+
+		    		"    'inVType': 'ip',"+
+		    		"    '_inV': '195.65.173.133'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '222.124.143.12:8080_to_8080',"+
+		    		"    '_outV': '222.124.143.12:8080',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '222.124.143.12:8080_to_222.124.143.12',"+
+		    		"    '_outV': '222.124.143.12:8080',"+
+		    		"    'label': 'hasIP',"+
+		    		"    'inVType': 'ip',"+
+		    		"    '_inV': '222.124.143.12'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '46.105.117.13:8080_to_8080',"+
+		    		"    '_outV': '46.105.117.13:8080',"+
+		    		"    'label': 'hasPort',"+
+		    		"    'inVType': 'port',"+
+		    		"    '_inV': '8080'"+
+		    		"  },"+
+		    		"  {"+
+		    		"    '_type': 'edge',"+
+		    		"    'outVType': 'address',"+
+		    		"    'source': 'Sophos',"+
+		    		"    '_id': '46.105.117.13:8080_to_46.105.117.13',"+
+		    		"    '_outV': '46.105.117.13:8080',"+
+		    		"    'label': 'hasIP',"+
+		    		"    'inVType': 'ip',"+
+		    		"    '_inV': '46.105.117.13'"+
+		    		"  }"+
+		    		  "]";
 		    
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
 		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));

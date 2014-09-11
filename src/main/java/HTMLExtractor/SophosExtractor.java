@@ -13,7 +13,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -284,9 +283,89 @@ public class SophosExtractor extends HTMLExtractor{
 			if(registryKeysCreated.size() > 0) vertex.put("registryKeysCreated", registryKeysCreated);
 			if(registryKeysModified.size() > 0) vertex.put("registryKeysModified", registryKeysModified);
 			if(processesCreated.size() > 0) vertex.put("processesCreated", processesCreated);
-			if(ipConnections.size() > 0) vertex.put("ipConnections", ipConnections); //TODO: make vertex
+			if(urlsUsed.size() > 0) vertex.put("urlsUsed", urlsUsed);
+			
+			//handle IP info - build address nodes, port nodes, and any edges as needed
+			JSONObject edge;
+			if(ipConnections.size() > 0){
+				for(String ip : ipConnections){
+					String ipString, portString;
+					JSONObject portVertex = null;
+					JSONObject ipVertex = null;
+					JSONObject addressVertex = null;
+					
+					int port;
+					try{
+						port = getPortFromURL(ip);
+					}catch(Exception e){
+						logger.warn("Exception when parsing port info from ip string " + ip, e);
+						port = -1;
+					}
+					if(port != -1){
+						portString = Integer.toString(port);
+						if(ip.endsWith(":"+portString))
+							ipString = ip.replace(":"+portString, "");
+						else 
+							ipString = ip;
+						
+						portVertex = new JSONObject();
+						portVertex.put("name", portString);
+						portVertex.put("_id", portString);
+						portVertex.put("_type", "vertex");
+						portVertex.put("vertexType", "port");
+						portVertex.put("source", "Sophos");
+						vertices.put(portVertex);
+					}else{ //shouldn't ever give -1 anyway
+						logger.warn("could not find port for ip string {}", ip);
+						portString = "unknown";
+						ipString = ip;
+					}
+					
+					addressVertex = new JSONObject();
+					String addressName = ipString + ":" + portString;
+					addressVertex.put("name", addressName);
+					addressVertex.put("_id", addressName);
+					addressVertex.put("_type", "vertex");
+					addressVertex.put("vertexType", "Address");
+					addressVertex.put("source", "Sophos");
+					vertices.put(addressVertex);
+					
+					if(portVertex != null){
+						edge = new JSONObject();
+						edge.put("_inV", portString);
+						edge.put("_outV", addressName);
+						edge.put("_id", addressName + "_to_" + portString);
+						edge.put("_type", "edge");
+						edge.put("inVType", "port");
+						edge.put("outVType", "address");
+						edge.put("source", "Sophos");
+						edge.put("label", "hasPort");
+						edges.put(edge);
+					}
+					
+					ipVertex = new JSONObject();
+					ipVertex.put("name", ipString);
+					ipVertex.put("_id", ipString);
+					ipVertex.put("_type", "vertex");
+					ipVertex.put("vertexType", "ip");
+					ipVertex.put("source", "Sophos");
+					vertices.put(ipVertex);
+					
+					edge = new JSONObject();
+					edge.put("_inV", ipString);
+					edge.put("_outV", addressName);
+					edge.put("_id", addressName + "_to_" + ipString);
+					edge.put("_type", "edge");
+					edge.put("inVType", "ip");
+					edge.put("outVType", "address");
+					edge.put("source", "Sophos");
+					edge.put("label", "hasIP");
+					edges.put(edge);
+				}
+			}
+			
 			if(dnsRequests.size() > 0) vertex.put("dnsRequests", dnsRequests); //TODO: make vertex
-			if(urlsUsed.size() > 0) vertex.put("urlsUsed", urlsUsed); //TODO: make vertex
+			
 		}
 		
 		//TODO put some remaining free text in desc? (Not always present...)
