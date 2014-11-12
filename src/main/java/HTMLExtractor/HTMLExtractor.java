@@ -163,11 +163,13 @@ public abstract class HTMLExtractor {
 				currCell = rows.get(i).getElementsByTag("td").get(j);
 				currCellText = currCell.text();
 				if(currCellText.equals("")){ //if you haven't found text yet, try harder.
-					currChild = currCell.child(0);
-					if(currChild.tagName().equals("img")){
-						currCellText = currChild.attr("title");
+					if(currCell.childNodeSize() != 0){ //...if you can.
+						currChild = currCell.child(0);
+						if(currChild.tagName().equals("img")){
+							currCellText = currChild.attr("title");
+						}
+						//TODO handle other cases as they arise.
 					}
-					//TODO handle other cases as they arise.
 				}
 				//System.out.println(currCellText);
 				contents[i][j] = currCellText;
