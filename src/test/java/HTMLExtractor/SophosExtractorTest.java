@@ -426,7 +426,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Zbot-ITY_to_franciz-industries.biz:80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': 'franciz-industries.biz:80'"+
 		    		"  },"+
@@ -436,7 +436,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'franciz-industries.biz:80_to_80',"+
 		    		"    '_outV': 'franciz-industries.biz:80',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '80'"+
 		    		"  },"+
@@ -446,7 +446,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'franciz-industries.biz:80_to_franciz-industries.biz',"+
 		    		"    '_outV': 'franciz-industries.biz:80',"+
-		    		"    'label': 'hasDNSName',"+
+		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'franciz-industries.biz'"+
 		    		"  },"+
@@ -456,7 +456,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.com:80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': 'www.google.com:80'"+
 		    		"  },"+
@@ -466,7 +466,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.com:80_to_80',"+
 		    		"    '_outV': 'www.google.com:80',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '80'"+
 		    		"  },"+
@@ -476,7 +476,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.com:80_to_www.google.com',"+
 		    		"    '_outV': 'www.google.com:80',"+
-		    		"    'label': 'hasDNSName',"+
+		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'www.google.com'"+
 		    		"  },"+
@@ -486,7 +486,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.ie:80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': 'www.google.ie:80'"+
 		    		"  },"+
@@ -496,7 +496,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.ie:80_to_80',"+
 		    		"    '_outV': 'www.google.ie:80',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '80'"+
 		    		"  },"+
@@ -506,7 +506,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.ie:80_to_www.google.ie',"+
 		    		"    '_outV': 'www.google.ie:80',"+
-		    		"    'label': 'hasDNSName',"+
+		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'www.google.ie'"+
 		    		"  }"+
@@ -758,7 +758,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Weelsof-FG_to_176.123.0.160:8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': '176.123.0.160:8080'"+
 		    		"  },"+
@@ -768,7 +768,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '176.123.0.160:8080_to_8080',"+
 		    		"    '_outV': '176.123.0.160:8080',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '8080'"+
 		    		"  },"+
@@ -778,7 +778,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '176.123.0.160:8080_to_176.123.0.160',"+
 		    		"    '_outV': '176.123.0.160:8080',"+
-		    		"    'label': 'hasIP',"+
+		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '176.123.0.160'"+
 		    		"  },"+
@@ -788,7 +788,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Weelsof-FG_to_195.5.208.87:8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': '195.5.208.87:8080'"+
 		    		"  },"+
@@ -798,7 +798,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '195.5.208.87:8080_to_8080',"+
 		    		"    '_outV': '195.5.208.87:8080',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '8080'"+
 		    		"  },"+
@@ -808,7 +808,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '195.5.208.87:8080_to_195.5.208.87',"+
 		    		"    '_outV': '195.5.208.87:8080',"+
-		    		"    'label': 'hasIP',"+
+		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '195.5.208.87'"+
 		    		"  },"+
@@ -818,7 +818,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Weelsof-FG_to_195.65.173.133:8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': '195.65.173.133:8080'"+
 		    		"  },"+
@@ -828,7 +828,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '195.65.173.133:8080_to_8080',"+
 		    		"    '_outV': '195.65.173.133:8080',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '8080'"+
 		    		"  },"+
@@ -838,7 +838,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '195.65.173.133:8080_to_195.65.173.133',"+
 		    		"    '_outV': '195.65.173.133:8080',"+
-		    		"    'label': 'hasIP',"+
+		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '195.65.173.133'"+
 		    		"  },"+
@@ -848,7 +848,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Weelsof-FG_to_222.124.143.12:8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': '222.124.143.12:8080'"+
 		    		"  },"+
@@ -858,7 +858,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '222.124.143.12:8080_to_8080',"+
 		    		"    '_outV': '222.124.143.12:8080',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '8080'"+
 		    		"  },"+
@@ -868,7 +868,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '222.124.143.12:8080_to_222.124.143.12',"+
 		    		"    '_outV': '222.124.143.12:8080',"+
-		    		"    'label': 'hasIP',"+
+		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '222.124.143.12'"+
 		    		"  },"+
@@ -878,7 +878,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/Weelsof-FG_to_46.105.117.13:8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': '46.105.117.13:8080'"+
 		    		"  },"+
@@ -888,7 +888,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '46.105.117.13:8080_to_8080',"+
 		    		"    '_outV': '46.105.117.13:8080',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '8080'"+
 		    		"  },"+
@@ -898,7 +898,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '46.105.117.13:8080_to_46.105.117.13',"+
 		    		"    '_outV': '46.105.117.13:8080',"+
-		    		"    'label': 'hasIP',"+
+		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
 		    		"    '_inV': '46.105.117.13'"+
 		    		"  }"+
@@ -995,7 +995,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'Troj/MSIL-ACB_to_riseandshine.favcc1.com:80',"+
 		    		"    '_outV': 'Troj/MSIL-ACB',"+
-		    		"    'label': 'communicatesWith',"+
+		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
 		    		"    '_inV': 'riseandshine.favcc1.com:80'"+
 		    		"  },"+
@@ -1005,7 +1005,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'riseandshine.favcc1.com:80_to_80',"+
 		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
-		    		"    'label': 'hasPort',"+
+		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
 		    		"    '_inV': '80'"+
 		    		"  },"+
@@ -1015,7 +1015,7 @@ public class SophosExtractorTest{
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'riseandshine.favcc1.com:80_to_riseandshine.favcc1.com',"+
 		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
-		    		"    'label': 'hasDNSName',"+
+		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
 		    		"    '_inV': 'riseandshine.favcc1.com'"+
 		    		"  }"+
