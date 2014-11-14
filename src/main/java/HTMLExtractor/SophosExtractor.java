@@ -338,7 +338,7 @@ public class SophosExtractor extends HTMLExtractor{
 					edge.put("inVType", "address");
 					edge.put("outVType", "malware");
 					edge.put("source", "Sophos");
-					edge.put("label", "communicatesWith");
+					edge.put("_label", "communicatesWith");
 					edges.put(edge);
 					
 					if(portVertex != null){
@@ -350,7 +350,7 @@ public class SophosExtractor extends HTMLExtractor{
 						edge.put("inVType", "port");
 						edge.put("outVType", "address");
 						edge.put("source", "Sophos");
-						edge.put("label", "hasPort");
+						edge.put("_label", "hasPort");
 						edges.put(edge);
 					}
 					
@@ -370,7 +370,7 @@ public class SophosExtractor extends HTMLExtractor{
 					edge.put("inVType", "ip");
 					edge.put("outVType", "address");
 					edge.put("source", "Sophos");
-					edge.put("label", "hasIP");
+					edge.put("_label", "hasIP");
 					edges.put(edge);
 				}
 			}
@@ -431,7 +431,7 @@ public class SophosExtractor extends HTMLExtractor{
 					edge.put("inVType", "address");
 					edge.put("outVType", "malware");
 					edge.put("source", "Sophos");
-					edge.put("label", "communicatesWith");
+					edge.put("_label", "communicatesWith");
 					edges.put(edge);
 					
 					if(portVertex != null){
@@ -443,7 +443,7 @@ public class SophosExtractor extends HTMLExtractor{
 						edge.put("inVType", "port");
 						edge.put("outVType", "address");
 						edge.put("source", "Sophos");
-						edge.put("label", "hasPort");
+						edge.put("_label", "hasPort");
 						edges.put(edge);
 					}
 					
@@ -463,7 +463,7 @@ public class SophosExtractor extends HTMLExtractor{
 					edge.put("inVType", "DNSName");
 					edge.put("outVType", "address");
 					edge.put("source", "Sophos");
-					edge.put("label", "hasDNSName");
+					edge.put("_label", "hasDNSName");
 					edges.put(edge);
 				}
 			}
