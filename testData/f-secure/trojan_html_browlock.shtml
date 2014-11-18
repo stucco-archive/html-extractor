@@ -1,352 +1,291 @@
-<html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>Trojan:HTML/Browlock</title>
-      <link href="http://www.f-secure.com/html/portal/css.jsp?browserId=firefox&amp;themeId=web2010_WAR_theme&amp;colorSchemeId=04&amp;minifierType=css&amp;languageId=en_US&amp;t=1288856378000" rel="stylesheet" type="text/css">
-      <link href="http://www.f-secure.com/html/portlet/journal_content/css.jsp?browserId=firefox&amp;themeId=web2010_WAR_theme&amp;colorSchemeId=04&amp;minifierType=css&amp;languageId=en_US&amp;t=1350862517000" rel="stylesheet" type="text/css"><script src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vfln2fQh1.js" async=""></script><script src="http://www.youtube.com/player_api"></script><style type="text/css">#banner .logo a{background:url(/image/company_logo?img_id=0&t=1350970285925) no-repeat;display:block;font-size:0;height:76px;text-indent:-9999em;width:209px;}</style><script src="http://www.f-secure.com/theme/javascript/jquery.portlet.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" media="all" href="http://www.f-secure.com/theme/custom/web2010/css/custom.css">
-      <link rel="stylesheet" type="text/css" media="all" href="http://www.f-secure.com/theme/custom/web2010/css/thickbox.css">
-      <link rel="stylesheet" type="text/css" media="all" href="http://www.f-secure.com/theme/custom/web2010/css/main.css">
-      <link rel="stylesheet" type="text/css" media="print" href="http://www.f-secure.com/theme/custom/web2010/css/print.css"><script id="" src="http://www.f-secure.com/theme/javascript/jquery.portlet.js" type="text/javascript"></script><script type="text/javascript" src="http://www.f-secure.com/js/affiliate.js"></script><script type="text/javascript" src="http://www.f-secure.com/js/mbox.js"></script><style>.mboxDefault { visibility:hidden; }</style><script id="" src="http://www.f-secure.com/theme/javascript/thickbox.js" type="text/javascript"></script><script type="text/javascript" src="http://www.f-secure.com/theme/custom/web2010/js/library.js"></script><script type="text/javascript" src="http://www.f-secure.com/theme/custom/web2010/js/jqmodal.js"></script></head>
-   <body class="lab-scheme controls-visible signed-out public-page dark-grey-theme  js base10">
-      <div class="top-header">
-         <div class="container">
-            <div id="p_p_id_topnavigation_WAR_topnavigation_" class="portlet-boundary portlet-boundary_topnavigation_WAR_topnavigation_ "><a id="p_topnavigation_WAR_topnavigation"></a><div class="portlet-borderless-container" style="">
-                  <div>
-                     <ul class="header-nav">
-                        <li class="first"><a href="http://www.f-secure.com/en/web/labs_global/articles/about_rogues/-/navigate/do/changeSection/to/home "><span>For Home</span></a></li>
-                        <li><a href="http://www.f-secure.com/en/web/labs_global/articles/about_rogues/-/navigate/do/changeSection/to/business "><span>For Business</span></a></li>
-                        <li><a href="http://www.f-secure.com/en/web/labs_global/articles/about_rogues/-/navigate/do/changeSection/to/operators "><span>For Operators</span></a></li>
-                        <li><a class=" current" href="http://www.f-secure.com/en/web/labs_global/articles/about_rogues/-/navigate/do/changeSection/to/labs "><span>F-Secure Labs</span></a></li>
-                        <li class="last"><a href="http://www.f-secure.com/en/web/labs_global/articles/about_rogues/-/navigate/do/changeSection/to/corporation "><span>About F-Secure</span></a></li>
-                     </ul>
-                     <hr>
-                     <div class="search-selection"><img src="http://www.f-secure.com/theme/custom/web2010/images/icon/search.png" alt="Eng" width="56" height="32" class="search-hover-area"><div class="search-dropdown"><span class="search-dropdown-top"></span><div class="search-dropdown-inner">
-                              <div class="wrapper-search-dropdown">
-                                 <form name="topSearchForm" id="search" action="http://www.google.com/cse" method="get" class="search" style="padding-left:15px;">
-                                    <fieldset><input type="hidden" value="014625612662474666087:2paeijvwemq" name="cx"><input type="hidden" value="UTF-8" name="ie"><input id="searchKeyword" type="text" class="search-text" name="q"><input id="topSearchButton" type="submit" name="sa" class="ir2 btn-search" value=""></fieldset>
-                                 </form><script type="text/javascript">/**/jQuery("#searchKeyword").each(function(){var a=this.value="";jQuery(this).focus(function(){if(this.value==a){this.value=""}});jQuery(this).blur(function(){if(this.value==""){this.value=a}});jQuery("#search").submit(function(){var b=jQuery("#searchKeyword").val();if(b==a||b==""){return false}return true})});/**/</script><script src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en&amp;sitesearch=true" type="text/javascript"></script></div>
-                           </div><span class="search-dropdown-bottom"></span></div>
-                     </div><script type="text/javascript">/**/jQuery.cookie("js_user_locale","en_GLOBAL",{path:"/"});/**/</script></div>
-               </div><script type="text/javascript">/**/Liferay.Portlet.onLoad({canEditTitle:false,columnPos:0,isStatic:"end",namespacedId:"p_p_id_topnavigation_WAR_topnavigation_",portletId:"topnavigation_WAR_topnavigation",refreshURL:"\x2fen\x2fc\x2fportal\x2frender_portlet\x3fp_l_id\x3d636713\x26p_p_id\x3dtopnavigation_WAR_topnavigation\x26p_p_lifecycle\x3d0\x26p_p_state\x3dnormal\x26p_p_mode\x3dview\x26p_p_col_id\x3d\x26p_p_col_pos\x3d0\x26p_p_col_count\x3d0\x26currentURL\x3d\x252Fen\x252Fweb\x252Flabs_global\x252Farticles\x252Fabout_rogues"});/**/</script></div>
-         </div>
-      </div>
-      <div class="container">
-         <ol id="accessibility-nav">
-            <li><a href="#navigation">Skip to navigation</a></li>
-            <li><a href="#content">Skip to content</a></li>
-            <li><a href="#sidebar">Skip to sidebar</a></li>
-         </ol>
-         <hr>
-         <div id="header">
-            <hr><a href="/" rel="home" title="Go to homepage" class="fsecure"><span></span></a><div class="bottom-header">
-               <hr>
-               <hr>
-            </div>
-         </div>
-         <div id="navigation" class="add-sub-navigation sub-navigation-activeleft">
-            <ul class="left">
-               <li id="home">
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/home" class="first main-navigation"><em>Home</em><img src="http://www.f-secure.com/theme/custom/web2010/images/icon/ico-navigation-home.png" alt="Home" width="48" height="40"><span class="nav-arrow nav-arrow-home"></span></a></div>
-               </li>
-               <li>
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/news" class="main-navigation"> News<span class="nav-arrow"></span></a></div>
-               </li>
-               <li class="current">
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/threats" class="main-navigation"> Threats<span class="nav-arrow"></span></a></div>
-                  <ul class="sub-navigation">
-                     <li class="current"><a class="first" href="http://www.f-secure.com/en/web/labs_global/threats/descriptions"><span>Virus and threat descriptions</span></a></li>
-                     <li><a href="http://www.f-secure.com/en/web/labs_global/mobile-security"><span>Mobile security</span></a></li>
-                     <li><a href="http://www.f-secure.com/en/web/labs_global/vulnerability"><span>Vulnerability protection</span></a></li>
-                     <li><a href="http://www.f-secure.com/en/web/labs_global/threats/classifications"><span>Classifications</span></a></li>
-                  </ul>
-               </li>
-               <li>
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/how-to" class="main-navigation"> How To<span class="nav-arrow"></span></a></div>
-               </li>
-               <li>
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/submit-samples" class="main-navigation"> Submit Samples<span class="nav-arrow"></span></a></div>
-               </li>
-               <li>
-                  <div class="wrapper-navigation"><a href="http://www.f-secure.com/en/web/labs_global/beta-programs" class="main-navigation"> Beta Programs<span class="nav-arrow"></span></a></div>
-               </li>
-            </ul>
-         </div>
-         <p class="breadcrumb"><span>You are here:</span><a href="http://www.f-secure.com/en/web/labs_global/threats">Threats</a><a href="http://www.f-secure.com/en/web/labs_global/threats/descriptions">Virus and threats descriptions</a><strong>Trojan:HTML/Browlock</strong></p>
-         <hr>
-         <div id="content" class="box-1-column">
-            <div id="p_p_id_103_" class="portlet-boundary portlet-boundary_103_ "><a id="p_103"></a><script type="text/javascript">/**/Liferay.Portlet.onLoad({canEditTitle:false,columnPos:0,isStatic:"end",namespacedId:"p_p_id_103_",portletId:"103",refreshURL:"\x2fen\x2fc\x2fportal\x2frender_portlet\x3fp_l_id\x3d468243\x26p_p_id\x3d103\x26p_p_lifecycle\x3d0\x26p_p_state\x3dnormal\x26p_p_mode\x3dview\x26p_p_col_id\x3d\x26p_p_col_pos\x3d0\x26p_p_col_count\x3d0\x26currentURL\x3d\x252Fen\x252Fweb\x252Flabs_global\x252Fterminology-a"});/**/</script></div>
-            <div id="content" class="box-1-column">
-               <div class="lfr-grid" id="layout-grid">
-                  <div class="box-2-column-70 left lfr-column" id="column-1">
-                     <div class="lfr-portlet-column empty" id="layout-column_column-1"></div>
-                  </div>
-                  <div class="box-2-column-30 right lfr-column" id="column-2">
-                     <div class="lfr-portlet-column empty" id="layout-column_column-2"></div>
-                  </div>
-                  <div class="box-1-column lfr-column" id="column-3">
-                     <div class="lfr-portlet-column" id="layout-column_column-3">
-                        <div id="p_p_id_titleMaxLevel2_WAR_webtemplate_" class="portlet-boundary portlet-boundary_titleMaxLevel2_WAR_webtemplate_ "><a id="p_titleMaxLevel2_WAR_webtemplate"></a><div class="portlet" id="portlet-wrapper-titleMaxLevel2_WAR_webtemplate">
-                              <div class="portlet-content">
-                                 <div class="portlet-content-container" style="">
-                                    <div>
-                                       <div id="title-page-alt">
-                                          <h1>Trojan:HTML/Browlock</h1>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div><script type="text/javascript">/**/Liferay.Portlet.onLoad({canEditTitle:false,columnPos:0,isStatic:"end",namespacedId:"p_p_id_titleMaxLevel2_WAR_webtemplate_",portletId:"titleMaxLevel2_WAR_webtemplate",refreshURL:"\x2fen\x2fc\x2fportal\x2frender_portlet\x3fp_l_id\x3d468243\x26p_p_id\x3dtitleMaxLevel2_WAR_webtemplate\x26p_p_lifecycle\x3d0\x26p_p_state\x3dnormal\x26p_p_mode\x3dview\x26p_p_col_id\x3dcolumn-3\x26p_p_col_pos\x3d0\x26p_p_col_count\x3d1\x26currentURL\x3d\x252Fen\x252Fweb\x252Flabs_global\x252Fterminology-a"});/**/</script></div>
-                     </div>
-                  </div>
-                  <div class="box-2-column-70 left lfr-column" id="column-4">
-                     <div class="lfr-portlet-column" id="layout-column_column-4">
-                        <div id="p_p_id_56_INSTANCE_j7VU_" class="portlet-boundary portlet-boundary_56_ portlet-journal-content"><a id="p_56_INSTANCE_j7VU"></a><div class="portlet" id="portlet-wrapper-56_INSTANCE_j7VU">
-                              <div class="portlet-content">
-                                 <div class="portlet-content-container" style="">
-                                    <div>
-                                       <div class="journal-content-article">
-                                          <div class="journal-content-article">
-                                             <div class="box-rounded br-blue">
-                                                <div class="f-content" style="font-size:9pt;color:white">
-                                                   <div style="float:left;width:12%;"><br><b>Aliases</b>:<br><br></div>
-                                                   <div style="width:40%;float:left;padding-right:2%;"><br>Trojan:HTML/Browlock.[variant]<br></div>
-                                                   <div style="float:left;width:12%;"><br><b><a href="http://www.f-secure.com/en/web/labs_global/threat-categories">Category</a>:</b><br><b><a href="http://www.f-secure.com/en/web/labs_global/threat-types">Type</a>:</b><br><b><a href="http://www.f-secure.com/en/web/labs_global/threat-platforms">Platform</a>:</b><br></div>
-                                                   <div style="float:left;width:22%;"><br>Malware<br>Trojan<br>HTML<br></div>
-                                                </div>
-                                             </div><span class="br-tl"></span><span class="br-tr"></span><span class="br-bl"></span><span class="br-br"></span></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="portlet-boundary portlet-boundary_56_ portlet-journal-content">
-                           <div class="portlet">
-                              <div class="portlet-content">
-                                 <div class="portlet-content-container" style="">
-                                    <div>
-                                       <div class="journal-content-article">
-                                          <div class="content-protection">
-                                             <div class="f-content">
-                                                <div align="left"><br><h3><b>Summary</b></h3>
-                                                   
-                                                   <p>Trojan:HTML/Browlock is <a href="http://www.f-secure.com/en/web/labs_global/terminology-r#Ransomware">ransomware</a> that prevents users from accessing the infected machine's Desktop; it then demands
-                                                      payment, supposedly for either possession of illegal material or usage of illegal
-                                                      software.
-                                                   </p>
-                                                   <br><br><h3><b>Disinfection &amp; Removal</b></h3>
-                                                   <br><p><b>Automatic Disinfection</b></p>
-                                                   
-                                                   <p>Allow  <a href="http://www.f-secure.com/en/web/home_global/protection/anti-virus/overview?icid=480">F-Secure Anti-Virus</a> to disinfect the relevant files.
-                                                   </p>  
-                                                   <br><p><b>More</b></p>
-                                                   
-                                                   <p>For more information, see <a href="http://www.f-secure.com/en/web/labs_global/removal/removing-ransomware">Removing 'Police-themed' Ransomware</a>.
-                                                   </p>
-                                                   
-                                                   <p>For more general information on disinfection, please see  <a href="http://www.f-secure.com/en/web/labs_global/general-removal-instructions">Removal Instructions.</a></p>
-                                                   <br><br><h3><b>Technical Details</b></h3>
-                                                   
-                                                   <p>Trojan:HTML/Browlock has been reported to target users in multiple countries, including
-                                                      the United States, the United Kingdom and Canada. Typically, it will display a 'lock
-                                                      screen' purportedly from a local or federal law enforcement authority, claiming that
-                                                      the machine has been locked and encrypted due to 'illegal activities'. A 'fine' is
-                                                      then demanded to restore the system.
-                                                   </p>
-                                                   
-                                                   <p>This malware was also covered in our Labs Weblog blogpost:</p>
-                                                   
-                                                   <ul>
-                                                      
-                                                      <li>
-                                                         <a href="http://www.f-secure.com/weblog/archives/00002590.html">Browlock Ransomware Targets New Countries</a>
-                                                         
-                                                      </li>
-                                                      
-                                                   </ul>
-                                                   
-                                                   <p>A lock screen used by one Browlock variant is shown below:</p>
-                                                   <img src="http://www.f-secure.com/weblog/archives/brow_uk.png" align="middle" style="display:block; margin-left:auto; margin-right:auto; width:px; border: 1px solid black; margin-top:15px; margin-bottom:10px;">
-                                                   <br><br><br><br><p></p><br><br></div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="box-2-column-30 right lfr-column" id="column-5">
-                     <div class="lfr-portlet-column" id="layout-column_column-5">
-                        <div class="portlet-boundary portlet-boundary_56_ portlet-journal-content">
-                           <div class="portlet">
-                              <div class="portlet-content">
-                                 <div class="portlet-content-container" style="">
-                                    <div>
-                                       <div class="portlet-boundary portlet-boundary_56_ portlet-journal-content">
-                                          <div class="portlet">
-                                             <div class="portlet-content">
-                                                <div class="portlet-content-container" style="">
-                                                   <div>
-                                                      <div class="journal-content-article">
-                                                         <div class="box-rounded br-grey">
-                                                            <div class="f-content">
-                                                               <h2>Submit a sample</h2><br><p>Wondering if a file or URL is malicious? Submit a sample to our Lab for analysis via
-                                                                  the Sample Analysis System (SAS)
-                                                               </p>
-                                                            </div>
-                                                            <div class="f-content"><br><br><br><br><p><a class="button orange-button" href="https://analysis.f-secure.com/portal/login.html"><span>Submit</span></a></p>
-                                                            </div><span class="br-tl"></span><span class="br-tr"></span><span class="br-bl"></span><span class="br-br"></span></div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="portlet-boundary portlet-boundary_56_ portlet-journal-content">
-                                          <div class="portlet">
-                                             <div class="portlet-content">
-                                                <div class="portlet-content-container" style="">
-                                                   <div>
-                                                      <div class="journal-content-article">
-                                                         <div class="box-rounded br-blue">
-                                                            <div class="f-content">
-                                                               <h2>F-Secure Community</h2><br><img style="float: right; margin-left: 5px; margin-right: 5px; width:90px;" src="http://www.f-secure.com/static/img/labs_global/Icons/98/forum_bubbles_icon.png"><br><br><p>Give advice. Get advice. Share the knowledge on our free discussion forum.</p>
-                                                            </div>
-                                                            <div class="f-content"><br><br><br><br><p><a class="button purple-button" href="http://community.f-secure.com/t5/Welcome/ct-p/EN"><span>Go to Community</span></a></p>
-                                                            </div><span class="br-tl"></span><span class="br-tr"></span><span class="br-bl"></span><span class="br-br"></span></div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div><br><br></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <form action="" id="hrefFm" method="post" name="hrefFm"></form>
-         </div>
-      </div>
-      <div id="footer">
-         <div class="container">
-            <div class="footer-inner">
-               <div class="left-footer">
-                  <div class="title-footer">
-                     <h2>Protecting the irreplaceable</h2>
-                  </div>
-                  <div class="row first-row">
-                     <div class="column">
-                        <h3>Protection</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/safe">SAFE</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/mobile-security">Mobile Security</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/internet-security">Internet Security</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/anti-virus">Anti-Virus</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/anti-virus-for-mac">Anti-Virus for Mac</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/child-safe">Child Safe</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/freedome">Freedome</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/younited">younited</a><br></li>
-                        </ul>
-                     </div>
-                     <div class="column">
-                        <h3>Analysis</h3>
-                        <ul>
-                           <li><a href="https://analysis.f-secure.com/portal/login.html">Sample Analysis System</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/submit-samples/spam-submission">Spam Submissions</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/submit-samples/browsing-protection">Browsing protection</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/submit-samples/banking-protection">Banking Protection</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/security-advisories">Vulnerability Reporting</a><br></li>
-                        </ul>
-                        <h3>Free Tools</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/online-scanner">Online Scanner</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/search">F-Secure Search</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/app-permissions">App Permissions</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/key">Key</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/anti-theft">Anti-Theft</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/lokki">Lokki</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/support/installers">Latest versions</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/removal-tools/-/carousel/view/142">Rescue CD</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/removal-tools/-/carousel/view/140">Databases</a><br></li>
-                        </ul>
-                     </div>
-                     <div class="column">
-                        <h3>Support</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/support/get-support-online">Product support</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/support/installers">Downloads</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/home_global/support/support-news">Support news</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/business_global/support/supported-products">Supported products</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/business_global/support/contact">Contact Support</a><br></li>
-                        </ul>
-                        <h3>News &amp; feeds</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/weblog/">Labs Weblog</a></li>
-                           <li><a href="http://safeandsavvy.f-secure.com/">Safe and Savvy blog</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/threats/descriptions">Latest Malware Threats</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/mobile-security">Latest Mobile Threats</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/vulnerability">Latest Vulnerabilities</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/rss-feeds">RSS feeds</a><br></li>
-                        </ul>
-                     </div>
-                     <div class="column wider-column">
-                        <h3>Connect</h3>
-                        <ul>
-                           <li><a href="http://www.facebook.com/FSecure">Follow us on Facebook<br></a></li>
-                           <li><a href="http://twitter.com/FSLabs">Follow us on Twitter</a></li>
-                           <li><a href="http://community.f-secure.com/t5/Welcome/ct-p/EN">F-Secure Community</a><br></li>
-                        </ul>
-                        <h3>About F-Secure</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/about/history">Company history</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/about/protecting-you">Protecting you 24/7</a><br></li>
-                        </ul>
-                        <h3>Information</h3>
-                        <ul>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/terms">Legal terms</a></li>
-                           <li><a href="http://www.f-secure.com/en/web/labs_global/sitemap">Sitemap</a><br></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="column">
-                        <h3></h3>
-                     </div>
-                  </div>
-               </div>
-               <hr>
-               <div class="right-footer">
-                  <h3>Other sites</h3>
-                  <h4>F-Secure for Business</h4>
-                  <ul>
-                     <li><a href="http://www.f-secure.com/en/web/business_global/products">Products</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/business_global/references">References</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/business_global/partners">Partners</a></li>
-                  </ul>
-                  <h4>F-Secure for Consumers</h4>
-                  <ul>
-                     <li><a href="http://www.f-secure.com/en/web/home_global/products">Products</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/home_global/free-tools">Free Tools</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/home_global/awards">Awards</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/home_global/support/get-support-online">Support</a></li>
-                  </ul>
-                  <h4>F-Secure Corporation</h4>
-                  <ul>
-                     <li><a href="http://www.f-secure.com/en/web/corporation_global/press">Press</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/corporation_global/investors">Investors</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/corporation_global/careers">Careers</a></li>
-                     <li><a href="http://www.f-secure.com/en/web/corporation_global/contact/offices/europe">Offices</a></li>
-                  </ul>
-               </div>
-            </div><span class="spacer-line"></span></div>
-      </div><script type="text/javascript">/**/fsJquery("body").data("customWebPath","http://www.f-secure.com/theme/custom/web2010");/**/</script><script type="text/javascript" src="http://www.f-secure.com/theme/custom/web2010/js/main.js"></script><script type="text/javascript" src="http://www.f-secure.com/theme/custom/web2010/js/main_ext.js"></script><script src="http://www.f-secure.com/theme/javascript/javascript.js?browserId=firefox&amp;minifierType=js&amp;languageId=en_US&amp;t=1349752331000" type="text/javascript"></script><span class="___omnitureSite" style="display:none">labs</span><span class="___omnitureCountry" style="display:none">global</span><span class="___omnitureLanguage" style="display:none">en</span><span class="___omniturePageName" style="display:none">Threats: Virus and threat descriptions: Threat Descripton:</span><script type="text/javascript" src="http://www.f-secure.com/js/s_code.js"></script><script type="text/javascript" src="http://www.f-secure.com/js/omniture-lib.js"></script><script type="text/javascript">/**/(function(n,m,e){var f={pageName:true,eVar22:true,prop10:true};n.pageName="labs:global:en:articles:about_rogues";n.server="www.f-secure.com";n.channel="Labs";n.prop1="labs:articles:about_rogues";n.pageType="";n.prop2="Global (Labs)";n.prop3="English (Labs)";n.prop4="";n.prop5="";n.prop6="how to";n.prop7="";n.prop8="";n.prop9="http://www.f-secure.com/en/web/labs_global/articles/about_rogues";n.prop15="";n.prop31=n.eVar9="fs labs";n.prop42=stackingValue("s_prop_42",n.prop31);n.prop43=stackingValue("s_prop_43",n.prop2);n.campaign="";n.state="";n.zip="";if(m("div.___omniture").length>0){var d={};m.each(m("div.___omniture"),function(q,r){var p=[r.innerHTML];if(p[0].indexOf(",")){p=p[0].split(",")}for(var q=0;q<p.length;++q){d[p[q]]=true}});var k="event17,";for(_event in d){k+=_event+","}n.events=k.substr(0,k.length-1)}else{n.events="event17"}n.products="";n.purchaseID="";n.eVar1="";n.eVar2="";n.eVar3="";n.eVar4="";n.eVar5=n.prop2;n.eVar7=n.prop3;n.eVar22="labs:global:en:articles:about_rogues";n.eVar30="";m("span.___omniture").each(function(o,r){var q=r.innerHTML.split(/=/);if(q.length==2){if(typeof n[q[0]]=="undefined"){n[q[0]]=""}if(f[q[0]]==true){n[q[0]]=""}var p=q[1].split(/\+/);if(p.length>1){n[q[0]]+=(n[q[0]].length?",":"")+n.pageName+"+"+p[0]}else{n[q[0]]+=(n[q[0]].length?",":"")+q[1]}}});var a=m("span.___omniturePageType:first").html();n.pageType=a;var j=m("span.___omnitureSite:first").html();var g=m("span.___omnitureCountry:first").html();var l=m("span.___omnitureLanguage:first").html();var i=m("span.___omniturePageName:first").html();var b=m("span.___omniturePageNameExt:first").html();if(g&&l&&i){n.pageName=j+":"+g+":"+l+":"+i.toLowerCase();if(b){n.pageName+=":"+b}n.eVar22=n.pageName}var c=["trial:client-security","trial:anti-virus-for-windows-servers","trial:business-suite","trial:anti-virus-for-workstations","trial:protection-service-for-business","trial:mobile-security-for-business","trial:messaging-security-gateway","trial:linux-security-client-and-server-editions","trial:anti-virus-for-microsoft-exchange","trial:anti-virus-for-citrix-servers","trial:internet-gatekeeper-for-linux"];if(m.inArray(n.prop1,c)>-1){n.events=n.events+",event63"}var h=n.pageName.split(":");if(h[4]=="become a partner"&&h[5]=="thank you"){n.events=n.events+",event70"}m(":submit,:reset,:button,a.___omniture,a.button").each(function(o,q){var t={};t["var"]=[{prop:"events",val:"event25"},{prop:"prop13",val:n.pageName+"+"+(q.text?q.text:(q.value?q.value:q.type))},{prop:"eVar25",val:n.pageName+"+"+(q.text?q.text:(q.value?q.value:q.type))}];var r=q.className.split(/\s+/);m.each(r,function(u,v){if(v.match(/___omniture_[^\s]+/)){v=v.replace(/___omniture_/,"");var w=v.split(/_/);t["var"].push({prop:w[0],val:w[1],includePagename:(w.length>2?1:0)})}});var p=q.onclick;q.onclick=function(){m.each(t["var"],function(v,u){n[u.prop]=""});m.each(t["var"],function(v,u){var w=(u.includePagename?n.pageName+"+":"")+u.val;n.linkTrackVars=n.repl(n.linkTrackVars,"None","");n.linkTrackVars=n.apl(n.linkTrackVars,u.prop,",",2);if("events"==u.prop){n.linkTrackEvents=n.repl(n.linkTrackEvents,"None","");if(!n.events){n.events=n.linkTrackEvents}n.linkTrackEvents=n.apl(n.linkTrackEvents,w,",",2);n.events=n.apl(n.events,w,",",2)}else{n[u.prop]=n.apl(n[u.prop],w,",",2)}});n.tl(this,"o","Clicked");if(p){return p()}else{return true}}})})(s,jQuery,window);/**/</script><script type="text/javascript" src="http://www.f-secure.com/js/fix.js"></script><script type="text/javascript">/**/(function(b,d,c){var a=b.t();if(a){document.write(a)}})(s,jQuery,window);/**/</script><script type="text/javascript">/**/if(navigator.appVersion.indexOf("MSIE")>=0){document.write(unescape("%3C")+"!--")};/**/</script><noscript>&lt;div&gt;&lt;a href="http://www.omniture.com" title="Web Analytics"&gt;&lt;img src="http://fsecure.122.2O7.net/b/ss/fsecure/1/H.24.2--NS/0"
-         height="1" width="1" border="0" alt="" /&gt;&lt;/a&gt;&lt;/div&gt;
-      </noscript><iframe id="frame-onFontResizenull" class="div-onfontresize" style="width: 100em; height: 10px; position: absolute; border-width: 0px; top: -5000px; left: -5000px; "></iframe></body>
-</html>
+<html class="ltr yui3-js-enabled webkit ltr js chrome chrome21 chrome21-0 win js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" dir="ltr" lang="en-US" style=""></html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Trojan:?HTML/Browlock</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+<link href="/theme/images/favicon.ico" rel="Shortcut Icon">
+<link href="css/main.css" rel="stylesheet" type="text/css">
+<link href="css/main.css" rel="stylesheet" type="text/css">
+<link class="lfr-css-file" href="css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/style.min.css" type="text/css" media="all">
+<script type="text/javascript" src="css/jquery.js"></script>
+<script type="text/javascript" src="css/details.js"></script>
+</head>
+<body class="yui3-skin-sam controls-visible signed-out public-page site">
+<div id="wrapper">
+<header class="nav-combined-container is-sticky" style="margin-top: 0px; ">
+<nav class="container">
+<a href="http://www.f-secure.com/">
+<img class="logo-header" src="css/logo-header.png" alt="F-Secure logo"></a>
+<a href="javascript:void(0);" class="site-search-toggle"><i aria-hidden="true" class="icon icon-search"></i></a>
+<a class="nav-toggle collapsed hidden-md hidden-lg margin-right" href="javascript:void(0);" data-target="#nav-top" data-toggle="collapse"><i aria-hidden="true" class="icon icon-menu"></i></a>
+<ul id="nav-top" class="nav-top collapse">
+<li><a href="https://www.f-secure.com/en/web/home_global/home">For Home</a></li>
+<li class="hasSub hideSub"><a href="https://www.f-secure.com/en/web/business_global">For Business</a></li>
+<li><a href="https://www.f-secure.com/en/web/partners_global">For Partners</a></li>
+<li class="current showSub"><a href="http://www.f-secure.com/en/web/labs_global/labs" class="invisible-lg invisible-md">Labs</a><ul class="nav-primary">
+<li class=""><a href="http://www.f-secure.com/en/web/labs_global/home">Home</a></li>
+<li class=""><a href="http://www.f-secure.com/en/web/labs_global/news">News</a></li>
+<li class=" hasSub hideSub"><a href="http://www.f-secure.com/en/web/labs_global/tools-beta">Tools &amp; Beta</a>
+<div class="nav-secondary mini">
+<div class="mega-dropdown-row clearfix"><ul class="nav-secondary-group">
+<li class="uc home-link hidden-lg hidden-md "><a href="https://www.f-secure.com/en/web/labs_global/tools-beta"><span class="icon icon-home inline-block"></span>Tools &amp; Beta</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/database-updates">Database Updates</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/rescue-cd">Rescue CD</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/dns-check">DNS Check</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/flashback-removal">Flashback Removal</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/beta-programs">Beta Programs</a></li>
+</ul>
+</div>
+</div></li>
+<li class="current hasSub hideSub"><a href="http://www.f-secure.com/en/web/labs_global/knowledge-base">Knowledge Base</a>
+<div class="nav-secondary mini">
+<div class="mega-dropdown-row clearfix"><ul class="nav-secondary-group">
+<li class="uc home-link hidden-lg hidden-md "><a href="https://www2.f-secure.com/en/web/labs_global/knowledge-base"><span class="icon icon-home inline-block"></span>Knowledge Base</a></li>
+<li class="current"><a href="http://www.f-secure.com/en/web/labs_global/threat-descriptions">Threat Descriptions</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/removal-instructions">Removal Instructions</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/security-advisories">Security Advisories</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/vulnerability-protection">Vulnerability Protection</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/whitepapers">Whitepapers</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/articles">Articles</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/terminology">Terminology</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/classification">Classification</a></li>
+</ul>
+</div>
+</div></li>
+<li class=""><a href="http://www.f-secure.com/en/web/labs_global/inform-us">Inform Us</a></li>
+<li class=""><a href="http://www.f-secure.com/en/web/labs_global/about-labs">About Labs</a></li>
+</ul>
+</li>
+</ul>
+<ul class="site-search">
+<li><form id="search" class="site-search-form invisible" action="https://www.google.com/cse"><input type="hidden" value="014625612662474666087:2paeijvwemq" name="cx"><input type="hidden" value="UTF-8" name="ie"><input type="text" placeholder="Search" id="searchKeyword" name="q"><button class="btn add-icon remove-bg"><span class="icon icon-search"></span></button></form></li>
+</ul>
+</nav></header>
+<div id="content">
+<div class="portlet-boundary portlet-boundary_103_ portlet-static portlet-static-end "><span id="p_103"></span>
+<div class="portlet-body">
+</div>
+</div>
+<div class="columns-1" id="main-content" role="main">
+<div>
+<div id="column-1">
+<div class="portlet-dropzone portlet-column-content portlet-column-content-only" id="layout-column_column-1">
+<div class="portlet-boundary portlet-boundary_56_ portlet-static portlet-static-end portlet-journal-content ">
+<div class="portlet-body"><section class="portlet">
+<div>
+<div class="portlet-content-container" style="background:rgb(0,186,255);">
+<div class="portlet-body">
+<div class="journal-content-article"><section class="fs-section collapsible">
+<div class="container">
+<div class="row">
+<div><h3 class="threat-desc">Threat Description</h3><h1>Trojan:?HTML/Browlock</h1>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="portlet-body" style="background:rgb(0,153,255); height:60px;">
+<div class="journal-content-article"><section class="fs-section collapsible">
+<div class="container">
+<div class="row">
+<div><h3 data-icon="open" class="detailsheader-open">  Details</h3>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="portlet-boundary portlet-boundary_56_ portlet-static portlet-static-end portlet-journal-content">
+<div class="portlet-body" style="background:rgb(102,102,102);"><section class="portlet">
+<div>
+<div class="details">
+<div class="portlet-content-container">
+<div class="portlet-body">
+<div class="journal-content-article"><section class="fs-section collapsible">
+<div class="container">
+<div class="row">
+<div>
+<table class="details-table"><tr><td><b><a href="http://www.f-secure.com/en/web/labs_global/terminology">Aliases:</a></b></td><td>Trojan:?HTML/Browlock.[variant]</td></tr>
+<tr><td><b><a href="http://www.f-secure.com/en/web/labs_global/classification">Category:</a></b></td><td>Malware<br></td></tr>
+<tr><td><b><a href="http://www.f-secure.com/en/web/labs_global/classification">Type:</a></b></td><td>Trojan</td></tr>
+<tr><td><b><a href="http://www.f-secure.com/en/web/labs_global/classification">Platform:</a></b></td><td>HTML<br></td></tr></table>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="portlet-boundary portlet-boundary_56_ portlet-static portlet-static-end portlet-journal-content">
+<div class="portlet-body" style="background:white;"><section class="portlet">
+<div>
+<div class=" portlet-content-container" style="">
+<div class="portlet-body">
+<div class="journal-content-article"><section class="fs-section collapsible">
+<div class="container" id="maincontent">
+<div class="row">
+<div><h2>Summary</h2>
+<hr><br>
+<p>Trojan:HTML/Browlock is <a href="http://www.f-secure.com/en/web/labs_global/terminology-r#Ransomware">ransomware</a> that prevents users from accessing the infected machine's Desktop; it then demands
+payment, supposedly for either possession of illegal material or usage of illegal
+software.</p>
+<br><br><h2>Removal</h2>
+<hr><h5>Automatic action</h5>
+<p>Once detected, the <a href="http://www.f-secure.com/en/web/home_global/protection/anti-virus/overview?icid=480">F-Secure security product</a> will automatically disinfect the suspect file by either deleting it or renaming it.</p>
+<h5>More</h5>
+<p>You may wish to refer to the <a href="http://community.f-secure.com/t5/English/ct-p/EN">Support Community</a> for further assistance. You may also refer to <a href="http://www.f-secure.com/en/web/labs_global/general-removal-instructions">General Removal Instructions</a> for a general guide on alternative disinfection actions.</p>  
+<h4>More</h4>
+<p>For more information, see <a href="http://www.f-secure.com/en/web/labs_global/removal/removing-ransomware">Removing 'Police-themed' Ransomware</a>.</p>
+<p>For more general information on disinfection, please see  <a href="http://www.f-secure.com/en/web/labs_global/general-removal-instructions">Removal Instructions.</a></p>
+<br><br><h2>Technical Details</h2>
+<hr><br>
+<p>Trojan:HTML/Browlock has been reported to target users in multiple countries, including
+the United States, the United Kingdom and Canada. Typically, it will display a 'lock
+screen' purportedly from a local or federal law enforcement authority, claiming that
+the machine has been locked and encrypted due to 'illegal activities'. A 'fine' is
+then demanded to restore the system.</p>
+<p>This malware was also covered in our Labs Weblog blogpost:</p>
+<ul>
+
+<li><a href="http://www.f-secure.com/weblog/archives/00002590.html">Browlock Ransomware Targets New Countries</a>
+</li>
+</ul>
+<p>A lock screen used by one Browlock variant is shown below:</p>
+<img src="http://www.f-secure.com/weblog/archives/brow_uk.png" align="middle" style="display:block; margin-left:auto; margin-right:auto; width:px; border: 1px solid black; margin-top:15px; margin-bottom:10px;"><br><br><br><br>
+<p></p>
+<br>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="portlet-boundary portlet-boundary_56_ portlet-static portlet-static-end portlet-journal-content " id="p_p_id_56_INSTANCE_PXYERg92Fjov_"><span id="p_56_INSTANCE_PXYERg92Fjov"></span>
+<div class="portlet-body"><section class="portlet" id="portlet_56_INSTANCE_PXYERg92Fjov">
+<div>
+<div class=" portlet-content-container" style="">
+<div class="portlet-body">
+<div class="journal-content-article"><section class="fs-section bg-blueDarker font-white">
+<div class="container">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center"><h2 class="font-white"><span data-element-name="leftTitle">
+SUBMIT A SAMPLE</span></h2>
+<p class="lead">
+Suspect a file or URL was wrongly detected? Submit a sample to our Labs for analysis</p>
+<p><a href="https://analysis.f-secure.com/portal/login.html" class="btn inverted btn-primary ___omniture">
+Submit Now</a></p>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center"><h2 class="font-white"><span data-element-name="rightTitle">F-Secure Community</span></h2>
+<p class="lead">Give advice. Get advice. Share the knowledge on our free discussion forum.</p>
+<p><a href="http://community.f-secure.com/t5/Welcome/ct-p/EN" class="&#xA; btn inverted btn-primary ___omniture&#xA;  ">
+Learn More</a></p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer role="contentinfo">
+<div class="footer-links container">
+<div class="row">
+<div class="footer-link-group col-lg-3 col-md-3 col-sm-12 col-xs-12"><p class="footer-link-title lead"><a href="http://www2.f-secure.com/en/web/corporation_global">About</a></p>
+<i aria-hidden="true" class="icon icon-scroll-down footer-accordion-icon hidden-md hidden-lg"></i><ul class="unstyled hidden-sm hidden-xs">
+<li><a href="http://www2.f-secure.com/en/web/corporation_global/company">Company</a></li>
+<li><a href="http://www.f-secure.com/en/web/press_global/news/">News</a></li>
+<li><a href="http://www2.f-secure.com/en/web/corporation_global/investors/investors">Investors</a></li>
+<li><a href="http://www2.f-secure.com/en/web/corporation_global/careers">Careers</a></li>
+<li><a href="http://www2.f-secure.com/en/web/corporation_global/contact/offices">Offices</a></li>
+</ul>
+</div>
+<hr class="hidden-lg hidden-md col-sm-12 col-xs-12">
+<div class="footer-link-group col-lg-3 col-md-3 col-sm-12 col-xs-12"><p class="footer-link-title lead"><a href="http://www.f-secure.com/en/web/labs_global/home">Labs</a></p>
+<i aria-hidden="true" class="icon icon-scroll-down footer-accordion-icon hidden-md hidden-lg"></i><ul class="unstyled hidden-sm hidden-xs">
+<li class="hidden-md hidden-lg"><a href="http://www.f-secure.com/en/web/labs_global/home">Labs</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/labs-blog">Labs blog</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/inform-us">Submit a sample</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/threat-descriptions">Latest Threats</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/removal-instructions">Remove Threats</a></li>
+<li><a href="http://www.f-secure.com/en/web/labs_global/beta-programs">Beta programs</a></li>
+</ul>
+</div>
+<hr class="hidden-lg hidden-md col-sm-12 col-xs-12">
+<div class="footer-link-group col-lg-3 col-md-3 col-sm-12 col-xs-12"><p class="footer-link-title lead"><a href="http://www.f-secure.com/en/web/home_global/support">Support</a></p>
+<i aria-hidden="true" class="icon icon-scroll-down footer-accordion-icon hidden-md hidden-lg"></i><ul class="unstyled hidden-sm hidden-xs">
+<li><a href="http://community.f-secure.com/t5/Home-Security/tkbc-p/Home_Security_Solutions">Knowledge base</a></li>
+<li><a href="http://www.f-secure.com/en/web/home_global/downloads">Software updates</a></li>
+<li><a href="http://community.f-secure.com/t5/English/ct-p/EN?skin=default">Community</a></li>
+<li><a href="http://www.f-secure.com/en/web/home_global/support-tools">Support Tools</a></li>
+<li><a href="http://www.f-secure.com/en/web/home_global/support/support-request">Contact support</a></li>
+</ul>
+</div>
+<hr class="hidden-lg hidden-md col-sm-12 col-xs-12">
+<div class="footer-link-group col-lg-3 col-md-3 col-sm-12 col-xs-12"><p class="footer-link-title lead"><a href="http://www.f-secure.com/en/web/legal_global">Legal</a></p>
+<i aria-hidden="true" class="icon icon-scroll-down footer-accordion-icon hidden-md hidden-lg"></i><ul class="unstyled hidden-sm hidden-xs">
+<li><a href="http://www.f-secure.com/en/web/legal_global/terms">Legal</a></li>
+<li><a href="http://www.f-secure.com/en/web/legal_global/privacy">Privacy</a></li>
+</ul>
+</div>
+<hr class="hidden-lg hidden-md col-sm-12 col-xs-12">
+<div class="footer-link-group col-lg-3 col-md-3 col-sm-12 col-xs-12 padding-top"><p class="footer-link-title lead hidden-xs hidden-sm">Follow</p>
+<div class="social-links"><a href="https://www.facebook.com/pages/F-Secure/107471754306" class="icon icon-facebook margin-right" aria-hidden="true"></a><a href="http://twitter.com/FSecure" class="icon icon-twitter margin-right" aria-hidden="true"></a><a href="http://www.youtube.com/user/FSecureNews" class="icon icon-youtube" aria-hidden="true"></a>
+</div>
+</div>
+</div>
+</div></footer><script>/**/jQuery(function(){$("#country").change(function(){location.href=$(this).val()})});/**/</script>
+<div class="footer-end padding-bottom">
+<div class="container">
+<div class="row">
+<div class="col-lg-4 col-lg-push-8 col-md-4 col-md-push-8 col-sm-4 col-sm-push-8 col-xs-12">
+</div>
+<div class="col-lg-8 col-lg-pull-4 col-md-8 col-md-pull-4 col-sm-8 col-sm-pull-4 col-xs-12 footer-end-tagline"><h5>SWITCH ON FREEDOM</h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src='http://www.f-secure.com/documents/null/js/common/cookieconsent.min.js'></script>
+<script type="text/javascript">
+/*<![CDATA[*/var displayLanguage;if(cookieconsent.isLangSupported("en_GLOBAL")===true){displayLanguage="en_GLOBAL"}else{displayLanguage=cookieconsent.lang}cookieconsent.init({privacyURL:"/en/web/legal_global/privacy/website-privacy-policy",bgColor:"grayLightest",lang:displayLanguage});/*]]>
+*/</script>
+<script type="text/javascript">/*<![CDATA[*/window.s_account="fsecure";/*]]>*/</script>
+<div class="mq-detector visible-xs">
+</div>
+<div class="mq-detector visible-sm">
+</div>
+<div class="mq-detector visible-md">
+</div>
+<div class="mq-detector visible-lg">
+</div>
+<script type="text/javascript" src="http://www.f-secure.com/documents/null/js/javascript.min.js"></script>
+<script type="text/javascript" src="http://www.f-secure.com/js/s_code.js"></script>
+<script type="text/javascript" src="http://www.f-secure.com/js/omniture-lib.js"></script>
+<script type="text/javascript" src="http://www.f-secure.com/documents/null/js/common/variables.js"></script>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></body>
