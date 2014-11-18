@@ -30,8 +30,13 @@ public class FSecureExtractorTest {
 		}
 		else{
 			URL u;
-			u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
-			pageContent = IOUtils.toString(u);
+			try{
+				u = new URL("http://www.f-secure.com/v-descs/"+entryName+".shtml");
+				pageContent = IOUtils.toString(u);
+			}catch(IOException e){ //some items have this prefix instead.  TODO: cleaner handling of this case.
+				u = new URL("http://www.f-secure.com/sw-desc/"+entryName+".shtml");
+				pageContent = IOUtils.toString(u);
+			}
 		}
 		return pageContent;
 	}
