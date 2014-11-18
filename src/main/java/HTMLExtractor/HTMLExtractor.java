@@ -61,6 +61,17 @@ public abstract class HTMLExtractor {
 		}
 	}
 	
+	protected static void removeHRs(Elements contents){
+		Element curr;
+		for(int i = contents.size()-1; i>=0; i--){
+			curr = contents.get(i);
+			if(curr.tagName().equals("hr")){
+				contents.remove(i);
+				continue;
+			}
+		}
+	}
+	
 	//NB: assumes dt and dd are one-to-one (will skip ones that aren't)
 	//NB: also assumes that dt and dd tags have text()-able content.
 	protected Map<String, String> dlToMap(Element dl) {
