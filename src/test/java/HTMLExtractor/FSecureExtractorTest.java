@@ -123,7 +123,7 @@ public class FSecureExtractorTest {
 			    	  "  'source': 'F-Secure',"+
 			    	  "  '_id': 'Backdoor:W32/Havex',"+
 			    	  "  'name': 'Backdoor:W32/Havex',"+
-			    	  "  'aliases': ['Backdoor:W32/Havex','Havex.A']"+
+			    	  "  'aliases': ['Backdoor:W32/Havex','Havex','Havex.A']"+
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
