@@ -11,8 +11,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -92,57 +92,110 @@ public class BugtraqExtractorTest {
 		    JSONArray verts = obj.getJSONArray("vertices");
 		    JSONArray edges = obj.getJSONArray("edges");
 		    
-		    assertTrue(verts.length() == 5);
+		    String expectedVerts = "[{"+
+		    		  "  'vertexType': 'software'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.30'," +
+		    		  "  'name': 'SSH Communications Security SSH 1.2.30'" +
+				  	  "},"+
+				   	  "{"+
+		    		  "  'vertexType': 'software'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.29'," +
+		    		  "  'name': 'SSH Communications Security SSH 1.2.29'" +
+			    	  "},"+
+			    	  "{"+
+		    		  "  'vertexType': 'software'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.28'," +
+		    		  "  'name': 'SSH Communications Security SSH 1.2.28'" +
+			    	  "},"+
+			    	  "{"+
+		    		  "  'vertexType': 'software'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.27'," +
+		    		  "  'name': 'SSH Communications Security SSH 1.2.27'" +
+			    	  "},"+
+			    	  "{"+
+		    		  "  'accessVector': 'Local'," +
+		    		  "  'Credit': 'This vulnerability was discovered by Richard Silverman &lt;slade@shore.net&gt;, and first announced by SSH Communications Security in an advisory posted to Bugtraq on January 16, 2001.'," +
+		    		  "  'class': 'Design Error'," +
+		    		  "  'CVE': ''," +
+		    		  "  'solution': 'Solution: Patches available: SSH Communications Security SSH 1.2.27 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.28 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.29 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.30 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc'," +
+		    		  "  'exploit': 'This exploit was contributed by Richard Silverman <slade@shore.net> : /data/vulnerabilities/exploits/ssh1-exploit.c'," +
+		    		  "  'modifiedDate': 979621200000," +
+		    		  "  'vertexType': 'vulnerability'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'references': [],"+
+		    		  "  '_id': 'Bugtraq_2222'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  'shortDescription': 'SSH Secure-RPC Weak Encrypted Authentication Vulnerability'," +
+		    		  "  'description': 'SSH Secure-RPC Weak Encrypted Authentication Vulnerability SSH is a package designed to encrypt traffic between two end points using the IETF specified SSH protocol. The SSH1 package is distributed and maintained by SSH Communications Security. A problem exists which could allow the discovery of the secret key used to encrypt traffic on the local host. When using SUN-DES-1 to share keys with other hosts on the network to facilitate secure communication via protocols such as NFS and NIS+, the keys are shared between hosts using the private key of the user and a cryptographic algorithm to secure the contents of the key, which is stored on the NIS+ primary. The problem occurs when the key is encrypted with the SUN-DES-1 magic phrase prior to having done a keylogin (the keyserv does not have the users DH private key). A design flaw in the software that shares the key with the NIS+ master will inconsistently return the correct value for an attempted keyshare that has failed. A step in the private key encryption process is skipped, and the users private key is then encrypted only with the public key of the target server and the SUN-DES-1 magic phrase, a phrase that is guessable due to the way it is generated. A user from the same host can then execute a function that returns another users magic phrase, and use this to decrypt the private key of the victim. This makes it possible for a user with malicious intent to gain knowledge of a users secret key, and decrypt sensitive traffic between two hosts, with the possibility of gaining access and elevated privileges on the hosts and/or NIS+ domain. This reportedly affects the SSH2 series of the software package.'," +
+		    		  "  'name': 'Bugtraq_2222'," +
+		    		  "  'Vulnerable': [" +
+		    		  "    'SSH Communications Security SSH 1.2.30'," +
+		    		  "    'SSH Communications Security SSH 1.2.29'," +
+		    		  "    'SSH Communications Security SSH 1.2.28'," +
+		    		  "    'SSH Communications Security SSH 1.2.27'" +
+		    		  "  ]," +
+		    		  "  'Not_Vulnerable': ['']," +
+		    		  "  'publishedDate': 979621200000," +
+			    	  "}]";
+		    String expectedEdges = "[{" + 
+		    		  "  '_type': 'edge'," +
+		    		  "  'outVType': 'software',"+
+		    		  "  'source': 'Bugtraq',"+
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.30_to_Bugtraq_2222',"+
+		    		  "  '_label': 'hasVulnerability',"+
+		    		  "  '_outV': 'SSH Communications Security SSH 1.2.30',"+
+		    		  "  '_inV': 'Bugtraq_2222',"+
+		    		  "  'inVType': 'vulnerability'"+
+			    	  "},"+
+			    	  "{"+
+			    	  "  '_type': 'edge',"+
+			    	  "  'outVType': 'software',"+
+			    	  "  'source': 'Bugtraq',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.29_to_Bugtraq_2222',"+
+			    	  "  '_label': 'hasVulnerability',"+
+			    	  "  '_outV': 'SSH Communications Security SSH 1.2.29',"+
+			    	  "  '_inV': 'Bugtraq_2222',"+
+			    	  "  'inVType': 'vulnerability'"+
+				      "},"+
+				      "{"+
+			    	  "  '_type': 'edge',"+
+			    	  "  'outVType': 'software',"+
+			    	  "  'source': 'Bugtraq',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.28_to_Bugtraq_2222',"+
+			    	  "  '_label': 'hasVulnerability',"+
+			    	  "  '_outV': 'SSH Communications Security SSH 1.2.28',"+
+			    	  "  '_inV': 'Bugtraq_2222',"+
+			    	  "  'inVType': 'vulnerability'"+
+				   	  "},"+
+				   	  "{"+
+			    	  "  '_type': 'edge',"+
+			    	  "  'outVType': 'software',"+
+			    	  "  'source': 'Bugtraq',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.27_to_Bugtraq_2222',"+
+			    	  "  '_label': 'hasVulnerability',"+
+			    	  "  '_outV': 'SSH Communications Security SSH 1.2.27',"+
+			    	  "  '_inV': 'Bugtraq_2222',"+
+			    	  "  'inVType': 'vulnerability'"+
+		    		  "}]";
 		    
-		    //TODO: should really search for this item, don't just assume it's location
-		    JSONObject vuln = verts.getJSONObject( verts.length() - 1 );
-		    verts.remove(verts.length() - 1);
-		    
-			//check the vuln node
-		    //System.out.println(vuln.toString(2));
-		    assertTrue( 0 == "vulnerability".compareTo(vuln.getString("vertexType")) );
-	    	assertTrue( 0 == "Bugtraq".compareTo(vuln.getString("source")) );
-	    	assertTrue( 0 == "vertex".compareTo(vuln.getString("_type")) );
-	    	assertTrue( 0 == "Bugtraq_2222".compareTo(vuln.getString("_id")) );
-	    	assertTrue( 0 == "Local".compareTo(vuln.getString("accessVector")) );
-	    	assertTrue( 0 == "Design Error".compareTo(vuln.getString("class")) );
-	    	assertTrue( 0 == "".compareTo(vuln.getString("CVE")) );
-	    	//etc...
-		    
-		    //check the software vertices
-		    int softwareCount = verts.length();
-		    JSONObject sw;
-		    String name, id;
-		    for(int i=0; i< softwareCount; i++){
-		    	sw = verts.optJSONObject(i);
-		    	//System.out.println(sw);
-		    	assertTrue( 0 == "software".compareTo(sw.getString("vertexType")) );
-		    	assertTrue( 0 == "Bugtraq".compareTo(sw.getString("source")) );
-		    	assertTrue( 0 == "vertex".compareTo(sw.getString("_type")) );
-		    	name = sw.getString("name");
-		    	id = sw.getString("_id");
-		    	assertTrue( 0 == name.compareTo(id) );
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
 		    }
-		    
-		    //check edges
-		    //System.out.println(edges.toString(2));
-		    int edgeCount = edges.length();
-		    assertEquals(edgeCount, softwareCount);
-		    JSONObject e;
-		    String inV, outV;
-		    for(int i=0; i< edgeCount; i++){
-		    	e = edges.optJSONObject(i);
-		    	//System.out.println(e);
-		    	assertTrue( 0 == "hasVulnerability".compareTo(e.getString("_label")) );
-		    	assertTrue( 0 == "Bugtraq".compareTo(e.getString("source")) );
-		    	assertTrue( 0 == "edge".compareTo(e.getString("_type")) );
-		    	assertTrue( 0 == "software".compareTo(e.getString("outVType")) );
-		    	assertTrue( 0 == "vulnerability".compareTo(e.getString("inVType")) );
-		    	inV = e.getString("_inV");
-		    	outV = e.getString("_outV");
-		    	id = e.getString("_id");
-		    	assertTrue( 0 == id.compareTo(outV + "_to_" + inV) );
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
 		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
