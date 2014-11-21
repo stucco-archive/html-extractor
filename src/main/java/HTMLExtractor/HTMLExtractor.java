@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -213,10 +214,14 @@ public abstract class HTMLExtractor {
 	}
 	
 	public static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2){
-		return deepCompareJSONObjects(obj1, obj2, 0);
+		return deepCompareJSONObjects(obj1, obj2, 0, true);
 	}
 	
-	private static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2, int currDepth){
+	public static boolean deepCompareJSONObjectsUnordered(JSONObject obj1, JSONObject obj2){
+		return deepCompareJSONObjects(obj1, obj2, 0, false);
+	}
+	
+	private static boolean deepCompareJSONObjects(JSONObject obj1, JSONObject obj2, int currDepth, boolean ordered){
 		boolean retVal = true;
 		//System.out.println("depth: " + currDepth);
 		if(currDepth <= MAX_COMPARE_DEPTH){
@@ -229,7 +234,7 @@ public abstract class HTMLExtractor {
 					JSONObject o1 = obj1.optJSONObject(k);
 					JSONObject o2 = obj2.optJSONObject(k);
 					if(o1 != null && o2 != null){
-						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1, ordered);
 						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Object compare failed on key " + k + " (object)");
 						continue;
 					}
@@ -238,7 +243,10 @@ public abstract class HTMLExtractor {
 					JSONArray a1 = obj1.optJSONArray(k);
 					JSONArray a2 = obj2.optJSONArray(k);
 					if(a1 != null && a2 != null){
-						retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						if(ordered)
+							retVal = retVal && deepCompareJSONArrays(a1, a2, currDepth+1);
+						else
+							retVal = retVal && deepCompareJSONArraysUnordered(a1, a2, currDepth+1);
 						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Object compare failed on key " + k + " (array)");
 						continue;
 					}
@@ -276,7 +284,7 @@ public abstract class HTMLExtractor {
 					JSONObject o1 = arr1.optJSONObject(i);
 					JSONObject o2 = arr2.optJSONObject(i);
 					if(o1 != null && o2 != null){
-						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1);
+						retVal = retVal && deepCompareJSONObjects(o1, o2, currDepth+1, true);
 						if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (object)");
 						continue;
 					}
@@ -295,6 +303,66 @@ public abstract class HTMLExtractor {
 					String s2 = arr2.optString(i);
 					retVal = retVal && s1.equals(s2);
 					if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (other type)");
+				}
+			}
+			else{//length doesn't match, so fail.
+				if(DEBUG_COMPARE) System.out.println("JSON Array compare failed because of differing lengths");
+				retVal = false;
+			}
+		}
+		else{//over the limit, so fail.
+			if(DEBUG_COMPARE) System.out.println("JSON Array compare failed because depth limit exceeded");
+			retVal = false;
+		}
+		return retVal;
+	}
+	
+	public static boolean deepCompareJSONArraysUnordered(JSONArray arr1, JSONArray arr2){
+		return deepCompareJSONArraysUnordered(arr1, arr2, 0);
+	}
+	
+	private static boolean deepCompareJSONArraysUnordered(JSONArray arr1, JSONArray arr2, int currDepth){
+		boolean retVal = true;
+		//System.out.println("depth: " + currDepth);
+		if(currDepth <= MAX_COMPARE_DEPTH){
+			if(arr1.length() == arr2.length()){
+				/*
+				HashSet<Object> set1 = new HashSet<Object>();
+				HashSet<Object> set2 = new HashSet<Object>();
+				for(int i=arr1.length()-1; i>=0; i--){
+					set1.add( arr1.remove(i) );
+					set2.add( arr2.remove(i) );
+				}
+				*/
+				for(int i=0; i<arr1.length() && retVal; i++){
+					boolean itemMatched = false;
+					for(int j=0; j<arr2.length() && !itemMatched; j++){
+						//check if an obj...
+						JSONObject o1 = arr1.optJSONObject(i);
+						JSONObject o2 = arr2.optJSONObject(j);
+						if(o1 != null && o2 != null){
+							itemMatched = retVal && deepCompareJSONObjects(o1, o2, currDepth+1, false);
+							//if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (object)");
+							continue;
+						}
+						
+						//or try as an array...
+						JSONArray a1 = arr1.optJSONArray(i);
+						JSONArray a2 = arr2.optJSONArray(j);
+						if(a1 != null && a2 != null){
+							itemMatched = retVal && deepCompareJSONArraysUnordered(a1, a2, currDepth+1);
+							//if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (array)");
+							continue;
+						}
+						
+						//or just get as strings and compare
+						String s1 = arr1.optString(i);
+						String s2 = arr2.optString(j);
+						itemMatched = retVal && s1.equals(s2);
+						//if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i + " (other type)");
+					}
+					retVal = itemMatched;
+					if(!retVal && DEBUG_COMPARE) System.out.println("JSON Array compare failed on index " + i);
 				}
 			}
 			else{//length doesn't match, so fail.

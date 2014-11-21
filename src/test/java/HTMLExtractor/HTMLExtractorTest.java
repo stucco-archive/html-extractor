@@ -100,6 +100,14 @@ public class HTMLExtractorTest{
 			o2 = new JSONObject(s2);
 			assertFalse( HTMLExtractor.deepCompareJSONObjects(o1, o2) );
 			
+			//test unordered arrays
+			s1 = "{b:[{a:[4,5,6,7]},{a:[4,3,2,1]}]}";
+			s2 = "{b:[{a:[1,2,3,4]},{a:[7,6,5,4]}]}";
+			o1 = new JSONObject(s1);
+			o2 = new JSONObject(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONObjectsUnordered(o1, o2) );
+
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Exception");
@@ -185,6 +193,106 @@ public class HTMLExtractorTest{
 			a1 = new JSONArray(s1);
 			a2 = new JSONArray(s2);
 			assertTrue( HTMLExtractor.deepCompareJSONArrays(a1, a2) );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception");
+		}
+	}
+	
+	/**
+	 * Test array compare unordered
+	 */
+	@Test
+	public void testArrayCompareUnordered()
+	{
+		String s1, s2;
+		JSONArray a1, a2;
+		
+		try {
+			//empty
+			s1 = "[]";
+			s2 = "[]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//nested empty
+			s1 = "[[[[[]]]]]";
+			s2 = "[[[[[]]]]]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//different nested empty
+			s1 = "[[[[[]]]]]";
+			s2 = "[[[[[[]]]]]]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertFalse( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//nested almost too deep (outer + 8)
+			s1 = "[[[[[[[[[4,3,2]]]]]]]]]";
+			s2 = "[[[[[[[[[4,3,2]]]]]]]]]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//nested too deep (outer + 9)
+			s1 = "[[[[[[[[[[4,3,2]]]]]]]]]]";
+			s2 = "[[[[[[[[[[4,3,2]]]]]]]]]]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertFalse( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//matching contents
+			s1 = "['asdf','asdfasdf','']";
+			s2 = "['asdf','asdfasdf','']";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//matching contents, different order
+			s1 = "['asdf','asdfasdf','']";
+			s2 = "['', 'asdf','asdfasdf']";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//different contents
+			s1 = "['asdf','asdfasdf']";
+			s2 = "['asdf','asdfasd']";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertFalse( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//different lengths
+			s1 = "['asdf','asdfasdf']";
+			s2 = "['asdf','asdfasdf','']";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertFalse( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//different types, different order
+			s1 = "[4,'asdfasdf','',7.7, false]";
+			s2 = "[7.7,4,'asdfasdf',false,'']";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//object types, different order
+			s1 = "[4,{asdf:false},'asdfasdf',{a:'aa',b:'bb'},'',7.7, false, {}]";
+			s2 = "[4,'asdfasdf','',7.7, false, {}, {asdf:false}, {b:'bb',a:'aa'}]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
+			
+			//nested object types, different order
+			s1 = "[{a:[4,5,6,7]},{a:[4,3,2,1]}]";
+			s2 = "[{a:[1,2,3,4]},{a:[7,6,5,4]}]";
+			a1 = new JSONArray(s1);
+			a2 = new JSONArray(s2);
+			assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(a1, a2) );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
