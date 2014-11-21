@@ -32,7 +32,7 @@ import org.jsoup.select.Elements;
 public abstract class HTMLExtractor {
 
 	private static final int MAX_COMPARE_DEPTH = 8;
-	private static final boolean DEBUG_COMPARE = true;
+	private static final boolean DEBUG_COMPARE = false;
 	
 	protected static String findWithRegex(String content, String regex){
 		return findWithRegex(content, regex, 1);
