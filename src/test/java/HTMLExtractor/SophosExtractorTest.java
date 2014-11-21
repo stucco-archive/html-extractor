@@ -93,8 +93,8 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -145,8 +145,8 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -208,8 +208,8 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -257,8 +257,8 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -512,8 +512,8 @@ public class SophosExtractorTest{
 		    		"  }"+
 		    		  "]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -581,8 +581,8 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -904,8 +904,8 @@ public class SophosExtractorTest{
 		    		"  }"+
 		    		  "]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1021,8 +1021,8 @@ public class SophosExtractorTest{
 		    		"  }"+
 		    		  "]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArrays(edges, new JSONArray(expectedEdges)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
+		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
