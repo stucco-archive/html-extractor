@@ -93,8 +93,16 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -145,8 +153,16 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -208,8 +224,16 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -257,8 +281,16 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -512,8 +544,16 @@ public class SophosExtractorTest{
 		    		"  }"+
 		    		  "]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -581,8 +621,16 @@ public class SophosExtractorTest{
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -904,8 +952,16 @@ public class SophosExtractorTest{
 		    		"  }"+
 		    		  "]";
 		    
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts)));
-		    assertTrue( HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges)));
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1020,6 +1076,7 @@ public class SophosExtractorTest{
 		    		"    '_inV': 'riseandshine.favcc1.com'"+
 		    		"  }"+
 		    		  "]";
+		    
 		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
 		    if(!match){
 		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
@@ -1027,7 +1084,7 @@ public class SophosExtractorTest{
 		    assertTrue( match );
 		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
 		    if(!match){
-		    	System.out.println("Edge list did not match!  result was: \n" + verts);
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
 		    }
 		    assertTrue( match );
 		    
