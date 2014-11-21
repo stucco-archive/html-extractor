@@ -220,7 +220,7 @@ public class SophosExtractorTest{
 			    	  "  'source': 'Sophos',"+
 			    	  "  'name': 'Troj/JsRedir-NN',"+
 			    	  "  'knownFileTypes': ['JavaScript','application/octet-stream','text/cpp'],"+
-			    	  "  'discoveryDate': 1189310400000,"+
+			    	  "  'discoveryDate': 1189296000000,"+
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
@@ -442,7 +442,7 @@ public class SophosExtractorTest{
 		    		"      'c:\\\\windows\\\\system32\\\\ipconfig.exe',"+
 		    		"      'c:\\\\windows\\\\system32\\\\tasklist.exe'"+
 		    		"    ],"+
-		    		"    'discoveryDate': 1407902400000,"+
+		    		"    'discoveryDate': 1407888000000,"+
 		    		"    'registryKeysCreated': ["+
 		    		"      'HKCU\\\\Identities',"+
 		    		"      'HKCU\\\\Software\\\\Microsoft\\\\Dyxol',"+
@@ -617,7 +617,7 @@ public class SophosExtractorTest{
 			    	  "  'source': 'Sophos',"+
 			    	  "  'name': 'Troj/Zbot-AAA',"+
 			    	  "  'knownFileTypes': ['application/x-ms-dos-executable'],"+
-			    	  "  'discoveryDate': 1285732800000"+
+			    	  "  'discoveryDate': 1285718400000"+
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
@@ -792,7 +792,7 @@ public class SophosExtractorTest{
 		            "    'name': 'Troj/Weelsof-FG',"+
 		            "    'knownFileTypes': ['application/x-ms-dos-executable'],"+
 		            "    'processesCreated': ['c:\\\\windows\\\\system32\\\\svchost.exe'],"+
-		            "    'discoveryDate': 1408334400000,"+
+		            "    'discoveryDate': 1408320000000,"+
 		            "    'registryKeysCreated': ["+
 		            "      'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run',"+
 		            "      'HKCU\\\\Software\\\\fopnellh'"+
@@ -1040,7 +1040,7 @@ public class SophosExtractorTest{
 		    		"    'name': 'Troj/MSIL-ACB',"+
 		    		"    'knownFileTypes': ['application/x-ms-dos-executable'],"+
 		    		"    'processesCreated': ['c:\\\\windows\\\\system32\\\\cmd.exe'],"+
-		    		"    'discoveryDate': 1408334400000,"+
+		    		"    'discoveryDate': 1408320000000,"+
 		    		"    'registryKeysCreated': ['HKCU\\\\Software\\\\WinRAR']"+
 		    		"  }"+
 			    	  "]";

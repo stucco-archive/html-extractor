@@ -34,7 +34,7 @@ public class SophosExtractor extends HTMLExtractor{
 	}
 	
 	private long convertShortTimestamp(String time)	{ 
-		return convertTimestamp(time, "yyyy-MM-dd");
+		return convertTimestamp(time + " (GMT)", "yyyy-MM-dd (z)");
 	}
 	
 	private JSONObject extract(String summary, String details){

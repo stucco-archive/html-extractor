@@ -23,7 +23,7 @@ public class BugtraqTestDataExtractor extends HTMLExtractor{
 	}
 	
 	private long convertTimestamp(String time)	{ 
-		return convertTimestamp(time, "MMM dd yyyy hh:mma");
+		return convertTimestamp(time + " (GMT)", "MMM dd yyyy hh:mma (z)");
 	}
 	
 	private JSONObject extract(String info, String discussion, String exploit, 

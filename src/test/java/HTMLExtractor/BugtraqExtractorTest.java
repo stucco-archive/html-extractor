@@ -127,7 +127,7 @@ public class BugtraqExtractorTest {
 		    		  "  'CVE': ''," +
 		    		  "  'solution': 'Solution: Patches available: SSH Communications Security SSH 1.2.27 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.28 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.29 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc SSH Communications Security SSH 1.2.30 SSH Communications SSH1 patch-ssh-1.2.30-secure.rpc http://www.ssh.com/products/ssh/patches/patch-ssh-1.2.30-secure.rpc'," +
 		    		  "  'exploit': 'This exploit was contributed by Richard Silverman <slade@shore.net> : /data/vulnerabilities/exploits/ssh1-exploit.c'," +
-		    		  "  'modifiedDate': 979621200000," +
+		    		  "  'modifiedDate': 979603200000," +
 		    		  "  'vertexType': 'vulnerability'," +
 		    		  "  '_type': 'vertex'," +
 		    		  "  'references': [],"+
@@ -143,7 +143,7 @@ public class BugtraqExtractorTest {
 		    		  "    'SSH Communications Security SSH 1.2.27'" +
 		    		  "  ]," +
 		    		  "  'Not_Vulnerable': ['']," +
-		    		  "  'publishedDate': 979621200000," +
+		    		  "  'publishedDate': 979603200000," +
 			    	  "}]";
 		    String expectedEdges = "[{" + 
 		    		  "  '_type': 'edge'," +
