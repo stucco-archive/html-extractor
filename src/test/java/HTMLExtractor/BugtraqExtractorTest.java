@@ -121,7 +121,7 @@ public class BugtraqExtractorTest {
 		    		  "  'name': 'SSH Communications Security SSH 1.2.27'" +
 			    	  "},"+
 			    	  "{"+
-		    		  "  'accessVector': 'Local'," +
+		    		  "  'accessVector': 'LOCAL'," +
 		    		  "  'Credit': 'This vulnerability was discovered by Richard Silverman &lt;slade@shore.net&gt;, and first announced by SSH Communications Security in an advisory posted to Bugtraq on January 16, 2001.'," +
 		    		  "  'class': 'Design Error'," +
 		    		  "  'CVE': ''," +

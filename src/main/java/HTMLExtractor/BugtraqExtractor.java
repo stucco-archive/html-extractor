@@ -66,14 +66,14 @@ public class BugtraqExtractor extends HTMLExtractor{
 	    regex = "(?s)\\s*?<td>.*?<span.*?>Local:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 	    String local = findWithRegex(content.html(), regex, 1).toLowerCase().trim();
 	    if(remote.equals("yes") ){
-	    	vertex.put("accessVector", "Remote");
+	    	vertex.put("accessVector", "REMOTE");
 	    } //if both are true, just leave as "remote" 
 	    //    TODO: does this even ever happen?  if so, was this a good way to handle?
 	    else if(local.equals("yes")){
-	    	vertex.put("accessVector", "Local");
+	    	vertex.put("accessVector", "LOCAL");
 	    }
 	    else{
-	    	vertex.put("accessVector", "Other");
+	    	logger.warn("unexpected accessVector for id " + vertexName + ": 'local' " + local + " 'remote' " + remote);
 	    }
 	    
 	    regex = "(?s)\\s*?<td>.*?<span.*?>Published:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
