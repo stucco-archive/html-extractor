@@ -149,7 +149,7 @@ public class FSecureExtractor extends HTMLExtractor{
 				continue;
 			}
 			if(curr.tagName().equals("p") && prev.tagName().equals("h2") && prev.text().equals("Summary")){
-				vertex.put("overview", curr.text());
+				vertex.put("description", curr.text());
 				contents.remove(i);
 				contents.remove(i-1);
 				i--;

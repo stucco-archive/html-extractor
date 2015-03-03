@@ -81,6 +81,7 @@ public class SophosExtractorTest{
 			    	  "  '_id': 'Mal/Conficker-A',"+
 			    	  "  'prevalence': 'Major Outbreak',"+
 			    	  "  'name': 'Mal/Conficker-A',"+
+			    	  "  'description': 'Mal/Conficker-A',"+
 			    	  "  'discoveryDate': 1227708812000,"+
 			    	  "  'aliases': [ "+
 			    	  "    'Mal/Conficker-A', "+
@@ -147,6 +148,7 @@ public class SophosExtractorTest{
 			    	  "  '_id': 'Troj/FBJack-A',"+
 			    	  "  'prevalence': 'Small Number of Reports',"+
 			    	  "  'name': 'Troj/FBJack-A',"+
+			    	  "  'description': 'Troj/FBJack-A',"+
 			    	  "  'knownFileTypes': ['application/octet-stream','text/html'],"+
 			    	  "  'discoveryDate': 1284593193000,"+
 			    	  "  'modifiedDate': 1284624938000,"+
@@ -219,6 +221,7 @@ public class SophosExtractorTest{
 			    	  "  '_id': 'Troj/JsRedir-NN',"+
 			    	  "  'source': 'Sophos',"+
 			    	  "  'name': 'Troj/JsRedir-NN',"+
+			    	  "  'description': 'Troj/JsRedir-NN',"+
 			    	  "  'knownFileTypes': ['JavaScript','application/octet-stream','text/cpp'],"+
 			    	  "  'discoveryDate': 1189296000000,"+
 			    	  "}]";
@@ -277,7 +280,8 @@ public class SophosExtractorTest{
 			    	  "  'source': 'Sophos',"+
 			    	  "  'prevalence': 'Small Number of Reports',"+
 			    	  "  '_id': 'Troj/Agent-DP',"+
-			    	  "  'name': 'Troj/Agent-DP'"+
+			    	  "  'name': 'Troj/Agent-DP',"+
+			    	  "  'description': 'Troj/Agent-DP'"+
 			    	  "}]";
 		    String expectedEdges = "[]";
 		    
@@ -332,63 +336,72 @@ public class SophosExtractorTest{
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '80',"+
-		    		"    'name': '80'"+
+		    		"    'name': '80',"+
+		    		"    'description': '80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'Address',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'franciz-industries.biz:80',"+
-		    		"    'name': 'franciz-industries.biz:80'"+
+		    		"    'name': 'franciz-industries.biz:80',"+
+		    		"    'description': 'franciz-industries.biz, port 80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'DNSName',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'franciz-industries.biz',"+
-		    		"    'name': 'franciz-industries.biz'"+
+		    		"    'name': 'franciz-industries.biz',"+
+		    		"    'description': 'franciz-industries.biz'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'port',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '80',"+
-		    		"    'name': '80'"+
+		    		"    'name': '80',"+
+		    		"    'description': '80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'Address',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.com:80',"+
-		    		"    'name': 'www.google.com:80'"+
+		    		"    'name': 'www.google.com:80',"+
+		    		"    'description': 'www.google.com, port 80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'DNSName',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.com',"+
-		    		"    'name': 'www.google.com'"+
+		    		"    'name': 'www.google.com',"+
+		    		"    'description': 'www.google.com'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'port',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '80',"+
-		    		"    'name': '80'"+
+		    		"    'name': '80',"+
+		    		"    'description': '80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'Address',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.ie:80',"+
-		    		"    'name': 'www.google.ie:80'"+
+		    		"    'name': 'www.google.ie:80',"+
+		    		"    'description': 'www.google.ie, port 80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'DNSName',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'www.google.ie',"+
-		    		"    'name': 'www.google.ie'"+
+		    		"    'name': 'www.google.ie',"+
+		    		"    'description': 'www.google.ie'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'platform': 'Windows',"+
@@ -434,6 +447,7 @@ public class SophosExtractorTest{
 		    		"    '_id': 'Troj/Zbot-ITY',"+
 		    		"    'source': 'Sophos',"+
 		    		"    'name': 'Troj/Zbot-ITY',"+
+		    		"    'description': 'Troj/Zbot-ITY',"+
 		    		"    'knownFileTypes': ['Windows executable'],"+
 		    		"    'processesCreated': ["+
 		    		"      'c:\\\\Documents and Settings\\\\test user\\\\application data\\\\veufno\\\\buerx.exe',"+
@@ -616,6 +630,7 @@ public class SophosExtractorTest{
 			    	  "  '_id': 'Troj/Zbot-AAA',"+
 			    	  "  'source': 'Sophos',"+
 			    	  "  'name': 'Troj/Zbot-AAA',"+
+			    	  "  'description': 'Troj/Zbot-AAA',"+
 			    	  "  'knownFileTypes': ['application/x-ms-dos-executable'],"+
 			    	  "  'discoveryDate': 1285718400000"+
 			    	  "}]";
@@ -672,105 +687,120 @@ public class SophosExtractorTest{
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '8080',"+
-		            "    'name': '8080'"+
+		            "    'name': '8080',"+
+		            "    'description': '8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'Address',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '176.123.0.160:8080',"+
-		            "    'name': '176.123.0.160:8080'"+
+		            "    'name': '176.123.0.160:8080',"+
+		            "    'description': '176.123.0.160, port 8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'ip',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '176.123.0.160',"+
-		            "    'name': '176.123.0.160'"+
+		            "    'name': '176.123.0.160',"+
+		            "    'description': '176.123.0.160'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'port',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '8080',"+
-		            "    'name': '8080'"+
+		            "    'name': '8080',"+
+		            "    'description': '8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'Address',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '195.5.208.87:8080',"+
-		            "    'name': '195.5.208.87:8080'"+
+		            "    'name': '195.5.208.87:8080',"+
+		            "    'description': '195.5.208.87, port 8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'ip',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '195.5.208.87',"+
-		            "    'name': '195.5.208.87'"+
+		            "    'name': '195.5.208.87',"+
+		            "    'description': '195.5.208.87'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'port',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '8080',"+
-		            "    'name': '8080'"+
+		            "    'name': '8080',"+
+		            "    'description': '8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'Address',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '195.65.173.133:8080',"+
-		            "    'name': '195.65.173.133:8080'"+
+		            "    'name': '195.65.173.133:8080',"+
+		            "    'description': '195.65.173.133, port 8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'ip',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '195.65.173.133',"+
-		            "    'name': '195.65.173.133'"+
+		            "    'name': '195.65.173.133',"+
+		            "    'description': '195.65.173.133'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'port',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '8080',"+
-		            "    'name': '8080'"+
+		            "    'name': '8080',"+
+		            "    'description': '8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'Address',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '222.124.143.12:8080',"+
-		            "    'name': '222.124.143.12:8080'"+
+		            "    'name': '222.124.143.12:8080',"+
+		            "    'description': '222.124.143.12, port 8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'ip',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '222.124.143.12',"+
-		            "    'name': '222.124.143.12'"+
+		            "    'name': '222.124.143.12',"+
+		            "    'description': '222.124.143.12'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'port',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '8080',"+
-		            "    'name': '8080'"+
+		            "    'name': '8080',"+
+		            "    'description': '8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'Address',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '46.105.117.13:8080',"+
-		            "    'name': '46.105.117.13:8080'"+
+		            "    'name': '46.105.117.13:8080',"+
+		            "    'description': '46.105.117.13, port 8080'"+
 		            "  },"+
 		            "  {"+
 		            "    'vertexType': 'ip',"+
 		            "    '_type': 'vertex',"+
 		            "    'source': 'Sophos',"+
 		            "    '_id': '46.105.117.13',"+
-		            "    'name': '46.105.117.13'"+
+		            "    'name': '46.105.117.13',"+
+		            "    'description': '46.105.117.13'"+
 		            "  },"+
 		            "  {"+
 		            "    'platform': 'Windows',"+
@@ -790,6 +820,7 @@ public class SophosExtractorTest{
 		            "    '_id': 'Troj/Weelsof-FG',"+
 		            "    'source': 'Sophos',"+
 		            "    'name': 'Troj/Weelsof-FG',"+
+		            "    'description': 'Troj/Weelsof-FG',"+
 		            "    'knownFileTypes': ['application/x-ms-dos-executable'],"+
 		            "    'processesCreated': ['c:\\\\windows\\\\system32\\\\svchost.exe'],"+
 		            "    'discoveryDate': 1408320000000,"+
@@ -1003,21 +1034,24 @@ public class SophosExtractorTest{
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': '80',"+
-		    		"    'name': '80'"+
+		    		"    'name': '80',"+
+		    		"    'description': '80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'Address',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'riseandshine.favcc1.com:80',"+
-		    		"    'name': 'riseandshine.favcc1.com:80'"+
+		    		"    'name': 'riseandshine.favcc1.com:80',"+
+		    		"    'description': 'riseandshine.favcc1.com, port 80'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'vertexType': 'DNSName',"+
 		    		"    '_type': 'vertex',"+
 		    		"    'source': 'Sophos',"+
 		    		"    '_id': 'riseandshine.favcc1.com',"+
-		    		"    'name': 'riseandshine.favcc1.com'"+
+		    		"    'name': 'riseandshine.favcc1.com',"+
+		    		"    'description': 'riseandshine.favcc1.com'"+
 		    		"  },"+
 		    		"  {"+
 		    		"    'platform': 'Windows',"+
@@ -1038,6 +1072,7 @@ public class SophosExtractorTest{
 		    		"    '_id': 'Troj/MSIL-ACB',"+
 		    		"    'source': 'Sophos',"+
 		    		"    'name': 'Troj/MSIL-ACB',"+
+		    		"    'description': 'Troj/MSIL-ACB',"+
 		    		"    'knownFileTypes': ['application/x-ms-dos-executable'],"+
 		    		"    'processesCreated': ['c:\\\\windows\\\\system32\\\\cmd.exe'],"+
 		    		"    'discoveryDate': 1408320000000,"+

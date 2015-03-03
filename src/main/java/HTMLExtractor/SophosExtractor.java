@@ -310,6 +310,7 @@ public class SophosExtractor extends HTMLExtractor{
 						
 						portVertex = new JSONObject();
 						portVertex.put("name", portString);
+						portVertex.put("description", portString);
 						portVertex.put("_id", portString);
 						portVertex.put("_type", "vertex");
 						portVertex.put("vertexType", "port");
@@ -323,7 +324,9 @@ public class SophosExtractor extends HTMLExtractor{
 					
 					addressVertex = new JSONObject();
 					String addressName = ipString + ":" + portString;
+					String desc = ipString + ", port " + portString;
 					addressVertex.put("name", addressName);
+					addressVertex.put("description", desc);
 					addressVertex.put("_id", addressName);
 					addressVertex.put("_type", "vertex");
 					addressVertex.put("vertexType", "Address");
@@ -356,6 +359,7 @@ public class SophosExtractor extends HTMLExtractor{
 					
 					ipVertex = new JSONObject();
 					ipVertex.put("name", ipString);
+					ipVertex.put("description", ipString);
 					ipVertex.put("_id", ipString);
 					ipVertex.put("_type", "vertex");
 					ipVertex.put("vertexType", "ip");
@@ -400,6 +404,7 @@ public class SophosExtractor extends HTMLExtractor{
 						
 						portVertex = new JSONObject();
 						portVertex.put("name", portString);
+						portVertex.put("description", portString);
 						portVertex.put("_id", portString);
 						portVertex.put("_type", "vertex");
 						portVertex.put("vertexType", "port");
@@ -416,7 +421,9 @@ public class SophosExtractor extends HTMLExtractor{
 					//TODO: if any counterexamples are found, revisit.
 					addressVertex = new JSONObject();
 					String addressName = dnsString + ":" + portString;
+					String desc = dnsString + ", port " + portString;
 					addressVertex.put("name", addressName);
+					addressVertex.put("description", desc);
 					addressVertex.put("_id", addressName);
 					addressVertex.put("_type", "vertex");
 					addressVertex.put("vertexType", "Address");
@@ -449,6 +456,7 @@ public class SophosExtractor extends HTMLExtractor{
 					
 					dnsVertex = new JSONObject();
 					dnsVertex.put("name", dnsString);
+					dnsVertex.put("description", dnsString);
 					dnsVertex.put("_id", dnsString);
 					dnsVertex.put("_type", "vertex");
 					dnsVertex.put("vertexType", "DNSName");
@@ -471,6 +479,7 @@ public class SophosExtractor extends HTMLExtractor{
 		
 		//TODO put some remaining free text in desc? (Not always present...)
 		//vertex.put("description", content.text());
+		vertex.put("description", vertexName);
 	    
 		vertices.put(vertex);
 		
