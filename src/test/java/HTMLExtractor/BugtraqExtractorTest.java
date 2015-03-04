@@ -135,7 +135,7 @@ public class BugtraqExtractorTest {
 		    		  "  'source': 'Bugtraq'," +
 		    		  "  'shortDescription': 'SSH Secure-RPC Weak Encrypted Authentication Vulnerability'," +
 		    		  "  'description': 'SSH Secure-RPC Weak Encrypted Authentication Vulnerability SSH is a package designed to encrypt traffic between two end points using the IETF specified SSH protocol. The SSH1 package is distributed and maintained by SSH Communications Security. A problem exists which could allow the discovery of the secret key used to encrypt traffic on the local host. When using SUN-DES-1 to share keys with other hosts on the network to facilitate secure communication via protocols such as NFS and NIS+, the keys are shared between hosts using the private key of the user and a cryptographic algorithm to secure the contents of the key, which is stored on the NIS+ primary. The problem occurs when the key is encrypted with the SUN-DES-1 magic phrase prior to having done a keylogin (the keyserv does not have the users DH private key). A design flaw in the software that shares the key with the NIS+ master will inconsistently return the correct value for an attempted keyshare that has failed. A step in the private key encryption process is skipped, and the users private key is then encrypted only with the public key of the target server and the SUN-DES-1 magic phrase, a phrase that is guessable due to the way it is generated. A user from the same host can then execute a function that returns another users magic phrase, and use this to decrypt the private key of the victim. This makes it possible for a user with malicious intent to gain knowledge of a users secret key, and decrypt sensitive traffic between two hosts, with the possibility of gaining access and elevated privileges on the hosts and/or NIS+ domain. This reportedly affects the SSH2 series of the software package.'," +
-		    		  "  'name': 'Bugtraq_2222'," +
+		    		  "  'name': 'Bugtraq ID 2222'," +
 		    		  "  'Vulnerable': [" +
 		    		  "    'SSH Communications Security SSH 1.2.30'," +
 		    		  "    'SSH Communications Security SSH 1.2.29'," +
@@ -149,7 +149,8 @@ public class BugtraqExtractorTest {
 		    		  "  '_type': 'edge'," +
 		    		  "  'outVType': 'software',"+
 		    		  "  'source': 'Bugtraq',"+
-		    		  "  '_id': 'SSH Communications Security SSH 1.2.30_to_Bugtraq_2222',"+
+		    		  "  '_id': 'SSH Communications Security SSH 1.2.30_hasVulnerability_Bugtraq_2222',"+
+		    		  "  'description': 'SSH Communications Security SSH 1.2.30 has vulnerability Bugtraq ID 2222',"+
 		    		  "  '_label': 'hasVulnerability',"+
 		    		  "  '_outV': 'SSH Communications Security SSH 1.2.30',"+
 		    		  "  '_inV': 'Bugtraq_2222',"+
@@ -159,7 +160,8 @@ public class BugtraqExtractorTest {
 			    	  "  '_type': 'edge',"+
 			    	  "  'outVType': 'software',"+
 			    	  "  'source': 'Bugtraq',"+
-			    	  "  '_id': 'SSH Communications Security SSH 1.2.29_to_Bugtraq_2222',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.29_hasVulnerability_Bugtraq_2222',"+
+			    	  "  'description': 'SSH Communications Security SSH 1.2.29 has vulnerability Bugtraq ID 2222',"+
 			    	  "  '_label': 'hasVulnerability',"+
 			    	  "  '_outV': 'SSH Communications Security SSH 1.2.29',"+
 			    	  "  '_inV': 'Bugtraq_2222',"+
@@ -169,7 +171,8 @@ public class BugtraqExtractorTest {
 			    	  "  '_type': 'edge',"+
 			    	  "  'outVType': 'software',"+
 			    	  "  'source': 'Bugtraq',"+
-			    	  "  '_id': 'SSH Communications Security SSH 1.2.28_to_Bugtraq_2222',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.28_hasVulnerability_Bugtraq_2222',"+
+			    	  "  'description': 'SSH Communications Security SSH 1.2.28 has vulnerability Bugtraq ID 2222',"+
 			    	  "  '_label': 'hasVulnerability',"+
 			    	  "  '_outV': 'SSH Communications Security SSH 1.2.28',"+
 			    	  "  '_inV': 'Bugtraq_2222',"+
@@ -179,7 +182,8 @@ public class BugtraqExtractorTest {
 			    	  "  '_type': 'edge',"+
 			    	  "  'outVType': 'software',"+
 			    	  "  'source': 'Bugtraq',"+
-			    	  "  '_id': 'SSH Communications Security SSH 1.2.27_to_Bugtraq_2222',"+
+			    	  "  '_id': 'SSH Communications Security SSH 1.2.27_hasVulnerability_Bugtraq_2222',"+
+			    	  "  'description': 'SSH Communications Security SSH 1.2.27 has vulnerability Bugtraq ID 2222',"+
 			    	  "  '_label': 'hasVulnerability',"+
 			    	  "  '_outV': 'SSH Communications Security SSH 1.2.27',"+
 			    	  "  '_inV': 'Bugtraq_2222',"+

@@ -324,9 +324,9 @@ public class SophosExtractor extends HTMLExtractor{
 					
 					addressVertex = new JSONObject();
 					String addressName = ipString + ":" + portString;
-					String desc = ipString + ", port " + portString;
+					String addressDesc = ipString + ", port " + portString;
 					addressVertex.put("name", addressName);
-					addressVertex.put("description", desc);
+					addressVertex.put("description", addressDesc);
 					addressVertex.put("_id", addressName);
 					addressVertex.put("_type", "vertex");
 					addressVertex.put("vertexType", "Address");
@@ -336,7 +336,8 @@ public class SophosExtractor extends HTMLExtractor{
 					edge = new JSONObject();
 					edge.put("_inV", addressName);
 					edge.put("_outV", vertex.get("name"));
-					edge.put("_id", vertex.get("name") + "_to_" + addressName);
+					edge.put("_id", vertex.get("name") + "_communicatesWith_" + addressName);
+					edge.put("description", vertex.get("name") + " communicates with " + addressDesc);
 					edge.put("_type", "edge");
 					edge.put("inVType", "address");
 					edge.put("outVType", "malware");
@@ -348,7 +349,8 @@ public class SophosExtractor extends HTMLExtractor{
 						edge = new JSONObject();
 						edge.put("_inV", portString);
 						edge.put("_outV", addressName);
-						edge.put("_id", addressName + "_to_" + portString);
+						edge.put("_id", addressName + "_hasPort_" + portString);
+						edge.put("description", addressDesc + " has port " + portString);
 						edge.put("_type", "edge");
 						edge.put("inVType", "port");
 						edge.put("outVType", "address");
@@ -369,7 +371,8 @@ public class SophosExtractor extends HTMLExtractor{
 					edge = new JSONObject();
 					edge.put("_inV", ipString);
 					edge.put("_outV", addressName);
-					edge.put("_id", addressName + "_to_" + ipString);
+					edge.put("_id", addressName + "_hasIP_" + ipString);
+					edge.put("description", addressDesc + " has IP " + ipString);
 					edge.put("_type", "edge");
 					edge.put("inVType", "ip");
 					edge.put("outVType", "address");
@@ -421,9 +424,9 @@ public class SophosExtractor extends HTMLExtractor{
 					//TODO: if any counterexamples are found, revisit.
 					addressVertex = new JSONObject();
 					String addressName = dnsString + ":" + portString;
-					String desc = dnsString + ", port " + portString;
+					String addressDesc = dnsString + ", port " + portString;
 					addressVertex.put("name", addressName);
-					addressVertex.put("description", desc);
+					addressVertex.put("description", addressDesc);
 					addressVertex.put("_id", addressName);
 					addressVertex.put("_type", "vertex");
 					addressVertex.put("vertexType", "Address");
@@ -433,7 +436,8 @@ public class SophosExtractor extends HTMLExtractor{
 					edge = new JSONObject();
 					edge.put("_inV", addressName);
 					edge.put("_outV", vertex.get("name"));
-					edge.put("_id", vertex.get("name") + "_to_" + addressName);
+					edge.put("_id", vertex.get("name") + "_communicatesWith_" + addressName);
+					edge.put("description", vertex.get("name") + " communicates with " + addressDesc);
 					edge.put("_type", "edge");
 					edge.put("inVType", "address");
 					edge.put("outVType", "malware");
@@ -445,7 +449,8 @@ public class SophosExtractor extends HTMLExtractor{
 						edge = new JSONObject();
 						edge.put("_inV", portString);
 						edge.put("_outV", addressName);
-						edge.put("_id", addressName + "_to_" + portString);
+						edge.put("_id", addressName + "_hasPort_" + portString);
+						edge.put("description", addressDesc + " has port " + portString);
 						edge.put("_type", "edge");
 						edge.put("inVType", "port");
 						edge.put("outVType", "address");
@@ -466,7 +471,8 @@ public class SophosExtractor extends HTMLExtractor{
 					edge = new JSONObject();
 					edge.put("_inV", dnsString);
 					edge.put("_outV", addressName);
-					edge.put("_id", addressName + "_to_" + dnsString);
+					edge.put("_id", addressName + "_hasDNSName_" + dnsString);
+					edge.put("description", addressDesc + " has DNS name " + dnsString);
 					edge.put("_type", "edge");
 					edge.put("inVType", "DNSName");
 					edge.put("outVType", "address");

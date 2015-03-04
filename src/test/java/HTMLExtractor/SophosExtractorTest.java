@@ -470,7 +470,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Zbot-ITY_to_franciz-industries.biz:80',"+
+		    		"    '_id': 'Troj/Zbot-ITY_communicatesWith_franciz-industries.biz:80',"+
+		    		"    'description': 'Troj/Zbot-ITY communicates with franciz-industries.biz, port 80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -480,7 +481,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'franciz-industries.biz:80_to_80',"+
+		    		"    '_id': 'franciz-industries.biz:80_hasPort_80',"+
+		    		"    'description': 'franciz-industries.biz, port 80 has port 80',"+
 		    		"    '_outV': 'franciz-industries.biz:80',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -490,7 +492,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'franciz-industries.biz:80_to_franciz-industries.biz',"+
+		    		"    '_id': 'franciz-industries.biz:80_hasDNSName_franciz-industries.biz',"+
+		    		"    'description': 'franciz-industries.biz, port 80 has DNS name franciz-industries.biz',"+
 		    		"    '_outV': 'franciz-industries.biz:80',"+
 		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
@@ -500,7 +503,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.com:80',"+
+		    		"    '_id': 'Troj/Zbot-ITY_communicatesWith_www.google.com:80',"+
+		    		"    'description': 'Troj/Zbot-ITY communicates with www.google.com, port 80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -510,7 +514,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'www.google.com:80_to_80',"+
+		    		"    '_id': 'www.google.com:80_hasPort_80',"+
+		    		"    'description': 'www.google.com, port 80 has port 80',"+
 		    		"    '_outV': 'www.google.com:80',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -520,7 +525,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'www.google.com:80_to_www.google.com',"+
+		    		"    '_id': 'www.google.com:80_hasDNSName_www.google.com',"+
+		    		"    'description': 'www.google.com, port 80 has DNS name www.google.com',"+
 		    		"    '_outV': 'www.google.com:80',"+
 		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
@@ -530,7 +536,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Zbot-ITY_to_www.google.ie:80',"+
+		    		"    '_id': 'Troj/Zbot-ITY_communicatesWith_www.google.ie:80',"+
+		    		"    'description': 'Troj/Zbot-ITY communicates with www.google.ie, port 80',"+
 		    		"    '_outV': 'Troj/Zbot-ITY',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -540,7 +547,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'www.google.ie:80_to_80',"+
+		    		"    '_id': 'www.google.ie:80_hasPort_80',"+
+		    		"    'description': 'www.google.ie, port 80 has port 80',"+
 		    		"    '_outV': 'www.google.ie:80',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -550,7 +558,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'www.google.ie:80_to_www.google.ie',"+
+		    		"    '_id': 'www.google.ie:80_hasDNSName_www.google.ie',"+
+		    		"    'description': 'www.google.ie, port 80 has DNS name www.google.ie',"+
 		    		"    '_outV': 'www.google.ie:80',"+
 		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+
@@ -835,7 +844,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Weelsof-FG_to_176.123.0.160:8080',"+
+		    		"    '_id': 'Troj/Weelsof-FG_communicatesWith_176.123.0.160:8080',"+
+		    		"    'description': 'Troj/Weelsof-FG communicates with 176.123.0.160, port 8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -845,7 +855,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '176.123.0.160:8080_to_8080',"+
+		    		"    '_id': '176.123.0.160:8080_hasPort_8080',"+
+		    		"    'description': '176.123.0.160, port 8080 has port 8080',"+
 		    		"    '_outV': '176.123.0.160:8080',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -855,7 +866,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '176.123.0.160:8080_to_176.123.0.160',"+
+		    		"    '_id': '176.123.0.160:8080_hasIP_176.123.0.160',"+
+		    		"    'description': '176.123.0.160, port 8080 has IP 176.123.0.160',"+
 		    		"    '_outV': '176.123.0.160:8080',"+
 		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
@@ -865,7 +877,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Weelsof-FG_to_195.5.208.87:8080',"+
+		    		"    '_id': 'Troj/Weelsof-FG_communicatesWith_195.5.208.87:8080',"+
+		    		"    'description': 'Troj/Weelsof-FG communicates with 195.5.208.87, port 8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -875,7 +888,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '195.5.208.87:8080_to_8080',"+
+		    		"    '_id': '195.5.208.87:8080_hasPort_8080',"+
+		    		"    'description': '195.5.208.87, port 8080 has port 8080',"+
 		    		"    '_outV': '195.5.208.87:8080',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -885,7 +899,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '195.5.208.87:8080_to_195.5.208.87',"+
+		    		"    '_id': '195.5.208.87:8080_hasIP_195.5.208.87',"+
+		    		"    'description': '195.5.208.87, port 8080 has IP 195.5.208.87',"+
 		    		"    '_outV': '195.5.208.87:8080',"+
 		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
@@ -895,7 +910,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Weelsof-FG_to_195.65.173.133:8080',"+
+		    		"    '_id': 'Troj/Weelsof-FG_communicatesWith_195.65.173.133:8080',"+
+		    		"    'description': 'Troj/Weelsof-FG communicates with 195.65.173.133, port 8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -905,7 +921,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '195.65.173.133:8080_to_8080',"+
+		    		"    '_id': '195.65.173.133:8080_hasPort_8080',"+
+		    		"    'description': '195.65.173.133, port 8080 has port 8080',"+
 		    		"    '_outV': '195.65.173.133:8080',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -915,7 +932,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '195.65.173.133:8080_to_195.65.173.133',"+
+		    		"    '_id': '195.65.173.133:8080_hasIP_195.65.173.133',"+
+		    		"    'description': '195.65.173.133, port 8080 has IP 195.65.173.133',"+
 		    		"    '_outV': '195.65.173.133:8080',"+
 		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
@@ -925,7 +943,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Weelsof-FG_to_222.124.143.12:8080',"+
+		    		"    '_id': 'Troj/Weelsof-FG_communicatesWith_222.124.143.12:8080',"+
+		    		"    'description': 'Troj/Weelsof-FG communicates with 222.124.143.12, port 8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -935,7 +954,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '222.124.143.12:8080_to_8080',"+
+		    		"    '_id': '222.124.143.12:8080_hasPort_8080',"+
+		    		"    'description': '222.124.143.12, port 8080 has port 8080',"+
 		    		"    '_outV': '222.124.143.12:8080',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -945,7 +965,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '222.124.143.12:8080_to_222.124.143.12',"+
+		    		"    '_id': '222.124.143.12:8080_hasIP_222.124.143.12',"+
+		    		"    'description': '222.124.143.12, port 8080 has IP 222.124.143.12',"+
 		    		"    '_outV': '222.124.143.12:8080',"+
 		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
@@ -955,7 +976,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/Weelsof-FG_to_46.105.117.13:8080',"+
+		    		"    '_id': 'Troj/Weelsof-FG_communicatesWith_46.105.117.13:8080',"+
+		    		"    'description': 'Troj/Weelsof-FG communicates with 46.105.117.13, port 8080',"+
 		    		"    '_outV': 'Troj/Weelsof-FG',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -965,7 +987,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '46.105.117.13:8080_to_8080',"+
+		    		"    '_id': '46.105.117.13:8080_hasPort_8080',"+
+		    		"    'description': '46.105.117.13, port 8080 has port 8080',"+
 		    		"    '_outV': '46.105.117.13:8080',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -975,7 +998,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': '46.105.117.13:8080_to_46.105.117.13',"+
+		    		"    '_id': '46.105.117.13:8080_hasIP_46.105.117.13',"+
+		    		"    'description': '46.105.117.13, port 8080 has IP 46.105.117.13',"+
 		    		"    '_outV': '46.105.117.13:8080',"+
 		    		"    '_label': 'hasIP',"+
 		    		"    'inVType': 'ip',"+
@@ -1084,7 +1108,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'malware',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'Troj/MSIL-ACB_to_riseandshine.favcc1.com:80',"+
+		    		"    '_id': 'Troj/MSIL-ACB_communicatesWith_riseandshine.favcc1.com:80',"+
+		    		"    'description': 'Troj/MSIL-ACB communicates with riseandshine.favcc1.com, port 80',"+
 		    		"    '_outV': 'Troj/MSIL-ACB',"+
 		    		"    '_label': 'communicatesWith',"+
 		    		"    'inVType': 'address',"+
@@ -1094,7 +1119,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'riseandshine.favcc1.com:80_to_80',"+
+		    		"    '_id': 'riseandshine.favcc1.com:80_hasPort_80',"+
+		    		"    'description': 'riseandshine.favcc1.com, port 80 has port 80',"+
 		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
 		    		"    '_label': 'hasPort',"+
 		    		"    'inVType': 'port',"+
@@ -1104,7 +1130,8 @@ public class SophosExtractorTest{
 		    		"    '_type': 'edge',"+
 		    		"    'outVType': 'address',"+
 		    		"    'source': 'Sophos',"+
-		    		"    '_id': 'riseandshine.favcc1.com:80_to_riseandshine.favcc1.com',"+
+		    		"    '_id': 'riseandshine.favcc1.com:80_hasDNSName_riseandshine.favcc1.com',"+
+		    		"    'description': 'riseandshine.favcc1.com, port 80 has DNS name riseandshine.favcc1.com',"+
 		    		"    '_outV': 'riseandshine.favcc1.com:80',"+
 		    		"    '_label': 'hasDNSName',"+
 		    		"    'inVType': 'DNSName',"+

@@ -47,9 +47,9 @@ public class BugtraqExtractor extends HTMLExtractor{
 		vertex.put("shortDescription", content.getElementsByClass("title").first().text());
 		
 		String regex = "(?s)\\s*?<td>.*?<span.*?>Bugtraq ID:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    String vertexName = "Bugtraq_" + findWithRegex(content.html(), regex, 1);
-		vertex.put("name", vertexName);
-		vertex.put("_id", vertexName);
+		String bugtraqID = findWithRegex(content.html(), regex, 1);
+		vertex.put("name", "Bugtraq ID " + bugtraqID);
+		vertex.put("_id", "Bugtraq_" + bugtraqID);
 		vertex.put("_type", "vertex");
 		vertex.put("vertexType", "vulnerability");
 		vertex.put("source", "Bugtraq");
@@ -73,7 +73,7 @@ public class BugtraqExtractor extends HTMLExtractor{
 	    	vertex.put("accessVector", "LOCAL");
 	    }
 	    else{
-	    	logger.warn("unexpected accessVector for id " + vertexName + ": 'local' " + local + " 'remote' " + remote);
+	    	logger.warn("unexpected accessVector for id " + bugtraqID + ": 'local' " + local + " 'remote' " + remote);
 	    }
 	    
 	    regex = "(?s)\\s*?<td>.*?<span.*?>Published:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
@@ -117,13 +117,15 @@ public class BugtraqExtractor extends HTMLExtractor{
 	    	v.put("source", "Bugtraq");
 	    	
 	    	JSONObject e = new JSONObject();
-	    	String edgeName = softwareName + "_to_" + vertexName;
+	    	String edgeName = softwareName + "_hasVulnerability_" + "Bugtraq_" + bugtraqID;
 	    	e.put("_id", edgeName);
+	    	String edgeDescription = softwareName + " has vulnerability " + "Bugtraq ID " + bugtraqID;
+	    	e.put("description", edgeDescription);
 	    	e.put("_type", "edge");
 	    	e.put("inVType", "vulnerability");
 	    	e.put("outVType", "software");
 	    	e.put("source", "Bugtraq");
-	    	e.put("_inV", vertexName);
+	    	e.put("_inV", "Bugtraq_" + bugtraqID);
 	    	e.put("_outV", softwareName);
 	    	e.put("_label", "hasVulnerability");
 	    	
