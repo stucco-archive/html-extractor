@@ -66,10 +66,10 @@ public class BugtraqExtractorTest {
 	}
 	
 	/**
-	 * Tests conversion
+	 * Tests conversion for item 2222
 	 */
 	@Test
-	public void testConvert()
+	public void testConvert_2222()
 	{
 		int entryNum = 2222;
 		boolean localMode = true;
@@ -142,7 +142,7 @@ public class BugtraqExtractorTest {
 		    		  "    'SSH Communications Security SSH 1.2.28'," +
 		    		  "    'SSH Communications Security SSH 1.2.27'" +
 		    		  "  ]," +
-		    		  "  'Not_Vulnerable': ['']," +
+		    		  "  'Not_Vulnerable': []," +
 		    		  "  'publishedDate': 979603200000," +
 			    	  "}]";
 		    String expectedEdges = "[{" + 
@@ -211,12 +211,76 @@ public class BugtraqExtractorTest {
 	}
 
 	/**
-	 * Test stub
+	 * Tests conversion for item 72838
 	 */
 	@Test
-	public void testPlaceholder()
+	public void testConvert_72838()
 	{
+		int entryNum = 72838;
+		boolean localMode = true;
+		String info, discussion, exploit, solution, references;
 		
+		try {
+			Map<String,String> pageContent = loadContent(entryNum, localMode);
+			info = pageContent.get("info");
+			discussion = pageContent.get("discussion");
+			exploit = pageContent.get("exploit");
+			solution = pageContent.get("solution");
+			references = pageContent.get("references");
+			
+			//TODO maybe add a BugtraqExtractor(Map)?
+			BugtraqExtractor bugtraqExt = new BugtraqExtractor(info, discussion, exploit, solution, references);
+			JSONObject obj = bugtraqExt.getGraph();
+		    
+		    //System.out.println(obj.toString(2));
+
+		    JSONArray verts = obj.getJSONArray("vertices");
+		    JSONArray edges = obj.getJSONArray("edges");
+		    
+		    String expectedVerts = "[{"+
+		    		  "  'accessVector': 'REMOTE'," +
+		    		  "  'Credit': 'rgod'," +
+		    		  "  'class': 'Boundary Condition Error'," +
+		    		  "  'CVE': 'CVE-2015-2098'," +
+		    		  "  'solution': 'Solution: Currently, we are not aware of any vendor-supplied patches. If you feel we are in error or are aware of more recent information, please mail us at: vuldb@securityfocus.com.'," +
+		    		  "  'exploit': 'Currently, we are not aware of any working exploits. If you feel we are in error or if you are aware of more recent information, please mail us at: vuldb@securityfocus.com.'," +
+		    		  "  'modifiedDate': 1427414400000," +
+		    		  "  'vertexType': 'vulnerability'," +
+		    		  "  '_type': 'vertex'," +
+		    		  "  'references': ['http://support.microsoft.com/kb/240797'],"+
+		    		  "  '_id': 'Bugtraq_72838'," +
+		    		  "  'source': 'Bugtraq'," +
+		    		  "  'shortDescription': 'WebGate eDVR Manager ActiveX Controls CVE-2015-2098 Multiple Buffer Overflow Vulnerabilities'," +
+		    		  "  'description': \"WebGate eDVR Manager ActiveX Controls CVE-2015-2098 Multiple Buffer Overflow Vulnerabilities WebGate eDVR Manager is prone to multiple buffer-overflow vulnerabilities because it fails to perform boundary checks before copying user-supplied data to insufficiently sized memory buffer. The controls are identified by CLSID's: 359742AF-BF34-4379-A084-B7BF0E5F34B0 4E14C449-A61A-4BF7-8082-65A91298A6D8 5A216ADB-3009-4211-AB77-F1857A99482C An attacker can exploit these issues to execute arbitrary code in the context of the application, usually Internet Explorer, using the ActiveX control.Failed attacks will likely cause denial-of-service conditions.\"," +
+		    		  "  'name': 'Bugtraq ID 72838'," +
+		    		  "  'Vulnerable': []," +
+		    		  "  'Not_Vulnerable': []," +
+		    		  "  'publishedDate': 1427414400000" +
+			    	  "}]";
+		    String expectedEdges = "[]";
+		    
+		    //System.out.println("Vertex list was: \n" + verts);
+		    //System.out.println("Edge list was: \n" + edges);
+
+		    boolean match = HTMLExtractor.deepCompareJSONArraysUnordered(verts, new JSONArray(expectedVerts));
+		    if(!match){
+		    	System.out.println("Vertex list did not match!  result was: \n" + verts);
+		    }
+		    assertTrue( match );
+		    match = HTMLExtractor.deepCompareJSONArraysUnordered(edges, new JSONArray(expectedEdges));
+		    if(!match){
+		    	System.out.println("Edge list did not match!  result was: \n" + edges);
+		    }
+		    assertTrue( match );
+		    
+		    
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("IOException");
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception");
+		}
 	}
 
 }

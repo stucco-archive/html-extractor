@@ -96,7 +96,9 @@ public class BugtraqExtractor extends HTMLExtractor{
 		String item;
 		for(int i=vulnerableList.size()-1; i>=0; i--){
 			item = vulnerableList.get(i);
-			if(item.contains("<span class=\"related\">")){
+			if(item.equals("")){
+				vulnerableList.remove(i);
+			}else if(item.contains("<span class=\"related\">")){
 				vulnerableList.remove(i);
 			}else if(item.equals("</span>")){
 				vulnerableList.remove(i);
@@ -143,7 +145,9 @@ public class BugtraqExtractor extends HTMLExtractor{
 		//remove the plus and minus sub-entries here also.
 		for(int i=notVulnerableList.size()-1; i>=0; i--){
 			item = notVulnerableList.get(i);
-			if(item.contains("<span class=\"related\">")){
+			if(item.equals("")){
+				notVulnerableList.remove(i);
+			}else if(item.contains("<span class=\"related\">")){
 				notVulnerableList.remove(i);
 			}else if(item.equals("</span>")){
 				notVulnerableList.remove(i);
