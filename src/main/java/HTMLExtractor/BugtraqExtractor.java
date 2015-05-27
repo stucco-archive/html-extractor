@@ -2,6 +2,13 @@ package HTMLExtractor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+import java.util.UUID;
+
+import java.text.*;
 
 import org.json.*;
 import org.jsoup.Jsoup;
@@ -11,10 +18,41 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.mitre.stix.exploittarget_1.VulnerabilityType;
+import org.mitre.stix.exploittarget_1.CVSSVectorType;
+import org.mitre.stix.common_1.ReferencesType;
+import org.mitre.stix.common_1.StructuredTextType;
+import org.mitre.stix.extensions.vulnerability.CVRF11InstanceType;
+import org.mitre.stix.exploittarget_1.AffectedSoftwareType;
+import org.mitre.stix.common_1.DateTimeWithPrecisionType;
+import org.mitre.cybox.objects.Product;
+import org.mitre.cybox.common_2.StringObjectPropertyType;
+import org.mitre.cybox.common_2.ObjectPropertiesType;
+import org.mitre.stix.common_1.RelatedObservableType;
+import org.mitre.cybox.cybox_2.Observable;
+import org.mitre.cybox.cybox_2.ObjectType;
+import org.mitre.stix.common_1.ReferencesType;
+import org.mitre.stix.common_1.InformationSourceType;
+import org.mitre.stix.common_1.ExploitTargetsType;
+import org.mitre.stix.common_1.ExploitTargetBaseType;
+import org.mitre.stix.exploittarget_1.ExploitTarget;
+import org.mitre.cybox.common_2.TimeType;
+import org.mitre.stix.stix_1.STIXHeaderType;
+import org.mitre.stix.stix_1.STIXPackage;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
+
 public class BugtraqExtractor extends HTMLExtractor{
 	
 	private JSONObject graph;
 	private static final Logger logger = LoggerFactory.getLogger(BugtraqExtractor.class);
+
+	//empty constractor for test purpose
+	public BugtraqExtractor(){};
 
 	public BugtraqExtractor(String info, String discussion, String exploit, 
 			String solution, String references){
@@ -192,6 +230,103 @@ public class BugtraqExtractor extends HTMLExtractor{
 		graph.put("edges", edges);
 		
 	    return graph;
+	}
+
+				
+	public STIXPackage jsonToStix (JSONObject graph)	{ 
+				
+		try {		
+			
+			GregorianCalendar calendar = new GregorianCalendar();
+			JSONArray vertices = new JSONArray();
+			vertices = graph.getJSONArray("vertices");			
+			List<ExploitTargetBaseType> et = new ArrayList<ExploitTargetBaseType>();
+																				
+			for (int i = 0; i < vertices.length(); i++)	{
+				VulnerabilityType vulnerability = new VulnerabilityType();
+				JSONObject vertex = vertices.getJSONObject(i);
+				if (vertex.getString("vertexType").equals("software")) continue;	
+											
+				if (vertex.has("description"))
+					vulnerability
+						.withDescriptions(new StructuredTextType()
+							.withValue(vertex.getString("description")));
+				if (vertex.has("shortDescription"))
+					vulnerability							
+						.withShortDescriptions(new StructuredTextType()
+							.withValue(vertex.getString("shortDescription")));
+				if (vertex.has("CVE"))
+					vulnerability
+						.withCVEID(vertex.getString("CVE"));
+				if (vertex.has("source"))
+					vulnerability
+						.withSource(vertex.getString("source"));
+				if (vertex.has("publishedDate"))	{
+					calendar.setTimeInMillis(vertex.getLong("publishedDate"));
+					XMLGregorianCalendar publishedDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);		
+					vulnerability
+						.withDiscoveredDateTime(new DateTimeWithPrecisionType()
+							.withValue(publishedDate)); 
+				}									
+				if (vertex.has("Vulnerable"))	{
+					JSONArray vulnerableList = new JSONArray();
+					vulnerableList = vertex.getJSONArray("Vulnerable");
+					List<RelatedObservableType> relatedObservable = new ArrayList<RelatedObservableType>();
+											
+					for (int j = 0; j < vulnerableList.length(); j++)	{
+						relatedObservable.add(new RelatedObservableType()
+							.withObservable(new Observable()
+								.withObject(new ObjectType()
+									.withProperties(new Product()
+										.withProduct(new StringObjectPropertyType()
+											.withValue(vulnerableList.getString(j)))
+						))));																
+					}
+					vulnerability
+						.withAffectedSoftware(new AffectedSoftwareType()
+							.withAffectedSoftwares(relatedObservable));
+				}																
+				if (vertex.has("references"))	{									
+					ArrayList<String> references = new ArrayList<String>();
+					JSONArray refJson = vertex.getJSONArray("references");
+					if (refJson.length() != 0)	{
+						for (int j = 0; j < refJson.length(); j++)	
+							references.add(refJson.getString(j));
+						vulnerability
+							.withReferences(new ReferencesType()
+								.withReferences(references));
+					}							
+				}										
+				et.add(new ExploitTarget()
+					.withVulnerabilities(vulnerability)
+					.withId(new QName("stucco", "bugtraq-" + UUID.randomUUID().toString(), "stucco")));
+															
+			}								
+
+			XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
+			InformationSourceType producer = new InformationSourceType()
+				.withTime(new TimeType()
+					.withProducedTime(new org.mitre.cybox.common_2.DateTimeWithPrecisionType(now, null)));			
+																		
+			STIXHeaderType header = new STIXHeaderType().withTitle("Bugtraq");
+			STIXPackage stixPackage = new STIXPackage()
+				.withSTIXHeader(header)
+				.withExploitTargets(new ExploitTargetsType()
+					.withExploitTargets(et))
+					.withTimestamp(now)
+					.withId(new QName("stucco", "bugtraq-" + UUID.randomUUID().toString(), "stucco"));
+								
+			return stixPackage;			
+
+		} catch (DatatypeConfigurationException e)	{
+			e.printStackTrace();
+		} 
+
+		return null;
+	}
+
+	boolean validate(STIXPackage stixPackage) {
+		return stixPackage.validate();
 	}
 
 }
