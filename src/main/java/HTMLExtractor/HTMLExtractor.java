@@ -51,6 +51,14 @@ public abstract class HTMLExtractor {
 	    }
 	}
 	
+	protected static boolean isEmpty(String content)	{
+
+		if (content.length() == 0)
+			return true;
+		else
+			return false;
+	}
+
 	protected static void removeBRs(Elements contents){
 		Element curr;
 		for(int i = contents.size()-1; i>=0; i--){
