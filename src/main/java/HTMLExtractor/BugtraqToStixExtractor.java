@@ -1,3 +1,15 @@
+/*
+	Outputs Bugtraq in STIX format containing the following fields:
+		- CVE
+		- publishedDate
+		- Vulnerable
+		- description
+		- solution
+		- references
+		- shortDescription
+		- source (is a title at the STIXHeader)
+*/
+
 package HTMLExtractor;
 
 import java.util.ArrayList;
@@ -47,9 +59,11 @@ import org.mitre.stix.stix_1.STIXPackage;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.namespace.QName;
+import javax.xml.namespace.QName;					
 import javax.xml.parsers.ParserConfigurationException;
-			
+
+import org.xml.sax.SAXException;			
+
 public class BugtraqToStixExtractor extends HTMLExtractor{
 							
 	private STIXPackage stixPackage;
@@ -74,7 +88,7 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 	private STIXPackage extract(String info, String discussion, String exploit, 
 			String solution, String references){
 		
-		//TODO  missing fields: _id (maybe attribute value?)
+		//TODO  missing fields: 
 		//			vertexType - it is already know as a vulnerability in stix
 		//			_type 
 		//			modifiedDate - maybe value of a timestamp attribute?
@@ -85,11 +99,6 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 		//			class	
 		try {
 
-			JSONObject graph = new JSONObject();
-			JSONArray vertices = new JSONArray();
-			JSONArray edges = new JSONArray();
-			JSONObject vertex = new JSONObject();
-		
 			GregorianCalendar calendar = new GregorianCalendar();
  			List<ExploitTargetBaseType> et = new ArrayList<ExploitTargetBaseType>();		
 			ExploitTarget exploitTarget = new ExploitTarget();
@@ -102,71 +111,36 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 			logger.debug(content.html());
 			logger.debug(content.getElementsByClass("title").first().text());
 			
-			vertex.put("shortDescription", content.getElementsByClass("title").first().text());
+			//shortDescription
  			vulnerability
 				.withShortDescriptions(new StructuredTextType()
 					.withValue(content.getElementsByClass("title").first().text()));
 
+			//TODO what to do with this id?
 			String regex = "(?s)\\s*?<td>.*?<span.*?>Bugtraq ID:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 			String bugtraqID = findWithRegex(content.html(), regex, 1);
-			vertex.put("name", "Bugtraq ID " + bugtraqID);
-			//TODO make _id as an attribute
-			vertex.put("_id", "Bugtraq_" + bugtraqID);	//no suitable field
-			vertex.put("_type", "vertex");			//no suitable field
-			vertex.put("vertexType", "vulnerability");	//no suitable field
 			
-			vertex.put("source", "Bugtraq");
+			//source
 			vulnerability
 				.withSource("Bugtraq");
 			
-	    
-			regex = "(?s)\\s*?<td>.*?<span.*?>Class:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		vertex.put("class", findWithRegex(content.html(), regex, 1));	//no suitable field
-	    										
 	    		regex = "(?s)\\s*?<td>.*?<span.*?>CVE:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 	    		String cve = findWithRegex(content.html(), regex, 1).replaceAll("<br\\s*/>", "");
-			System.out.println("cve length = " + cve.length());
-	    		vertex.put("CVE", cve);
+			
+			//CVE
 			if (!isEmpty(cve))
 				vulnerability
 					.withCVEID(cve);
 			
-			//no suitable field for accessVector
-	    		regex = "(?s)\\s*?<td>.*?<span.*?>Remote:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		String remote = findWithRegex(content.html(), regex, 1).toLowerCase().trim();
-	    		regex = "(?s)\\s*?<td>.*?<span.*?>Local:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		String local = findWithRegex(content.html(), regex, 1).toLowerCase().trim();
-	    		if(remote.equals("yes") ){
-	    			vertex.put("accessVector", "REMOTE");
-	    		} 
-		
-			//if both are true, just leave as "remote" 
-	    		//    TODO: does this even ever happen?  if so, was this a good way to handle?
-	    		else if(local.equals("yes")){
-	    		vertex.put("accessVector", "LOCAL");
-	    		}
-	    		else{
-	    			logger.warn("unexpected accessVector for id " + bugtraqID + 
-					": 'local' " + local + " 'remote' " + remote);
-	    		}
-	    
 	    		regex = "(?s)\\s*?<td>.*?<span.*?>Published:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 	    		String publishedTS = findWithRegex(content.html(), regex, 1);
-	    		vertex.put("publishedDate", convertTimestamp(publishedTS));
 			calendar.setTimeInMillis(convertTimestamp(publishedTS));
 			XMLGregorianCalendar publishedDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+			
+			//publishedDate
 			vulnerability
 				.withDiscoveredDateTime(new DateTimeWithPrecisionType()
 					.withValue(publishedDate));	    
-
-			//no field for modified date
-	    		regex = "(?s)\\s*?<td>.*?<span.*?>Updated:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		String modifiedTS = findWithRegex(content.html(), regex, 1);
-	    		vertex.put("modifiedDate", convertTimestamp(modifiedTS));
-	    		
-			//no field for credit
-	    		regex = "(?s)\\s*?<td>.*?<span.*?>Credit:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		vertex.put("Credit", findWithRegex(content.html(), regex, 1));
 
 	    		regex = "(?s)\\s*?<td>.*?<span.*?>Vulnerable:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
 	    		String[] vulnerable = findWithRegex(content.html(), regex, 1).split("<br\\s*/>");
@@ -187,8 +161,8 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 					vulnerableList.set(i, item.replaceAll("</span>\\s*", ""));
 				}
 			}
-	    		vertex.put("Vulnerable", vulnerableList);
 			
+			//Vulnerable
 			List<RelatedObservableType> relatedObservable = new ArrayList<RelatedObservableType>();
  			if (!vulnerableList.isEmpty())	{
 				for (int j = 0; j < vulnerableList.size(); j++)       {
@@ -205,81 +179,24 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 						.withAffectedSoftwares(relatedObservable));
 			}	    
 
-	    		//add vertices and edges for the vuln software.
-	    		for(int i=0; i<vulnerableList.size(); i++){
-	    			JSONObject v = new JSONObject();
-	    			String softwareName = vulnerableList.get(i); 
-	    			v.put("name", softwareName);
-	    			v.put("_id", softwareName);
-	    			v.put("_type", "vertex");
-				v.put("vertexType", "software");
-	    			v.put("source", "Bugtraq");
-	    	
-	    			JSONObject e = new JSONObject();
-	    			String edgeName = softwareName + "_hasVulnerability_" + "Bugtraq_" + bugtraqID;
-	    			e.put("_id", edgeName);
-	    			String edgeDescription = softwareName + " has vulnerability " + "Bugtraq ID " + bugtraqID;
-	    			e.put("description", edgeDescription);
-	    			e.put("_type", "edge");
-	    			e.put("inVType", "vulnerability");
-	    			e.put("outVType", "software");
-	    			e.put("source", "Bugtraq");
-	    			e.put("_inV", "Bugtraq_" + bugtraqID);
-	    			e.put("_outV", softwareName);
-	    			e.put("_label", "hasVulnerability");
-	    		
-	    			vertices.put(v);
-	    			edges.put(e);
-	    		}
-	    
-			//no suitable field for not vulnerable software
-	    		//not vulnerable field is rarely used, but does happen sometimes, see:
-	    		// http://www.securityfocus.com/bid/429/info
-	    		// http://www.securityfocus.com/bid/439/info
-	    		regex = "(?s)\\s*?<td>.*?<span.*?>Not Vulnerable:</span>.*?</td>.*?<td>\\s*(.*?)\\s*</td>";
-	    		String[] notVulnerable = findWithRegex(content.html(), regex, 1).split("<br\\s*/>");
-	    		trimAll(notVulnerable);
-	    		ArrayList<String> notVulnerableList = new ArrayList<String>(Arrays.asList(notVulnerable));
-			//remove the plus and minus sub-entries here also.
-			for(int i=notVulnerableList.size()-1; i>=0; i--){
-				item = notVulnerableList.get(i);
-				if(item.equals("")){
-					notVulnerableList.remove(i);
-				}else if(item.contains("<span class=\"related\">")){
-					notVulnerableList.remove(i);
-				}else if(item.equals("</span>")){
-					notVulnerableList.remove(i);
-				}else if(item.contains("</span>")){
-					notVulnerableList.set(i, item.replaceAll("</span>\\s*", ""));
-				}
-			}
-	   	 	vertex.put("Not_Vulnerable", notVulnerableList);
-	    
 			//process the "discussion" page
 			doc = Jsoup.parse(discussion);
 			content = doc.getElementById("vulnerability");
-			vertex.put("description", content.text());
+			
+			//description
 			if (!isEmpty(content.text()))	{
 				vulnerability
 					.withDescriptions(new StructuredTextType()
 						.withValue(content.text()));
 			}								
 
-			//no suitable field in stix
-			//process the "exploit" page
-			doc = Jsoup.parse(exploit);
-			content = doc.getElementById("vulnerability");
-			doc.getElementsByClass("title").first().remove();
-			vertex.put("exploit", content.text());
-		
-		
 			//TODO add action to the stix schema
 			//process the "solution" page
 			doc = Jsoup.parse(solution);
 			content = doc.getElementById("vulnerability");
 			doc.getElementsByClass("title").first().remove();
-			vertex.put("solution", content.text());
-			  
+			 
+			//solution 
 	  		if (!isEmpty(content.text()))	{
 				PotentialCOAsType coa = new PotentialCOAsType();
 				coa							
@@ -297,7 +214,8 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 			content = doc.getElementById("vulnerability");
 			doc.getElementsByClass("title").first().remove();
 			ArrayList<String> refStrings = findAllLinkHrefs(content);
-			vertex.put("references", refStrings);
+			
+			//references
 			if(!refStrings.isEmpty())	{
 				vulnerability
 					.withReferences(new ReferencesType()
@@ -321,11 +239,6 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 				.withTimestamp(now)
  				.withId(new QName("stucco", "bugtraq-" + UUID.randomUUID().toString(), "stucco"));
 				
-			vertices.put(vertex);
-			graph.put("mode","NORMAL");
-			graph.put("vertices", vertices);
-			graph.put("edges", edges);
-		
 		    	return stixPackage;
 		
 		} catch (DatatypeConfigurationException e)      {
@@ -334,8 +247,14 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 		
 		return null;
 	}
-			
+																					
 	boolean validate(STIXPackage stixPackage) {
-		return stixPackage.validate();
+		try	{
+			return stixPackage.validate();
+		}			
+		catch (SAXException e)	{
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
