@@ -18,6 +18,8 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.xml.sax.SAXException;
+
 import org.mitre.stix.exploittarget_1.VulnerabilityType;
 import org.mitre.stix.exploittarget_1.CVSSVectorType;
 import org.mitre.stix.common_1.ReferencesType;
@@ -324,9 +326,14 @@ public class BugtraqExtractor extends HTMLExtractor{
 
 		return null;
 	}
-
+						
 	boolean validate(STIXPackage stixPackage) {
-		return stixPackage.validate();
+		try	{
+			return stixPackage.validate();
+		} catch (SAXException e)	{ 
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
