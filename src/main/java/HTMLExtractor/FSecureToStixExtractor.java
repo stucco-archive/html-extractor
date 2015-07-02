@@ -41,6 +41,8 @@ import org.mitre.stix.common_1.TTPBaseType;
 import org.mitre.stix.ttp_1.TTP;
 import org.mitre.stix.common_1.RelatedTTPType;
 import org.mitre.stix.ttp_1.BehaviorType;
+import org.mitre.stix.ttp_1.AttackPatternsType;
+import org.mitre.stix.ttp_1.AttackPatternType;
 				
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
@@ -99,17 +101,23 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 		VictimTargetingType victim = new VictimTargetingType();		
 		Observable observable = new Observable();
 		InformationSourceType source = new InformationSourceType();
+//		AttackPatternType technicalDetails = new AttackPatternType();
+//		AttackPatternType distribution = new AttackPatternType();
+													
+		ArrayList attackPattern = new ArrayList();
 
 		////////////////////////////////////
 		//get the title, set up name & other known fields
 		String vertexName = doc.getElementsByTag("title").first().text().replaceAll("\u200b", "").replaceAll("\\:\\?",":");
 		
 		logger.info("Name: {}", vertexName);
-					
+		
+		//name as Indicator->TTP->Behavior->Malware->name			
 		malware
 			.withNames(new ControlledVocabularyStringType()
 				.withValue(vertexName));
 											
+		//source as Indicator->TTP->InformationSourceType->source
 		source
 			.withContributingSources(new ContributingSourcesType()
 				.withSources(new InformationSourceType()
@@ -142,7 +150,8 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 		JSONArray aliasesResult = new JSONArray(aliasSet);
 		logger.info("final alias list is: {}", aliasesResult);
 		//TODO: how best to handle aliases in the long term?
-																
+		
+		//aliases as Indicator->Alternative_ID
 		indicator
 			.withAlternativeIDs(aliasSet);			
 							
@@ -155,10 +164,11 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 		types.add(new ControlledVocabularyStringType()
 			.withValue(type));
 		
+		//malwareType as Indicator->TTP->Behavior->Malware->Type
 		malware
 			.withTypes(types);
 
-						
+		//platform as Indicator->TTP->VictimTargeting->TargetedSystem			
 		victim
 			.withTargetedSystems(new ControlledVocabularyStringType()
 				.withValue(platform));
@@ -197,9 +207,12 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 			if(curr.tagName().equals("p") && prev.tagName().equals("h2") && prev.text().equals("Technical Details")){
 				//STIX short_description = details
 				//TODO maybe move to the Observable?
-				malware
-					.withShortDescriptions(new StructuredTextType()
-						.withValue(curr.text()));
+				
+				//details as Indicator->TTP->Behavior->Attack_Pattern->title & description
+				attackPattern.add(new AttackPatternType()
+					.withTitle("details")
+					.withDescriptions(new StructuredTextType()
+						.withValue(curr.text())));
 
 				contents.remove(i);
 				contents.remove(i-1);
@@ -207,6 +220,7 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 				continue;
 			}
 			if(curr.tagName().equals("p") && prev.tagName().equals("h2") && prev.text().equals("Summary")){
+				//description as Indicator->TTP->Behavior->Malware->description
 				malware
 					.withDescriptions(new StructuredTextType()
 						.withValue(curr.text()));
@@ -219,6 +233,7 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 			if(curr.tagName().equals("p") && prev.tagName().equals("h5") && prev.text().equals("Automatic action")){
 				String removalMessage = curr.text();
 				if(removalMessage.startsWith("Once detected, the F-Secure security product will automatically disinfect the suspect file")){
+					//removal as Indicator->COA->description
 					indicator
 						.withSuggestedCOAs(new SuggestedCOAsType()
 							.withSuggestedCOAs(new RelatedCourseOfActionType()
@@ -227,6 +242,7 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 										.withValue("F-Secure")
 					))));
 				}else{
+					//removal as Indicator->COA->description
 					indicator
 						.withSuggestedCOAs(new SuggestedCOAsType()
 							.withSuggestedCOAs(new RelatedCourseOfActionType()
@@ -242,15 +258,19 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 				continue;
 			}
 			if(curr.tagName().equals("p") && prev.tagName().equals("h4") && prev.text().equals("Distribution")){
-				//distribution = STIX infrostructure?
-				//TODO 	distribution in STIX
-					
+				//distribution as Indicator->TTP->Behavior->Attack_Patterns->Title & description
+				attackPattern.add(new AttackPatternType()
+					.withTitle("distribution")
+					.withDescriptions(new StructuredTextType()
+						.withValue(curr.text())));
+				
 				contents.remove(i);
 				contents.remove(i-1);
 				i -= 1;
 				continue;
 			}
 			if(curr.tagName().equals("p") && prev.tagName().equals("h4") && prev.text().equals("Behavior")){
+				//behavior as Indicator->Observable->description
 				observable									
 					.withDescription(new org.mitre.cybox.common_2.StructuredTextType()
 						.withValue(curr.text()));
@@ -285,7 +305,9 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 				.withTTP(new TTP()
 					.withBehavior(new BehaviorType()
 						.withMalware(new MalwareType()
-							.withMalwareInstances(malware)))
+							.withMalwareInstances(malware))
+						.withAttackPatterns(new AttackPatternsType()
+							.withAttackPatterns(attackPattern)))
 					.withVictimTargeting(victim)
 					.withInformationSource(source)
 			))
@@ -296,9 +318,6 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 			.withTimestamp(now)
  			.withId(new QName("stucco", "F-Secure-" + UUID.randomUUID().toString(), "stucco"));
 
-		System.out.println(stixPackage.toXMLString(true));
-		System.out.println(validate(stixPackage));
-						
 		return stixPackage;
 		
 		} catch (DatatypeConfigurationException e)      {

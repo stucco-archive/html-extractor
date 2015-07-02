@@ -238,8 +238,8 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 					.withExploitTargets(et))
 				.withTimestamp(now)
  				.withId(new QName("stucco", "bugtraq-" + UUID.randomUUID().toString(), "stucco"));
-				
-		    	return stixPackage;
+			
+			return stixPackage;
 		
 		} catch (DatatypeConfigurationException e)      {
 			 e.printStackTrace();

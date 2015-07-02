@@ -22,7 +22,8 @@ public class FSecureExtractor extends HTMLExtractor{
 	
 	public FSecureExtractor(String pageContent){
 		graph = extract(pageContent);
-	}
+		FSecureToStixExtractor fs = new FSecureToStixExtractor(pageContent);
+	}						
 	
 	public JSONObject getGraph() {
 		return graph;
