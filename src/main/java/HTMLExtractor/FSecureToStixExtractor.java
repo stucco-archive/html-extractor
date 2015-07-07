@@ -210,7 +210,7 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 				
 				//details as Indicator->TTP->Behavior->Attack_Pattern->title & description
 				attackPattern.add(new AttackPatternType()
-					.withTitle("details")
+					.withTitle("Details")
 					.withDescriptions(new StructuredTextType()
 						.withValue(curr.text())));
 
@@ -260,7 +260,7 @@ public class FSecureToStixExtractor extends HTMLExtractor{
 			if(curr.tagName().equals("p") && prev.tagName().equals("h4") && prev.text().equals("Distribution")){
 				//distribution as Indicator->TTP->Behavior->Attack_Patterns->Title & description
 				attackPattern.add(new AttackPatternType()
-					.withTitle("distribution")
+					.withTitle("Distribution")
 					.withDescriptions(new StructuredTextType()
 						.withValue(curr.text())));
 				
@@ -301,6 +301,8 @@ public class FSecureToStixExtractor extends HTMLExtractor{
  				.withProducedTime(new org.mitre.cybox.common_2.DateTimeWithPrecisionType(now, null)));
 		STIXHeaderType header = new STIXHeaderType().withTitle("F-Secure");
 		indicator
+			.withTypes(new ControlledVocabularyStringType()
+				.withValue("Malware"))
 			.withIndicatedTTPs(new RelatedTTPType()
 				.withTTP(new TTP()
 					.withBehavior(new BehaviorType()
