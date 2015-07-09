@@ -67,8 +67,8 @@ import org.xml.sax.SAXException;
 public class BugtraqToStixExtractor extends HTMLExtractor{
 							
 	private STIXPackage stixPackage;
-	private static final Logger logger = LoggerFactory.getLogger(BugtraqExtractor.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(BugtraqToStixExtractor.class);
+										
 	//empty constractor for test purpose
 	public BugtraqToStixExtractor(){};
 
@@ -76,8 +76,8 @@ public class BugtraqToStixExtractor extends HTMLExtractor{
 			String solution, String references){
 		stixPackage = extract(info, discussion, exploit, solution, references);
 	}
-	
-	public STIXPackage getGraph() {
+					
+	public STIXPackage getStixPackage() {
 		return stixPackage;
 	}
 	
