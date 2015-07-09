@@ -216,7 +216,7 @@ public class FSecureToStixExtractorTest {
 			FSecureToStixExtractor fsecureExt = new FSecureToStixExtractor(pageContent);
 			STIXPackage fsecurePackage = fsecureExt.getStixPackage();
 		    	
-			System.out.println(fsecurePackage.toXMLString(true));
+	//		System.out.println(fsecurePackage.toXMLString(true));
 			assertTrue(fsecureExt.validate(fsecurePackage));
 														
 			String expectedVerts = 
@@ -323,7 +323,7 @@ public class FSecureToStixExtractorTest {
 			FSecureToStixExtractor fsecureExt = new FSecureToStixExtractor(pageContent);
 			STIXPackage fsecurePackage = fsecureExt.getStixPackage();
 		    	
-			System.out.println(fsecurePackage.toXMLString(true));
+		//	System.out.println(fsecurePackage.toXMLString(true));
 			assertTrue(fsecureExt.validate(fsecurePackage));
 
 			String expectedVerts = 
@@ -425,7 +425,7 @@ public class FSecureToStixExtractorTest {
 			FSecureToStixExtractor fsecureExt = new FSecureToStixExtractor(pageContent);
 			STIXPackage fsecurePackage = fsecureExt.getStixPackage();
 		    	
-			System.out.println(fsecurePackage.toXMLString(true));
+		//	System.out.println(fsecurePackage.toXMLString(true));
 			assertTrue(fsecureExt.validate(fsecurePackage));
 			
 			String expectedVerts = 
@@ -520,7 +520,7 @@ public class FSecureToStixExtractorTest {
 			FSecureToStixExtractor fsecureExt = new FSecureToStixExtractor(pageContent);
 			STIXPackage fsecurePackage = fsecureExt.getStixPackage();
 		    	
-			System.out.println(fsecurePackage.toXMLString(true));
+		//	System.out.println(fsecurePackage.toXMLString(true));
 			assertTrue(fsecureExt.validate(fsecurePackage));
 			
 			String expectedVerts = 
@@ -609,7 +609,7 @@ public class FSecureToStixExtractorTest {
 			FSecureToStixExtractor fsecureExt = new FSecureToStixExtractor(pageContent);
 			STIXPackage fsecurePackage = fsecureExt.getStixPackage();
 		    	
-			System.out.println(fsecurePackage.toXMLString(true));
+		//	System.out.println(fsecurePackage.toXMLString(true));
 			assertTrue(fsecureExt.validate(fsecurePackage));
 
 			String expectedVerts =
