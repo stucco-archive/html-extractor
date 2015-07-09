@@ -57,8 +57,8 @@ import org.xml.sax.SAXException;
 public class FSecureToStixExtractor extends HTMLExtractor{
 	
 	private STIXPackage stixPackage;
-	private static final Logger logger = LoggerFactory.getLogger(FSecureExtractor.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(FSecureToStixExtractor.class);
+										
 	public FSecureToStixExtractor(String pageContent){
 		stixPackage = extractStixPackage(pageContent);
 	}
