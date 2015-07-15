@@ -4,15 +4,6 @@
 	<artifactId>HTMLExtractor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
-	<repositories>
-   		<repository>
-	    	<id>snapshots-repo</id>
-    	 	<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-	     	<releases><enabled>false</enabled></releases>
-    	 	<snapshots><enabled>true</enabled></snapshots>
-   		</repository>
- 	</repositories>
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -40,10 +31,10 @@
 			<version>1.7.6</version>
 		</dependency>
 		<dependency>
-        	<groupId>org.mitre</groupId>
-        	<artifactId>stix</artifactId>
-       		 <version>1.2.0.2-SNAPSHOT</version>
-    	</dependency>
+  			<groupId>org.mitre</groupId>
+  			<artifactId>stix</artifactId>
+  			<version>1.2.0.2</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
