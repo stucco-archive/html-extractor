@@ -1,5 +1,6 @@
 package HTMLExtractor;
 
+import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -21,6 +22,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.*;
+
+import org.mitre.stix.stix_1.STIXPackage;
 
 import org.json.*;
 import org.jsoup.Jsoup;
@@ -383,6 +386,80 @@ public abstract class HTMLExtractor {
 			retVal = false;
 		}
 		return retVal;
+	}
+
+	public static boolean compareStixPackages (STIXPackage package1, STIXPackage package2)	{
+									
+		JSONObject object1 = XML.toJSONObject(package1.toXMLString());
+		JSONObject object2 = XML.toJSONObject(package2.toXMLString());
+			
+		return compareJSONObjects (object1, object2);
+	}
+		
+	public static boolean compareJSONObjects (JSONObject object1, JSONObject object2)	{
+
+		if (object1 == null && object2 != null) return false;
+		if (object1 != null && object2 == null) return false;			
+
+		List<String> keysArray1 = new ArrayList<String>();
+		List<String> keysArray2 = new ArrayList<String>();
+
+		Iterator<String> keys1 = object1.keys();
+		while(keys1.hasNext())	
+			keysArray1.add(keys1.next());
+		
+		Iterator<String> keys2 = object2.keys();
+		while(keys2.hasNext())	
+			keysArray2.add(keys2.next());
+									
+		if (keysArray1.size() != keysArray2.size()) return false;
+					
+		keysArray1.remove("id");
+		keysArray1.remove("timestamp");		
+		keysArray2.remove("id");
+		keysArray2.remove("timestamp");		
+				
+		for (String key: keysArray1)	{
+			if (!object2.has(key)) return false; 
+		}
+
+		for (int i = 0; i < keysArray1.size(); i++)	{
+			String key = keysArray1.get(i);
+			if (compare(object1.get(key), object2.get(key)) == false) return false;
+		}
+						
+		return true;
+	}
+						
+	public static boolean compareJSONArrays(JSONArray array1, JSONArray array2)	{
+		
+		if (array1 == null && array2 != null) return false;
+		if (array1 != null && array2 == null) return false;			
+		if (array1.length() != array2.length())	return false;
+
+		for (int i = 0; i < array1.length(); i++)	{
+			Object o1 = array1.get(i);
+			boolean equals = false;
+			for (int j = 0; j < array2.length(); j++)	{
+				Object o2 = array2.get(j);
+				equals = compare(o1, o2);
+				if (equals == true) break;
+			}
+			if (equals == false)	return false;
+		}
+		return true;
+
+	}
+			
+	public static boolean compare	(Object object1, Object object2)	{
+									
+		if (object1 instanceof JSONArray && object2  instanceof JSONArray)	
+			return compareJSONArrays((JSONArray)object1, (JSONArray)object2);
+																		
+		else if (object1 instanceof JSONObject && object2 instanceof JSONObject)	
+			return compareJSONObjects((JSONObject)object1, (JSONObject)object2);
+		
+		else	return object1.toString().equals(object2.toString());
 	}
 	
 }
