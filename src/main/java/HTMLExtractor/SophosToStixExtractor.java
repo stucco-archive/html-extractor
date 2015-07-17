@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.json.*;
 import org.jsoup.Jsoup;
@@ -84,6 +85,9 @@ import org.mitre.cybox.common_2.PositiveIntegerObjectPropertyType;
 import org.mitre.cybox.objects.DNSRecord;
 import org.mitre.cybox.common_2.DatatypeEnum;
 import org.mitre.cybox.objects.Custom;
+import org.mitre.cybox.cybox_2.OperatorTypeEnum;
+
+import org.xml.sax.SAXException;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
@@ -101,11 +105,11 @@ public class SophosToStixExtractor extends HTMLExtractor{
 	private static final Logger logger = LoggerFactory.getLogger(SophosToStixExtractor.class);
 
 	public SophosToStixExtractor(String summary, String details){
-		graph = extract(summary, details);
+		stixPackage = extract(summary, details);
 	}
 	
-	public JSONObject getGraph() {
-		return graph;
+	public STIXPackage getStixPackage() {
+		return stixPackage;
 	}
 	
 	private long convertTimestamp(String time)	{ 
@@ -116,19 +120,13 @@ public class SophosToStixExtractor extends HTMLExtractor{
 		return convertTimestamp(time + " (GMT)", "yyyy-MM-dd (z)");
 	}
 	
-	private JSONObject extract(String summary, String details){
+	private STIXPackage extract(String summary, String details){
 	
-		JSONObject graph = new JSONObject();
-		JSONArray vertices = new JSONArray();
-		JSONArray edges = new JSONArray();
-		JSONObject edge;
-	
-		JSONObject vertex = new JSONObject();
-
 		try	{
 
 		Indicator indicator = new Indicator();
-		TTP ttp = new TTP();																
+		TTP ttp = new TTP();				
+		ObservableCompositionType observableComposition = new ObservableCompositionType().withOperator(OperatorTypeEnum.AND);
 		MalwareInstanceType malware = new MalwareInstanceType();
 		IndicatorsType indicators = new IndicatorsType();
 		InformationSourceType source = new InformationSourceType();
@@ -141,14 +139,11 @@ public class SophosToStixExtractor extends HTMLExtractor{
 				withTitle("Sophos")) 
 			.withTimestamp(now)
  			.withId(new QName("stucco", "Sophos-" + UUID.randomUUID().toString(), "stucco"));
-													
 		Property discoveredDateTime = new Property().withName("DiscoveredDate").withValue("0").withDatatype(DatatypeEnum.UNSIGNED_LONG);
 		Property modifiedDateTime = new Property().withName("ModifiedDate").withValue("0").withDatatype(DatatypeEnum.UNSIGNED_LONG);
 		Property prevalence = new Property().withName("Prevalence").withDatatype(DatatypeEnum.STRING);
 		long signatureDate = 0L; 		//would be a timestamp attribute in ttp
 
-		System.out.println(discoveredDateTime.toXMLString(true));
-		
 		//process the "summary" page
 		Document doc = Jsoup.parse(summary);
 		Element content = doc.getElementsByClass("tertiaryBump").first();
@@ -159,44 +154,35 @@ public class SophosToStixExtractor extends HTMLExtractor{
 		logger.debug(titleDiv.html());
 		String vertexName = titleDiv.getElementsByTag("h1").first().text();
 		logger.info("Name: {}", vertexName);
-	
-		vertex.put("name", vertexName);						//name
-		vertex.put("_id", vertexName);						//id
-		vertex.put("_type", "vertex");							
-		vertex.put("vertexType", "malware");					//vertexType = "malware"
-		vertex.put("source", "Sophos");						//source	
 		
 		Element rowOne = titleDiv.getElementsByTag("tr").first();
 		String addedDate = rowOne.child(3).text();
 		if(!addedDate.equals("")){//some don't list dates, not sure why
-			vertex.put("signatureDate", convertTimestamp(addedDate));	//signatureDate = date
-			vertex.put("discoveryDate", convertTimestamp(addedDate));	//discoveryDate = date
-			
-			discoveredDateTime
+											//signedDAte	
+			discoveredDateTime						//discoveredDate
 				.setValue(Long.toString(convertTimestamp(addedDate)));	//has to be a string, or toXMLString() would not work
 			signatureDate = convertTimestamp(addedDate);
+			calendar.setTimeInMillis(convertTimestamp(addedDate));
+			indicator											
+				.withTimestamp(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			observableComposition.setOperator(OperatorTypeEnum.AND);
 		}			
 		
 		Element rowTwo = titleDiv.getElementsByTag("tr").get(1);
 		String type = rowTwo.child(1).text();
-		TreeSet<String> typeSet = new TreeSet<String>();
-		typeSet.add(type);
-		vertex.put("malwareType", typeSet);					//malwareType = typesSEt
-																				
+											
 		List<ControlledVocabularyStringType> types = new ArrayList<ControlledVocabularyStringType>();
 		types.add(new ControlledVocabularyStringType()
 			.withValue(type));
 																			
 		String modifiedDate = rowTwo.child(3).text();
 		if(!modifiedDate.equals(""))	{
-			vertex.put("modifiedDate", convertTimestamp(modifiedDate));	//modifiedDate
 			modifiedDateTime 
-				.setValue(Long.toString(convertTimestamp(addedDate)));
+				.setValue(Long.toString(convertTimestamp(addedDate)));	//modifiedDAte
 		}
-
+													//prevalence
 		Element rowThree = titleDiv.getElementsByTag("tr").get(2);
 		String prev = rowThree.child(1).getElementsByTag("img").first().attr("alt");
-		vertex.put("prevalence", prev); //TODO: convert labels into int levels, or similar?	//prevalence
 		logger.info("Prevalence: {}", prev);
 		prevalence 
 			.withValue(prev);
@@ -205,25 +191,21 @@ public class SophosToStixExtractor extends HTMLExtractor{
 		Element secondaryDiv = doc.getElementsByClass("secondaryContent").first();
 		logger.debug(secondaryDiv.html());
 		Elements aliasItems = secondaryDiv.getElementsByClass("aliases");
+		TreeSet<String> aliasSet = new TreeSet<String>();
+		
 		if(aliasItems != null && aliasItems.size() > 0){ //some don't have any listed.
 			aliasItems = aliasItems.first().children();
 			logger.debug(aliasItems.outerHtml());
-			List<String> aliasList = new ArrayList<String>();
 			for(int i=0; i<aliasItems.size(); i++){
-				aliasList.add(aliasItems.get(i).text());
+				aliasSet.add(aliasItems.get(i).text());
 			}
-			aliasList.add(vertexName);
+			aliasSet.add(vertexName);
 			//TODO: how best to handle aliases in the long term?
-			TreeSet<String> aliasSet = new TreeSet<String>();
-			aliasSet.addAll(aliasList);//make into set, in case duplicates.
-			vertex.put("aliases", aliasSet);							//alternativeID
-			logger.info("Found {} items in aliasList:", aliasList.size());
-			for(int i=0; i<aliasList.size(); i++){
-				logger.info(aliasList.get(i));
+			logger.info("Found {} items in aliasList:", aliasSet.size());
+			List<String> list = new ArrayList<String>(aliasSet);
+			for(int i=0; i<list.size(); i++){
+				logger.info(list.get(i));
 			}
-								
-			indicator 
-				.withAlternativeIDs(aliasList);
 		}
 		Elements h3s = secondaryDiv.getElementsByTag("h3");
 		Element affectedHeading = null;
@@ -233,8 +215,8 @@ public class SophosToStixExtractor extends HTMLExtractor{
 				break;
 			}
 		}
+																//platform
 		String platformName = affectedHeading.nextElementSibling().getElementsByTag("img").first().attr("alt");
-		vertex.put("platform", platformName);								//platform	
 		if(affectedHeading != null){
 			logger.info("Platform: {}", platformName);
 		}
@@ -249,16 +231,10 @@ public class SophosToStixExtractor extends HTMLExtractor{
 		Element curr, nextSibling;
 		Map<String,String> currTableContents;
 		TreeSet<String> size = new TreeSet<String>();
-		TreeSet<String> sha1 = new TreeSet<String>();
-		TreeSet<String> md5 = new TreeSet<String>();
-		TreeSet<String> crc32 = new TreeSet<String>();
-		TreeSet<String> filetype = new TreeSet<String>();
 		long firstSeen;
 		boolean runtimeAnalysisFound = false;
-													
-
-		ObservableCompositionType observableComposition = new ObservableCompositionType();
-		Set<Observable> set = new HashSet<Observable>();
+						
+		Set<Observable> set = new LinkedHashSet<Observable>();
 
 		for(int i=0; i<h4headings.size(); i++){
 			curr = h4headings.get(i);
@@ -272,28 +248,22 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					FileObjectType file = new FileObjectType();
 					List<HashType> hashes = new ArrayList<HashType>();
 					firstSeen = 0;
-				//	String name;
 
 					logger.info("Extracted map from file info table: {}", currTableContents);
 					if(currTableContents.containsKey("Size")){
 						size.add(currTableContents.get("Size"));
 					}
 					if(currTableContents.containsKey("SHA-1")){
-						sha1.add(currTableContents.get("SHA-1"));
 						hashes.add(getHash("SHA-1", currTableContents.get("SHA-1")));
 					}
 					if(currTableContents.containsKey("MD5")){
-						md5.add(currTableContents.get("MD5"));
 						hashes.add(getHash("MD5", currTableContents.get("MD5")));
 					}					
 					if(currTableContents.containsKey("CRC-32")){
-						crc32.add(currTableContents.get("CRC-32"));
 						hashes.add(getHash("CRC-32", currTableContents.get("CRC-32")));
 					}						
 					if(currTableContents.containsKey("File type")){
 			
-						filetype.add(currTableContents.get("File type"));
-						
 						file
 							.withFileName(new StringObjectPropertyType()
 								.withValue(currTableContents.get("File type")));
@@ -304,17 +274,12 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						//have to do all those comvertions, or toXMLString() would not work ....	
 						if(firstSeen < Long.parseLong(discoveredDateTime.getValue().toString())){
 							discoveredDateTime.setValue(Long.toString(firstSeen));
-							vertex.put("discoveryDate", firstSeen);
 						}
 					}	
 					if (!hashes.isEmpty())
 						file
 							.withHashes(new HashListType()
 								.withHashes(hashes));
-				//	observableComposition
-				//		.withObservables(new Observable()
-				//			.withObject(new ObjectType()
-				//				.withProperties(file)));							
 					set.add(new Observable().withObject(new ObjectType().withProperties(file)));
 				}
 			}else if(curr.text().equals("Runtime Analysis")){
@@ -327,28 +292,26 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					logger.error("Could not parse table contents! (other vendor detection)");
 				}else{
 					logger.info("Extracted map from 'other vendor detection table: {}", currTableContents);
-					JSONArray aliasArr = vertex.optJSONArray("aliases");
-					Set<String> aliasSet = JSONArrayToSet(aliasArr);
 					Set<String> keys = currTableContents.keySet();
 					Iterator<String> keysIter = keys.iterator();
 					while(keysIter.hasNext()){
 						aliasSet.add(currTableContents.get(keysIter.next()));
 					}
 					logger.info("  now know aliases: {}", aliasSet);
-					vertex.put("aliases", aliasSet);					//aliases
-					
-					indicator
-						.withAlternativeIDs(aliasSet);
 				}
 			}else{
 				logger.warn("Unexpected H4 Found: {}", curr.text());
 			}
 		}
 		
-		observableComposition
-			.withObservables(set);
-								
-		//adding discoveredDate and modifiedDate
+		if (!aliasSet.isEmpty())
+			indicator
+				.withAlternativeIDs(aliasSet);
+		
+		if (!set.isEmpty())
+			observableComposition
+				.withObservables(set);
+		
 		observableComposition
 			.withObservables(new Observable()			//list
 				.withObject(new ObjectType()
@@ -358,33 +321,19 @@ public class SophosToStixExtractor extends HTMLExtractor{
 							.withProperties(modifiedDateTime)
 							.withProperties(prevalence)))));
 											
-		//use what you've learned.
-		//if(size.size() > 0){} //not keeping this one
-		if(sha1.size() > 0) vertex.put("sha1Hashes", sha1);					//sha1
-		if(md5.size() > 0) vertex.put("md5Hashes", md5);					//md5
-		//if(crc32.size() > 0){} //not keeping this one
-		if(filetype.size() > 0) vertex.put("knownFileTypes", filetype);				//fileType
 		
 		//handle the "Runtime Analysis" sections...
 		if(runtimeAnalysisFound){
 			Element nextNextSibling;
-			TreeSet<String> filesCreated = new TreeSet<String>();
-			TreeSet<String> filesModified = new TreeSet<String>();
-			TreeSet<String> registryKeysCreated = new TreeSet<String>();
-			TreeSet<String> registryKeysModified = new TreeSet<String>();
-			TreeSet<String> processesCreated = new TreeSet<String>();
-			TreeSet<String> ipConnections = new TreeSet<String>();
-			TreeSet<String> dnsRequests = new TreeSet<String>();
-			TreeSet<String> urlsUsed = new TreeSet<String>();
-													
-			Set<AssociatedObjectType> createdFiles = new HashSet<AssociatedObjectType>();;
-			Set<AssociatedObjectType> modifiedFiles = new HashSet<AssociatedObjectType>();
-			Set<AssociatedObjectType> createdProcesses = new HashSet<AssociatedObjectType>();
-			Set<AssociatedObjectType> createdRegistryKeys = new HashSet<AssociatedObjectType>();
-			Set<AssociatedObjectType> modifiedRegistryKeys = new HashSet<AssociatedObjectType>();
-			Set<AssociatedObjectType> ips = new HashSet<AssociatedObjectType>();
-			Set<AssociatedObjectType> dnss = new HashSet<AssociatedObjectType>();
-																				
+			Set<String> ipConnections = new LinkedHashSet<String>();
+			Set<String> dnsRequests = new LinkedHashSet<String>();
+																		
+			Set<AssociatedObjectType> createdFiles = new LinkedHashSet<AssociatedObjectType>();;
+			Set<AssociatedObjectType> modifiedFiles = new LinkedHashSet<AssociatedObjectType>();
+			Set<AssociatedObjectType> createdProcesses = new LinkedHashSet<AssociatedObjectType>();
+			Set<AssociatedObjectType> createdRegistryKeys = new LinkedHashSet<AssociatedObjectType>();
+			Set<AssociatedObjectType> modifiedRegistryKeys = new LinkedHashSet<AssociatedObjectType>();
+			
 			for(int i=0; i<h4headings.size(); i++){
 				curr = h4headings.get(i);
 				nextSibling = curr.nextElementSibling();
@@ -397,40 +346,34 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						if(nextSibling.text().equals("Dropped Files")){
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
-							filesCreated.addAll(newItems);
 							createdFiles.addAll(getFiles(newItems));
 							logger.info("Dropped Files: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Copies Itself To")){
 							//TODO save other fields?  MD5 & etc?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
-							filesCreated.addAll(newItems);
 							createdFiles.addAll(getFiles(newItems));
 							logger.info("Copies Itself To: {}", newItems);
 						}
-			 		else if(nextSibling.text().equals("Modified Files")){
+				 		else if(nextSibling.text().equals("Modified Files")){
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
-							filesModified.addAll(newItems);
 							modifiedFiles.addAll(getFiles(newItems));
 							logger.info("Modified Files: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Created")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
-							registryKeysCreated.addAll(newItems);
 							createdRegistryKeys.addAll(getRegistryKeys(newItems));
 							logger.info("Registry Keys Created: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Registry Keys Modified")){
 							//TODO save other fields?
 							newItems = ulToSet(removeGrandchildren(nextNextSibling));
-							registryKeysModified.addAll(newItems);
 							modifiedRegistryKeys.addAll(getRegistryKeys(newItems));
 							logger.info("Registry Keys Modified: {}", newItems);
 						}
 						else if(nextSibling.text().equals("Processes Created")){
 							newItems = ulToSet(nextNextSibling);
-							processesCreated.addAll(newItems);
 							createdProcesses.addAll(getProcesses(newItems));
 							logger.info("Processes Created: {}", newItems);
 						}
@@ -446,7 +389,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						}
 						else if(nextSibling.text().equals("HTTP Requests")){
 							newItems = ulToSet(nextNextSibling);
-							urlsUsed.addAll(newItems);
 							ttp
 								.withResources(new ResourceType()
 									.withTools(getTools("url", newItems)));
@@ -461,16 +403,9 @@ public class SophosToStixExtractor extends HTMLExtractor{
 				}
 			}
 
-			AssociatedObjectsType objects = new AssociatedObjectsType();
+		//	AssociatedObjectsType objects = new AssociatedObjectsType();
 			ActionsType actions = new ActionsType();
-					
-			if(filesCreated.size() > 0) vertex.put("filesCreated", filesCreated);
-			if(filesModified.size() > 0) vertex.put("filesModified", filesModified);
-			if(registryKeysCreated.size() > 0) vertex.put("registryKeysCreated", registryKeysCreated);
-			if(registryKeysModified.size() > 0) vertex.put("registryKeysModified", registryKeysModified);
-			if(processesCreated.size() > 0) vertex.put("processesCreated", processesCreated);
-			if(urlsUsed.size() > 0) vertex.put("urlsUsed", urlsUsed);
-														
+
 			if(!createdFiles.isEmpty())	
 				actions									
 					.withActions(getActions("Created", "Created files", createdFiles));
@@ -491,8 +426,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 				actions																	
 					.withActions(getActions("Created", "Created processes", createdProcesses));
 			
-		//	if(!foundFiles.isEmpty())	
-		//		observable
 			observableComposition
 				.withObservables(new Observable()
 					.withEvent(new Event()
@@ -506,10 +439,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 			if(ipConnections.size() > 0){
 				for(String ip : ipConnections){
 					String ipString, portString;
-					JSONObject portVertex = null;
-					JSONObject ipVertex = null;
-					JSONObject addressVertex = null;
-					
 					int port;
 					try{
 						port = getPortFromURL(ip);
@@ -524,15 +453,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						else 
 							ipString = ip;
 						
-						portVertex = new JSONObject();
-						portVertex.put("name", portString);
-						portVertex.put("description", portString);
-						portVertex.put("_id", portString);
-						portVertex.put("_type", "vertex");
-						portVertex.put("vertexType", "port");
-						portVertex.put("source", "Sophos");
-						vertices.put(portVertex);
-		
 						Indicator portIndicator = new Indicator()
 							.withTypes(new ControlledVocabularyStringType()
 								.withValue("Port"))
@@ -554,16 +474,8 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						ipString = ip;
 					}
 					
-					addressVertex = new JSONObject();
 					String addressName = ipString + ":" + portString;
 					String addressDesc = ipString + ", port " + portString;
-					addressVertex.put("name", addressName);
-					addressVertex.put("description", addressDesc);
-					addressVertex.put("_id", addressName);
-					addressVertex.put("_type", "vertex");
-					addressVertex.put("vertexType", "Address");
-					addressVertex.put("source", "Sophos");
-					vertices.put(addressVertex);
 					
 					Indicator addressIndicator = new Indicator()
 						.withTypes(new ControlledVocabularyStringType()
@@ -582,41 +494,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					indicators
 						.withIndicators(addressIndicator); 
 
-					edge = new JSONObject();
-					edge.put("_inV", addressName);
-					edge.put("_outV", vertex.get("name"));
-					edge.put("_id", vertex.get("name") + "_communicatesWith_" + addressName);
-					edge.put("description", vertex.get("name") + " communicates with " + addressDesc);
-					edge.put("_type", "edge");
-					edge.put("inVType", "address");
-					edge.put("outVType", "malware");
-					edge.put("source", "Sophos");
-					edge.put("_label", "communicatesWith");
-					edges.put(edge);
-					
-					if(portVertex != null){
-						edge = new JSONObject();
-						edge.put("_inV", portString);
-						edge.put("_outV", addressName);
-						edge.put("_id", addressName + "_hasPort_" + portString);
-						edge.put("description", addressDesc + " has port " + portString);
-						edge.put("_type", "edge");
-						edge.put("inVType", "port");
-						edge.put("outVType", "address");
-						edge.put("source", "Sophos");
-						edge.put("_label", "hasPort");
-						edges.put(edge);
-					}
-					
-					ipVertex = new JSONObject();
-					ipVertex.put("name", ipString);
-					ipVertex.put("description", ipString);
-					ipVertex.put("_id", ipString);
-					ipVertex.put("_type", "vertex");
-					ipVertex.put("vertexType", "ip");
-					ipVertex.put("source", "Sophos");
-					vertices.put(ipVertex);
-					
 					Indicator ipIndicator = new Indicator()
 						.withTypes(new ControlledVocabularyStringType()
 							.withValue("ip"))
@@ -633,18 +510,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 									.withCategory(CategoryTypeEnum.IPV_4_ADDR))));
 					indicators
 						.withIndicators(ipIndicator); 
-					
-					edge = new JSONObject();
-					edge.put("_inV", ipString);
-					edge.put("_outV", addressName);
-					edge.put("_id", addressName + "_hasIP_" + ipString);
-					edge.put("description", addressDesc + " has IP " + ipString);
-					edge.put("_type", "edge");
-					edge.put("inVType", "ip");
-					edge.put("outVType", "address");
-					edge.put("source", "Sophos");
-					edge.put("_label", "hasIP");
-					edges.put(edge);
 				}
 			}
 			
@@ -653,10 +518,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 			if(dnsRequests.size() > 0){
 				for(String dns : dnsRequests){
 					String dnsString, portString;
-					JSONObject portVertex = null;
-					JSONObject dnsVertex = null;
-					JSONObject addressVertex = null;
-					
 					int port;
 					try{
 						port = getPortFromURL(dns);
@@ -671,16 +532,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 						else 
 							dnsString = dns;
 						
-						portVertex = new JSONObject();
-						portVertex.put("name", portString);
-						portVertex.put("description", portString);
-						portVertex.put("_id", portString);
-						portVertex.put("_type", "vertex");
-						portVertex.put("vertexType", "port");
-						portVertex.put("source", "Sophos");
-						vertices.put(portVertex);
-						
-						//there is no stix field for port description .... but it is the same as name (value)
 						Indicator portIndicator = new Indicator()
 							.withTypes(new ControlledVocabularyStringType()
 								.withValue("Port"))
@@ -707,16 +558,8 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					//Note that all other address nodes so far are named ip:port, but this is the best we can do here with the provided info.
 					// Note that if any sophos entries have IPs and DNS names, then the IPs will be *in addition* to those DNS names, they will not correspond to those resolved names
 					//TODO: if any counterexamples are found, revisit.
-					addressVertex = new JSONObject();
 					String addressName = dnsString + ":" + portString;
 					String addressDesc = dnsString + ", port " + portString;
-					addressVertex.put("name", addressName);
-					addressVertex.put("description", addressDesc);
-					addressVertex.put("_id", addressName);
-					addressVertex.put("_type", "vertex");
-					addressVertex.put("vertexType", "Address");
-					addressVertex.put("source", "Sophos");
-					vertices.put(addressVertex);
 					
 					Indicator addressIndicator = new Indicator()
 						.withTypes(new ControlledVocabularyStringType()
@@ -735,41 +578,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					indicators
 						.withIndicators(addressIndicator); 
 					
-					edge = new JSONObject();
-					edge.put("_inV", addressName);
-					edge.put("_outV", vertex.get("name"));
-					edge.put("_id", vertex.get("name") + "_communicatesWith_" + addressName);
-					edge.put("description", vertex.get("name") + " communicates with " + addressDesc);
-					edge.put("_type", "edge");
-					edge.put("inVType", "address");
-					edge.put("outVType", "malware");
-					edge.put("source", "Sophos");
-					edge.put("_label", "communicatesWith");
-					edges.put(edge);
-					
-					if(portVertex != null){
-						edge = new JSONObject();
-						edge.put("_inV", portString);
-						edge.put("_outV", addressName);
-						edge.put("_id", addressName + "_hasPort_" + portString);
-						edge.put("description", addressDesc + " has port " + portString);
-						edge.put("_type", "edge");
-						edge.put("inVType", "port");
-						edge.put("outVType", "address");
-						edge.put("source", "Sophos");
-						edge.put("_label", "hasPort");
-						edges.put(edge);
-					}
-					
-					dnsVertex = new JSONObject();
-					dnsVertex.put("name", dnsString);
-					dnsVertex.put("description", dnsString);
-					dnsVertex.put("_id", dnsString);
-					dnsVertex.put("_type", "vertex");
-					dnsVertex.put("vertexType", "DNSName");
-					dnsVertex.put("source", "Sophos");
-					vertices.put(dnsVertex);
-					
 					Indicator dnsIndicator = new Indicator()
 						.withTypes(new ControlledVocabularyStringType()
 							.withValue("DNSName"))
@@ -787,17 +595,6 @@ public class SophosToStixExtractor extends HTMLExtractor{
 					indicators							
 						.withIndicators(dnsIndicator); 
 									
-					edge = new JSONObject();
-					edge.put("_inV", dnsString);
-					edge.put("_outV", addressName);
-					edge.put("_id", addressName + "_hasDNSName_" + dnsString);
-					edge.put("description", addressDesc + " has DNS name " + dnsString);
-					edge.put("_type", "edge");
-					edge.put("inVType", "DNSName");
-					edge.put("outVType", "address");
-					edge.put("source", "Sophos");
-					edge.put("_label", "hasDNSName");
-					edges.put(edge);
 				}
 			}
 		}
@@ -828,27 +625,10 @@ public class SophosToStixExtractor extends HTMLExtractor{
 			stixPackage 											
 				.withIndicators(indicators);
 				
-			System.out.println();
-			System.out.println();
-			System.out.println();
-			System.out.println();
-			System.out.println();
-			System.out.println(stixPackage.toXMLString(true));	
-			System.out.println();
-			System.out.println();
-					//	.withObject(new ObjectType()
-
 		//TODO put some remaining free text in desc? (Not always present...)
 		//vertex.put("description", content.text());
-		vertex.put("description", vertexName);
-	    
-		vertices.put(vertex);
 		
-		graph.put("mode","NORMAL");
-		graph.put("vertices", vertices);
-		graph.put("edges", edges);
-		
-	    	return graph;
+	    	return stixPackage;
 		
 		} catch(DatatypeConfigurationException e)	{
 			e.printStackTrace();
@@ -956,6 +736,19 @@ public class SophosToStixExtractor extends HTMLExtractor{
 		return tools;
 	}
 
+	boolean validate(STIXPackage stixPackage) {
+		
+		try     {
+			return stixPackage.validate();
+		}
+		catch (SAXException e)	{
+			e.printStackTrace();
+		}
+			return false;
+	}
+	
+}
+
 	/*	Indicator ind = new Indicator()
 			.withAlternativeIDs("id")	// list: Collection<String>
 			.withObservable(new Observable()	
@@ -979,4 +772,4 @@ public class SophosToStixExtractor extends HTMLExtractor{
 											.withValue("value")))))))));
 
 	*/
-}
+
