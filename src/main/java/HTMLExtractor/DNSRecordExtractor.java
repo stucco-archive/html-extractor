@@ -52,6 +52,11 @@ public class DNSRecordExtractor extends HTMLExtractor {
 			Reader reader = new StringReader(dnsInfo);
 			CSVParser csvParser = new CSVParser(reader, csvFormat);
 			List<CSVRecord> records = csvParser.getRecords();
+
+			if (records.isEmpty()) {
+				return null;
+			}
+
 			CSVRecord record = records.get(0);
 			int start;
 
@@ -120,10 +125,14 @@ public class DNSRecordExtractor extends HTMLExtractor {
 				}
 			}
 
-			graph.put("vertices", vertices);
-			graph.put("edges", edges);
+			if (vertices.length() != 0) {
+				graph.put("vertices", vertices);
+			}
+			if (edges.length() != 0) {
+				graph.put("edges", edges);
+			}
 				
-			return graph;
+			return (graph.length() ==0 ) ? null : graph;
 
 		} catch (IOException e) {
 			e.printStackTrace();
