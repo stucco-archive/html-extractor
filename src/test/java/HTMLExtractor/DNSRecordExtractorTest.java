@@ -30,6 +30,37 @@ import HTMLExtractor.DNSRecordExtractor;
 public class DNSRecordExtractorTest extends HTMLExtractor {
 	
 	/**
+	 * Test empty element no header
+	 */
+	@Test
+	public void test_empty_element_no_header()	{
+
+		String dnsInfo = "";
+
+		DNSRecordExtractor dnsExtractor = new DNSRecordExtractor(dnsInfo);
+		JSONObject graph = dnsExtractor.getGraph();
+
+		assertTrue(graph == null);
+	}
+	
+	/**
+	 * Test empty element with header
+	 */
+	@Test
+	public void test_empty_element_with_header()	{
+
+		String dnsInfo = 
+			"filename,recnum,file_type,amp_version,site,saddr,daddr,ttl,rqtype,flags,rqfqdn,refqdn,raddr,preference," +	
+			"answer_ns,authoritative_ns,times_seen,first_seen_timet,last_seen_timet,scountrycode,sorganization,slat,slong," +
+			"dcountrycode,dorganization,dlat,dlong,rcountrycode,rorganization,rlat,rlong\n";
+
+		DNSRecordExtractor dnsExtractor = new DNSRecordExtractor(dnsInfo);
+		JSONObject graph = dnsExtractor.getGraph();
+
+		assertTrue(graph == null);
+	}
+
+	/**
 	 * Test one element
 	 */
 	@Test
